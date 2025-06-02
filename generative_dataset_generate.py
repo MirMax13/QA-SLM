@@ -96,7 +96,7 @@ def generate_paraphrases(text, is_question=True, n=3):
     Paraphrase<|im_end|>
     <|im_start|>assistant
     """
-    raw = call_lm([{"role": "user", "content": prompt}], max_tokens=300)
+    raw = call_lm([{"role": "user", "content": prompt}], max_tokens=512)
     lines = [l.strip("-• ") for l in raw.strip().splitlines() if l.strip()]
     return lines[:n]
 
