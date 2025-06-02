@@ -73,7 +73,7 @@ def generate_qa_pairs(block_text):
 # ========== STEP 3: Parse QA ==========
 def parse_qa_pairs(text):
     qas = []
-    qa_blocks = re.findall(r"Q:(.*?)A:(.*?)(?=Q:|$)", text, re.DOTALL)
+    qa_blocks = re.findall(r"Q\d*:\s*(.*?)\s*A:\s*(.*?)(?=Q\d*:|$)", text, re.DOTALL) #TODO: check if this regex works
     for q, a in qa_blocks:
         question = re.sub(r'^(Paraphrase\s*\d+:|^\d+\.\s*)', '', q.strip().replace("\n", " ")).strip()
         answer = re.sub(r'^(Paraphrase\s*\d+:|^\d+\.\s*)', '', a.strip().replace("\n", " ")).strip()
