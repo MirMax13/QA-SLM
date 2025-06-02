@@ -73,8 +73,8 @@ def parse_qa_pairs(text):
     qas = []
     qa_blocks = re.findall(r"Q:(.*?)A:(.*?)(?=Q:|$)", text, re.DOTALL)
     for q, a in qa_blocks:
-        question = q.strip().replace("\n", " ")
-        answer = a.strip().replace("\n", " ")
+        question = re.sub(r'^(Paraphrase\s*\d+:|^\d+\.\s*)', '', q.strip().replace("\n", " ")).strip()
+        answer = re.sub(r'^(Paraphrase\s*\d+:|^\d+\.\s*)', '', a.strip().replace("\n", " ")).strip()
         if question and answer:
             qas.append({
                 "instruction": question,
