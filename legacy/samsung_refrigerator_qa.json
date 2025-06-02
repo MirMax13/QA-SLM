@@ -1,0 +1,833 @@
+{
+    "version": "1.0",
+    "data": [
+        {
+            "title": "Samsung Refrigerator Manual",
+            "paragraphs": [
+                {
+                    "context": "Install the appliance on a firm and level floor. Do not install the appliance in a damp and dusty place. Do not install or store the appliance in any outdoor area, or any area that is subject to weathering conditions such as direct sunlight, wind, rain, or temperatures below freezing.",
+                    "qas": [
+                        {
+                            "question": "Where should the appliance be installed?",
+                            "answers": [
+                                {
+                                    "text": "on a firm and level floor",
+                                    "answer_start": 24
+                                }
+                            ]
+                        },
+                        {
+                            "question": "Where should the appliance not be installed?",
+                            "answers": [
+                                {
+                                    "text": "in a damp and dusty place",
+                                    "answer_start": 57
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "To activate Child Lock, hold the Lock button for 5 seconds until the icon appears.",
+                    "qas": [
+                        {
+                            "question": "How do you activate Child Lock?",
+                            "answers": [
+                                {
+                                    "text": "hold the Lock button for 5 seconds until the icon appears",
+                                    "answer_start": 19
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "To lock the control panel, press the \"Lock\" button for 5 seconds until the padlock icon appears. This prevents accidental changes to settings.",
+                    "qas": [
+                        {
+                            "question": "How do you lock the control panel?",
+                            "answers": [
+                                {
+                                    "text": "press the \"Lock\" button for 5 seconds until the padlock icon appears",
+                                    "answer_start": 24
+                                }
+                            ]
+                        },
+                        {
+                            "question": "Why should you lock the control panel?",
+                            "answers": [
+                                {
+                                    "text": "This prevents accidental changes to settings",
+                                    "answer_start": 70
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "The air filter should be replaced every 6 months. To replace it, open the top compartment and twist the filter counter-clockwise.",
+                    "qas": [
+                        {
+                            "question": "How often should the air filter be replaced?",
+                            "answers": [
+                                {
+                                    "text": "every 6 months",
+                                    "answer_start": 29
+                                }
+                            ]
+                        },
+                        {
+                            "question": "How do you replace the air filter?",
+                            "answers": [
+                                {
+                                    "text": "open the top compartment and twist the filter counter-clockwise",
+                                    "answer_start": 49
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "To turn off the door alarm, press and hold the Alarm button for 3 seconds. A beep will confirm deactivation.",
+                    "qas": [
+                        {
+                            "question": "How do you turn off the door alarm?",
+                            "answers": [
+                                {
+                                    "text": "press and hold the Alarm button for 3 seconds",
+                                    "answer_start": 20
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "The interior LED lights turn on automatically when the door is opened. If they don’t, check the door sensor or replace the bulb.",
+                    "qas": [
+                        {
+                            "question": "When do the interior LED lights turn on?",
+                            "answers": [
+                                {
+                                    "text": "automatically when the door is opened",
+                                    "answer_start": 23
+                                }
+                            ]
+                        },
+                        {
+                            "question": "What should you do if the interior lights don't turn on?",
+                            "answers": [
+                                {
+                                    "text": "check the door sensor or replace the bulb",
+                                    "answer_start": 69
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "To clean the water dispenser, remove the tray and wipe all surfaces with a soft cloth and warm water. Avoid using harsh chemicals.",
+                    "qas": [
+                        {
+                            "question": "How do you clean the water dispenser?",
+                            "answers": [
+                                {
+                                    "text": "remove the tray and wipe all surfaces with a soft cloth and warm water",
+                                    "answer_start": 24
+                                }
+                            ]
+                        },
+                        {
+                            "question": "What should be avoided when cleaning the water dispenser?",
+                            "answers": [
+                                {
+                                    "text": "using harsh chemicals",
+                                    "answer_start": 96
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "To connect the fridge to Wi-Fi, press the Wi-Fi button for 3 seconds, then follow the instructions on the SmartHome app.",
+                    "qas": [
+                        {
+                            "question": "How do you connect the fridge to Wi-Fi?",
+                            "answers": [
+                                {
+                                    "text": "press the Wi-Fi button for 3 seconds",
+                                    "answer_start": 27
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "Run diagnostics by holding the Settings and Light buttons simultaneously for 5 seconds. The control panel will flash if issues are detected.",
+                    "qas": [
+                        {
+                            "question": "How do you run diagnostics on the fridge?",
+                            "answers": [
+                                {
+                                    "text": "by holding the Settings and Light buttons simultaneously for 5 seconds",
+                                    "answer_start": 14
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "This appliance contains a small amount of combustible refrigerant isobutane (R-600a). For installation, handling, servicing and disposal of the appliance, care should be taken to ensure that no parts of the refrigerating circuit are damaged.",
+                    "qas": [
+                        {
+                            "question": "What type of refrigerant does this appliance contain?",
+                            "answers": [
+                                {
+                                    "text": "isobutane (R-600a)",
+                                    "answer_start": 53
+                                }
+                            ]
+                        },
+                        {
+                            "question": "What precautions should be taken during installation and servicing?",
+                            "answers": [
+                                {
+                                    "text": "care should be taken to ensure that no parts of the refrigerating circuit are damaged",
+                                    "answer_start": 85
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "Do not use mechanical devices or any other means to accelerate the defrosting process, other than those recommended by the manufacturer.",
+                    "qas": [
+                        {
+                            "question": "What devices should not be used to accelerate defrosting?",
+                            "answers": [
+                                {
+                                    "text": "mechanical devices or any other means to accelerate the defrosting process",
+                                    "answer_start": 7
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "Do not keep volatile or flammable objects or substances in the refrigerator.",
+                    "qas": [
+                        {
+                            "question": "What types of objects should not be kept in the refrigerator?",
+                            "answers": [
+                                {
+                                    "text": "volatile or flammable objects or substances",
+                                    "answer_start": 11
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "For the most efficient use of energy, please keep all inner fittings such as baskets, drawers, shelves on the position supplied by manufacturer.",
+                    "qas": [
+                        {
+                            "question": "How should inner fittings be positioned for efficient energy use?",
+                            "answers": [
+                                {
+                                    "text": "on the position supplied by manufacturer",
+                                    "answer_start": 89
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "If the supply cord is damaged, it must be replaced by the manufacturer, its service agent or similarly qualified persons in order to avoid a hazard.",
+                    "qas": [
+                        {
+                            "question": "Who should replace a damaged supply cord?",
+                            "answers": [
+                                {
+                                    "text": "the manufacturer, its service agent or similarly qualified persons",
+                                    "answer_start": 39
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "Never start up an appliance showing any signs of damage. If in doubt, consult your dealer.",
+                    "qas": [
+                        {
+                            "question": "What should you do if the appliance shows signs of damage?",
+                            "answers": [
+                                {
+                                    "text": "Never start up the appliance",
+                                    "answer_start": 0
+                                }
+                            ]
+                        },
+                        {
+                            "question": "Who should you consult if in doubt about appliance damage?",
+                            "answers": [
+                                {
+                                    "text": "your dealer",
+                                    "answer_start": 71
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "To avoid contamination of food, please respect the following instructions: Opening the door for long periods can cause a significant increase of the temperature in the compartments of the appliance.",
+                    "qas": [
+                        {
+                            "question": "What can cause a significant increase in temperature inside the appliance?",
+                            "answers": [
+                                {
+                                    "text": "Opening the door for long periods",
+                                    "answer_start": 54
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "Do not use electrical appliances inside the food storage compartments of the appliance, unless they are of the type recommended by the manufacturer.",
+                    "qas": [
+                        {
+                            "question": "Can electrical appliances be used inside the food storage compartments?",
+                            "answers": [
+                                {
+                                    "text": "only if they are of the type recommended by the manufacturer",
+                                    "answer_start": 79
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "Connect to potable water supply only. (applicable models only)",
+                    "qas": [
+                        {
+                            "question": "What type of water supply should be used?",
+                            "answers": [
+                                {
+                                    "text": "potable water supply only",
+                                    "answer_start": 11
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "The temperature of two star section (sections) or compartment (compartments) which have two star symbol is slightly higher than other freezer compartments.",
+                    "qas": [
+                        {
+                            "question": "How does the temperature of two star compartments compare to other freezer compartments?",
+                            "answers": [
+                                {
+                                    "text": "slightly higher",
+                                    "answer_start": 89
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "The recommended fridge temperature is 3 °C and freezer temperature is -19 °C.",
+                    "qas": [
+                        {
+                            "question": "What is the recommended fridge temperature?",
+                            "answers": [
+                                {
+                                    "text": "3 °C",
+                                    "answer_start": 31
+                                }
+                            ]
+                        },
+                        {
+                            "question": "What is the recommended freezer temperature?",
+                            "answers": [
+                                {
+                                    "text": "-19 °C",
+                                    "answer_start": 56
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "To clean the refrigerator’s interior and exterior, use a moistened, soft, lint-free cloth or paper towel.",
+                    "qas": [
+                        {
+                            "question": "What should be used to clean the refrigerator’s interior and exterior?",
+                            "answers": [
+                                {
+                                    "text": "a moistened, soft, lint-free cloth or paper towel",
+                                    "answer_start": 42
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "Do not store explosive substances such as aerosol cans with a flammable propellant in this appliance.",
+                    "qas": [
+                        {
+                            "question": "What substances should not be stored in this appliance?",
+                            "answers": [
+                                {
+                                    "text": "explosive substances such as aerosol cans with a flammable propellant",
+                                    "answer_start": 14
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "Fill with potable water only. Do not fill the tank with tea, juice or sports drink, this may damage the refrigerator.",
+                    "qas": [
+                        {
+                            "question": "What should not be used to fill the water tank?",
+                            "answers": [
+                                {
+                                    "text": "tea, juice or sports drink",
+                                    "answer_start": 43
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "Keep ventilation openings, in the appliance enclosure or in the built-in structure, clear of obstruction.",
+                    "qas": [
+                        {
+                            "question": "What should be kept clear of obstruction?",
+                            "answers": [
+                                {
+                                    "text": "ventilation openings, in the appliance enclosure or in the built-in structure",
+                                    "answer_start": 5
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "Dispose of all packaging materials such as plastic bags and styrofoam away from children. The packaging materials can cause suffocation.",
+                    "qas": [
+                        {
+                            "question": "Why should packaging materials be kept away from children?",
+                            "answers": [
+                                {
+                                    "text": "The packaging materials can cause suffocation",
+                                    "answer_start": 73
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "Do not place the appliance in direct sunlight or expose it to the heat from heating appliances such as stoves or heaters.",
+                    "qas": [
+                        {
+                            "question": "Should the appliance be placed in direct sunlight?",
+                            "answers": [
+                                {
+                                    "text": "No",
+                                    "answer_start": 0
+                                }
+                            ]
+                        },
+                        {
+                            "question": "What should the appliance not be exposed to?",
+                            "answers": [
+                                {
+                                    "text": "heat from heating appliances such as stoves or heaters",
+                                    "answer_start": 53
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "The power plug must be plugged into an appropriate outlet socket that is installed and grounded in accordance with all local codes and ordinances.",
+                    "qas": [
+                        {
+                            "question": "Where must the power plug be plugged in?",
+                            "answers": [
+                                {
+                                    "text": "into an appropriate outlet socket that is installed and grounded",
+                                    "answer_start": 21
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "Do not use harsh chemicals such as benzene, thinner, vinegar, liquid bleach, baking soda, citric or salt mixtures for cleaning. They may damage the surface of the refrigerator and cause a fire.",
+                    "qas": [
+                        {
+                            "question": "Which chemicals should not be used for cleaning the refrigerator?",
+                            "answers": [
+                                {
+                                    "text": "benzene, thinner, vinegar, liquid bleach, baking soda, citric or salt mixtures",
+                                    "answer_start": 19
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "Always unplug the refrigerator before cleaning to avoid electric shock.",
+                    "qas": [
+                        {
+                            "question": "What should you do before cleaning the refrigerator?",
+                            "answers": [
+                                {
+                                    "text": "unplug the refrigerator",
+                                    "answer_start": 7
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "Do not hang from the appliance doors, storage room, shelf or climb up into it.",
+                    "qas": [
+                        {
+                            "question": "Is it safe to hang from the appliance doors or shelves?",
+                            "answers": [
+                                {
+                                    "text": "No, do not hang from the appliance doors, storage room, shelf or climb up into it",
+                                    "answer_start": 0
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "Store raw meat and fish in suitable containers in the refrigerator, so that it is not in contact with or drip onto other food.",
+                    "qas": [
+                        {
+                            "question": "How should raw meat and fish be stored?",
+                            "answers": [
+                                {
+                                    "text": "in suitable containers in the refrigerator",
+                                    "answer_start": 6
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "To avoid mold development, switch off, defrost, clean, dry, and leave the door open if the refrigerator is left empty for long periods.",
+                    "qas": [
+                        {
+                            "question": "What should you do if the refrigerator is left empty for a long time?",
+                            "answers": [
+                                {
+                                    "text": "switch off, defrost, clean, dry, and leave the door open",
+                                    "answer_start": 30
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "Keep the door closed as much as possible to maintain the temperature and freshness of food.",
+                    "qas": [
+                        {
+                            "question": "Why should the door be kept closed as much as possible?",
+                            "answers": [
+                                {
+                                    "text": "to maintain the temperature and freshness of food",
+                                    "answer_start": 37
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "For best freezing results, activate Power Freeze for at least 20 hours before putting food in the freezer.",
+                    "qas": [
+                        {
+                            "question": "How long should Power Freeze be activated before freezing food?",
+                            "answers": [
+                                {
+                                    "text": "at least 20 hours",
+                                    "answer_start": 42
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "The ice maker bucket should be emptied regularly to maintain ice quality.",
+                    "qas": [
+                        {
+                            "question": "What should be done regularly for the ice maker bucket?",
+                            "answers": [
+                                {
+                                    "text": "emptied regularly to maintain ice quality",
+                                    "answer_start": 22
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "If the appliance is equipped with LED lamps, contact a local service center to replace them as they are not user-serviceable.",
+                    "qas": [
+                        {
+                            "question": "Who should replace LED lamps in the appliance?",
+                            "answers": [
+                                {
+                                    "text": "local service center",
+                                    "answer_start": 44
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "Avoid storing excessive amounts of water bottles or containers on the door baskets.",
+                    "qas": [
+                        {
+                            "question": "What should be avoided on the door baskets?",
+                            "answers": [
+                                {
+                                    "text": "excessive amounts of water bottles or containers",
+                                    "answer_start": 13
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "The appliance should be connected to a dedicated power line which is separately fused.",
+                    "qas": [
+                        {
+                            "question": "How should the appliance be connected to the power supply?",
+                            "answers": [
+                                {
+                                    "text": "connected to a dedicated power line which is separately fused",
+                                    "answer_start": 24
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "Do not modify or extend the power cable.",
+                    "qas": [
+                        {
+                            "question": "Is it allowed to modify or extend the power cable?",
+                            "answers": [
+                                {
+                                    "text": "No",
+                                    "answer_start": 0
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "The socket must be easily accessible so that the appliance can be quickly disconnected from the supply in an emergency.",
+                    "qas": [
+                        {
+                            "question": "Why must the socket be easily accessible?",
+                            "answers": [
+                                {
+                                    "text": "so that the appliance can be quickly disconnected from the supply in an emergency",
+                                    "answer_start": 29
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "Children aged from 3 to 8 years are allowed to load and unload refrigerating appliances.",
+                    "qas": [
+                        {
+                            "question": "What age group is allowed to load and unload refrigerating appliances?",
+                            "answers": [
+                                {
+                                    "text": "Children aged from 3 to 8 years",
+                                    "answer_start": 0
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "Never use electrical appliances inside the food storage compartments unless recommended by the manufacturer.",
+                    "qas": [
+                        {
+                            "question": "Can electrical appliances be used inside food storage compartments?",
+                            "answers": [
+                                {
+                                    "text": "only if recommended by the manufacturer",
+                                    "answer_start": 65
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "The product may not operate properly at temperatures outside of the specific range specified by the climate class.",
+                    "qas": [
+                        {
+                            "question": "When may the product not operate properly?",
+                            "answers": [
+                                {
+                                    "text": "at temperatures outside of the specific range specified by the climate class",
+                                    "answer_start": 39
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "The product uses a refrigerant which requires special disposal procedures. Please contact local authorities for environmentally safe disposal.",
+                    "qas": [
+                        {
+                            "question": "What should be done regarding the refrigerant disposal?",
+                            "answers": [
+                                {
+                                    "text": "contact local authorities for environmentally safe disposal",
+                                    "answer_start": 78
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "Do not open or close the appliance door with excessive force.",
+                    "qas": [
+                        {
+                            "question": "How should the appliance door be opened or closed?",
+                            "answers": [
+                                {
+                                    "text": "not with excessive force",
+                                    "answer_start": 28
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "If the hinge of the appliance door is damaged or operates improperly, stop using the appliance and contact an authorized service centre.",
+                    "qas": [
+                        {
+                            "question": "What should be done if the appliance door hinge is damaged?",
+                            "answers": [
+                                {
+                                    "text": "stop using the appliance and contact an authorized service centre",
+                                    "answer_start": 50
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "The power plug must be plugged into an appropriate outlet socket that is installed and grounded in accordance with all local codes and ordinances.",
+                    "qas": [
+                        {
+                            "question": "Where must the power plug be plugged in?",
+                            "answers": [
+                                {
+                                    "text": "into an appropriate outlet socket that is installed and grounded",
+                                    "answer_start": 21
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "Use only new hose-sets supplied with the appliance and do not reuse old hose-sets.",
+                    "qas": [
+                        {
+                            "question": "What type of hose-sets should be used with the appliance?",
+                            "answers": [
+                                {
+                                    "text": "new hose-sets supplied with the appliance",
+                                    "answer_start": 9
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "Avoid placing the appliance in areas subject to weathering conditions such as direct sunlight, wind, rain, or temperatures below freezing.",
+                    "qas": [
+                        {
+                            "question": "Where should the appliance not be placed?",
+                            "answers": [
+                                {
+                                    "text": "areas subject to weathering conditions such as direct sunlight, wind, rain, or temperatures below freezing",
+                                    "answer_start": 23
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "For efficient use of energy, keep all inner fittings such as baskets, drawers, and shelves in the positions supplied by the manufacturer.",
+                    "qas": [
+                        {
+                            "question": "How should inner fittings be positioned for energy efficiency?",
+                            "answers": [
+                                {
+                                    "text": "in the positions supplied by the manufacturer",
+                                    "answer_start": 74
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "If the refrigerating appliance is left empty for long periods, switch off, defrost, clean, dry, and leave the door open to prevent mold development.",
+                    "qas": [
+                        {
+                            "question": "What should be done if the appliance is left empty for long periods?",
+                            "answers": [
+                                {
+                                    "text": "switch off, defrost, clean, dry, and leave the door open",
+                                    "answer_start": 46
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "To reduce the risk of injury, do not hang from appliance doors, shelves, or storage rooms.",
+                    "qas": [
+                        {
+                            "question": "What should you avoid to reduce the risk of injury?",
+                            "answers": [
+                                {
+                                    "text": "do not hang from appliance doors, shelves, or storage rooms",
+                                    "answer_start": 29
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": "Do not place glass containers, bottles, or cans containing carbonated drinks in the freezer compartment.",
+                    "qas": [
+                        {
+                            "question": "What should not be placed in the freezer compartment?",
+                            "answers": [
+                                {
+                                    "text": "glass containers, bottles, or cans containing carbonated drinks",
+                                    "answer_start": 12
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
