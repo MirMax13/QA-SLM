@@ -107,7 +107,8 @@ def generate_paraphrases(text, is_question=True, n=3):
 def generate_irrelevant_qas(n=5):
     prompt = f"""
     <|im_start|>system
-    You are a QA data generator. Write {n} unrelated questions that a refrigerator cannot answer, and assign each an appropriate refusal response.
+    You are a QA data generator. 
+    Write {n} unrelated questions that a refrigerator cannot answer, and assign each an appropriate refusal response.
     Format:
     Q: ...\nA: ...
     <|im_end|>
@@ -152,7 +153,7 @@ def main():
 
         for qa in base_qas:
             paraphrased_qs = generate_paraphrases(qa['instruction'], is_question=True, n=5)
-            paraphrased_as = generate_paraphrases(qa['response'], is_question=False, n=5)
+            paraphrased_as = generate_paraphrases(qa['response'], is_question=False, n=3)
 
             for pq in [qa['instruction']] + paraphrased_qs:
                 for pa in [qa['response']] + paraphrased_as:
@@ -169,7 +170,7 @@ def main():
     
     # Add irrelevant QAs
     print("\n🚫 Generating irrelevant questions...")
-    irrelevant_qas = generate_irrelevant_qas(n=50)
+    irrelevant_qas = generate_irrelevant_qas(n=100)
     for qa in irrelevant_qas:
         qa["tag"] = "irrelevant"
     dataset.extend(irrelevant_qas)
