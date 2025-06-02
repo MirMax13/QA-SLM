@@ -1,0 +1,6 @@
+/venv
+/bert_finetuned
+
+# Ignore pdf and xlsx files
+*.pdf
+*.xlsx
