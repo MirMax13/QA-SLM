@@ -6,6 +6,7 @@ from time import sleep
 from dotenv import load_dotenv
 import os
 
+from transformers import AutoTokenizer
 load_dotenv()
 
 PDF_PATH = os.getenv('PDF_PATH')
@@ -17,7 +18,12 @@ OUTPUT_JSON_CLEANED = os.getenv('OUTPUT_JSON_CLEANED')
 
 
 # ========== AGENT HELPERS ==========
+# 2*1*1*300 + 2*5*5*300 = 15600
+# 3*1*1*300 + 3*5*3*512 = 23940
 
+def num_tokens(text):
+    tokenizer = AutoTokenizer.from_pretrained("openchat/openchat-3.6-8b-20240522", trust_remote_code=True)
+    return len(tokenizer.encode(text))
 def call_lm(messages, temperature=0.7, max_tokens=300):
     payload = {
         "model": MODEL_NAME,
@@ -41,8 +47,8 @@ def extract_text_blocks(pdf_path):
         text += page.get_text()
     # Розбиваємо по заголовках або великих блоках (можеш налаштувати)
     blocks = re.split(r'\n(?=[A-Z][^\n]{0,80}\n)', text)  # новий блок починається з заголовка
-    for i, block in enumerate(blocks[:5]):
-        print(f"\n🔹 Блок {i+1}:\n{block[:300]}...\n{'-'*50}")
+    # for i, block in enumerate(blocks[:5]):
+    #     print(f"\n🔹 Блок {i+1}:\n{block[:300]}...\n{'-'*50}")
     return [b.strip() for b in blocks if len(b.strip()) > 100]
 
 # ========== STEP 2: QA Generation ==========
@@ -66,7 +72,8 @@ def generate_qa_pairs(block_text):
     Generate QA pairs<|im_end|>
     <|im_start|>assistant
     """
-
+    if len(prompt) > 12000:
+        print("⚠️ Prompt too long")
     content = call_lm([{"role": "user", "content": prompt}])
     return parse_qa_pairs(content)
 
@@ -83,6 +90,7 @@ def parse_qa_pairs(text):
                 "response": answer,
                 "tag": "good",
             })
+    print(f"🔍 Found {len(qas)} QA pairs")
     return qas
 
 # ========== STEP 4: Paraphrasing ==========
@@ -98,8 +106,11 @@ def generate_paraphrases(text, is_question=True, n=3):
     Paraphrase<|im_end|>
     <|im_start|>assistant
     """
+    if len(prompt) > 12000:
+        print("⚠️ Prompt too long")
     raw = call_lm([{"role": "user", "content": prompt}], max_tokens=512)
-    lines = [re.sub(r'^(Paraphrase \\d+:\\s*|\\d+\\.\\s*)', '', l.strip("-• ")) for l in raw.strip().splitlines() if l.strip()]
+    lines = [re.sub(r'^(Paraphrase\s*\d+:|^\d+\.\s*)', '', l.strip("-• ")) for l in raw.strip().splitlines() if l.strip()]
+    print(f"🔄 Generated {len(lines)} paraphrases for {role}")
     return lines[:n]
 
 # ========== STEP 5: Irrelevant QA ==========
@@ -207,7 +218,7 @@ def main():
     
     # Add irrelevant QAs
     print("\n🚫 Generating irrelevant questions...")
-    irrelevant_qas = generate_irrelevant_qas(n=100)
+    irrelevant_qas = generate_irrelevant_qas(n=100, batch_size=10)
     for qa in irrelevant_qas:
         qa["tag"] = "irrelevant"
     dataset.extend(irrelevant_qas)
