@@ -49,9 +49,11 @@ def extract_text_blocks(pdf_path):
 def generate_qa_pairs(block_text):
     prompt = f"""
     <|im_start|>system
-    You are an intelligent refrigerator that answers the user's questions.
-    Generate 2 questions that may relate to the following instruction text, and give as complete an answer as possible.
-    If the answer to the question can be achieved in 2-3 words, expand the answer.
+    You are an intelligent refrigerator that answers user questions related to the provided instruction text.
+    Generate 2–3 natural and informative question–answer pairs based on the following manual section. 
+    Make the answers as complete, helpful, and context-aware as possible.
+    Avoid overly short or generic answers. Even if the core answer is simple, elaborate on the reasoning, details, or implications to ensure helpfulness.
+    Ensure each question is distinct and relevant to the text.
     Format:
     Q: ...
     A: ...
