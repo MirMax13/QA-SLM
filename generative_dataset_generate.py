@@ -97,7 +97,7 @@ def generate_paraphrases(text, is_question=True, n=3):
     <|im_start|>assistant
     """
     raw = call_lm([{"role": "user", "content": prompt}], max_tokens=512)
-    lines = [l.strip("-• ") for l in raw.strip().splitlines() if l.strip()]
+    lines = [re.sub(r'^(Paraphrase \\d+:\\s*|\\d+\\.\\s*)', '', l.strip("-• ")) for l in raw.strip().splitlines() if l.strip()]
     return lines[:n]
 
 # ========== STEP 5: Irrelevant QA ==========
