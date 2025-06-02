@@ -104,40 +104,77 @@ def generate_paraphrases(text, is_question=True, n=3):
 
 # ========== STEP 5: Irrelevant QA ==========
 
-def generate_irrelevant_qas(n=5):
-    prompt = f"""
-    <|im_start|>system
-    You are a QA data generator. 
-    Write {n} unrelated questions that a refrigerator cannot answer, and assign each an appropriate refusal response.
-    Format:
-    Q: ...\nA: ...
-    <|im_end|>
-    <|im_start|>user
-    Generate unrelated QA<|im_end|>
-    <|im_start|>assistant
-    """
-    text = call_lm([{"role": "user", "content": prompt}])
-    return parse_qa_pairs(text)
+def generate_irrelevant_qas(n=50, batch_size=10):
+    qas = []
+    batches = [(i, min(i + batch_size, n)) for i in range(0, n, batch_size)]
+    
+    for b_idx, (start, end) in enumerate(batches):
+        count = end - start
+        print(f"🔄 Generating irrelevant QAs batch {b_idx+1}/{len(batches)} ({count} pairs)")
+        
+        prompt = f"""
+        <|im_start|>system
+        You are a QA data generator. 
+        Write {count} unrelated questions that a refrigerator cannot answer, and assign each an appropriate refusal response.
+        The questions should be diverse and cover different topics unrelated to refrigerators.
+        
+        Use exactly this format (with Q1:, Q2:, etc.):
+        Q1: [question]
+        A: I apologize, but I am a refrigerator assistant and cannot help with [topic-specific reason]
+        
+        Q2: [next question]
+        A: I apologize, but I am a refrigerator assistant and cannot help with [topic-specific reason]
+        <|im_end|>
+        <|im_start|>user
+        Generate unrelated QA<|im_end|>
+        <|im_start|>assistant
+        """
+        
+        if num_tokens(prompt) > 8000:
+            print(f"⚠️ Generation prompt too long in batch {b_idx+1}")
+            
+        text = call_lm([{"role": "user", "content": prompt}], max_tokens=512)
+        batch_qas = parse_qa_pairs(text)
+        qas.extend(batch_qas)
+        
+        print(f"✅ Generated {len(batch_qas)} pairs in batch {b_idx+1}")
+        sleep(2)  # Add small delay between batches
+    
+    return qas[:n]  # Ensure we return exactly n pairs
 
 
-def filter_qa_candidates(qas):
+def filter_qa_candidates(qas, batch_size=35):
     if not qas:
         return []
-    text = "\n".join([f"{i+1}. Q: {qa['instruction']}\n   A: {qa['response']}" for i, qa in enumerate(qas)])
-    prompt = f"""
-    <|im_start|>system
-    You are a QA data cleaner. Review the following list of question-answer pairs and select only the high-quality ones. 
-    Keep pairs that are grammatically correct, meaningful, not repetitive, and relevant to the topic of the manual. 
-    Return a list of indices (e.g., 1, 3, 4).
-    <|im_end|>
-    <|im_start|>user
-    {text}
-    <|im_end|>
-    <|im_start|>assistant
-    """
-    result = call_lm([{"role": "user", "content": prompt}])
-    indices = set(int(i.strip()) for i in re.findall(r"\d+", result))
-    return [qas[i - 1] for i in indices if 0 < i <= len(qas)]
+    
+    cleaned = []
+    total = len(qas)
+    batches = [qas[i:i + batch_size] for i in range(0, total, batch_size)]
+    
+    for b_idx, batch in enumerate(batches):
+        print(f"🔍 Filtering batch {b_idx+1}/{len(batches)} with {len(batch)} pairs")
+        text = "\n".join([f"{i+1}. Q: {qa['instruction']}\n   A: {qa['response']}" for i, qa in enumerate(batch)])
+        prompt = f"""
+        <|im_start|>system
+        You are a QA data cleaner. Review the following question-answer pairs and keep all that are:
+        - grammatically correct
+        - meaningful and relevant to a refrigerator manual
+        - not exact duplicates (slightly reworded paraphrases are OK)
+
+        Return a list of indices (e.g., 1, 2, 3, 5, 6).
+        <|im_end|>
+        <|im_start|>user
+        {text}
+        <|im_end|>
+        <|im_start|>assistant
+        """
+        if num_tokens(prompt) > 8000:
+            print(f"⚠️ Filtering prompt too long in batch {b_idx+1}")
+        result = call_lm([{"role": "user", "content": prompt}])
+        indices = set(int(i.strip()) for i in re.findall(r"\d+", result))
+        cleaned.extend([batch[i - 1] for i in indices if 0 < i <= len(batch)])
+    
+    return cleaned
 
 
 # ========== STEP 6: Main loop ==========
