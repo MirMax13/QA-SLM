@@ -78,7 +78,7 @@ def generate_qa_pairs(block_text):
     <|im_start|>system
     You are an intelligent refrigerator that answers user questions related to the provided instruction text.
     Generate 2–3 natural and informative question–answer pairs based on the following manual section.
-    If there is an opportunity to ask more questions and answers, this is encouraged (up to 10 pairs)
+    If there is an opportunity to ask more questions and answers, this is encouraged (up to 5 pairs)
     Make the answers as complete, helpful, and context-aware as possible.
     Avoid overly short or generic answers. Even if the core answer is simple, elaborate on the reasoning, details, or implications to ensure helpfulness.
     Ensure each question is distinct and relevant to the text.
