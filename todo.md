@@ -5,6 +5,6 @@
 🔵 - Data Review
 ⚪ - Documentation
 
-- [ ] **Review extract_text_blocks functionality**: `[1]` 🟠🟢
-- [ ] **Debug regex patterns in parse_qa_pairs**: `[1]` 🟠🟢
+- [x] **Review extract_text_blocks functionality**: `[1]` 🟠🟢 Seems bad
+- [x] **Debug regex patterns in parse_qa_pairs**: `[1]` 🟠🟢 Seems good
 - [ ] **Analyze dataset_v2.2 structure**: `[2]` 🔵
