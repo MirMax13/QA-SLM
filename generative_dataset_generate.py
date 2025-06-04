@@ -15,7 +15,7 @@ HEADERS = {"Content-Type": "application/json"}
 MODEL_NAME = os.getenv('MODEL_NAME')
 OUTPUT_JSON = os.getenv('OUTPUT_JSON')
 OUTPUT_JSON_CLEANED = os.getenv('OUTPUT_JSON_CLEANED')
-
+INSTRUCTION_PATH = os.getenv('INSTRUCTION_PATH')
 
 # ========== AGENT HELPERS ==========
 # 2*1*1*300 + 2*5*5*300 = 15600
@@ -39,24 +39,46 @@ def call_lm(messages, temperature=0.7, max_tokens=300):
         print(f"❌ Error during LM call: {e}")
         return ""
     
-# ========== STEP 1: Extract blocks ==========
+# ========== STEP 0: Create blocks ==========
 def extract_text_blocks(pdf_path):
     doc = fitz.open(pdf_path)
     text = ""
     for page in doc:
         text += page.get_text()
-    # Розбиваємо по заголовках або великих блоках (можеш налаштувати)
-    blocks = re.split(r'\n(?=[A-Z][^\n]{0,80}\n)', text)  # новий блок починається з заголовка
-    # for i, block in enumerate(blocks[:5]):
-    #     print(f"\n🔹 Блок {i+1}:\n{block[:300]}...\n{'-'*50}")
-    return [b.strip() for b in blocks if len(b.strip()) > 100]
+
+    raw_blocks = re.split(r'\n(?=[A-Z][^\n]{0,80}\n)', text)
+    blocks = [b.strip() for b in raw_blocks if len(b.strip()) > 100]
+
+    print(f"\n🔍 Всього блоків: {len(blocks)}")
+
+    # Запис у файл
+    with open(INSTRUCTION_NAME, "w", encoding="utf-8") as f:
+        for i, block in enumerate(blocks):
+            f.write(f"🔹 Блок {i+1} ({len(block.split())} слів):\n")
+            f.write("-" * 60 + "\n")
+            f.write(block + "\n")
+            f.write("-" * 60 + "\n\n")
+
+    return blocks
+
+# ========== STEP 1: Extract blocks ==========
+def load_blocks_from_txt(file_path):
+    with open(file_path, "r", encoding="utf-8") as f:
+        content = f.read()
+
+    raw_blocks = re.split(r'🔹 Блок \d+ \(\d+ слів\):\n[-]+\n(.*?)\n[-]+\n', content, flags=re.DOTALL)
+    # re.split() повертає масив [префікс, блок1, блок2, ...], тому беремо лише блоки
+    blocks = [b.strip() for b in raw_blocks if b.strip()]
+    print(f"📄 Завантажено {len(blocks)} блоків із {file_path}")
+    return blocks
 
 # ========== STEP 2: QA Generation ==========
 def generate_qa_pairs(block_text):
     prompt = f"""
     <|im_start|>system
     You are an intelligent refrigerator that answers user questions related to the provided instruction text.
-    Generate 2–3 natural and informative question–answer pairs based on the following manual section. 
+    Generate 2–3 natural and informative question–answer pairs based on the following manual section.
+    If there is an opportunity to ask more questions and answers, this is encouraged (up to 10 pairs)
     Make the answers as complete, helpful, and context-aware as possible.
     Avoid overly short or generic answers. Even if the core answer is simple, elaborate on the reasoning, details, or implications to ensure helpfulness.
     Ensure each question is distinct and relevant to the text.
@@ -190,7 +212,8 @@ def filter_qa_candidates(qas, batch_size=35):
 
 # ========== STEP 6: Main loop ==========
 def main():
-    blocks = extract_text_blocks(PDF_PATH)
+    # blocks = extract_text_blocks(PDF_PATH)
+    blocks = load_blocks_from_txt(INSTRUCTION_NAME)
     dataset = []
     dataset_cleaned = []
 
