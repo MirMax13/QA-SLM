@@ -52,7 +52,7 @@ def extract_text_blocks(pdf_path):
     print(f"\n🔍 Всього блоків: {len(blocks)}")
 
     # Запис у файл
-    with open(INSTRUCTION_NAME, "w", encoding="utf-8") as f:
+    with open(INSTRUCTION_PATH, "w", encoding="utf-8") as f:
         for i, block in enumerate(blocks):
             f.write(f"🔹 Блок {i+1} ({len(block.split())} слів):\n")
             f.write("-" * 60 + "\n")
@@ -213,7 +213,7 @@ def filter_qa_candidates(qas, batch_size=35):
 # ========== STEP 6: Main loop ==========
 def main():
     # blocks = extract_text_blocks(PDF_PATH)
-    blocks = load_blocks_from_txt(INSTRUCTION_NAME)
+    blocks = load_blocks_from_txt(INSTRUCTION_PATH)
     dataset = []
     dataset_cleaned = []
 
