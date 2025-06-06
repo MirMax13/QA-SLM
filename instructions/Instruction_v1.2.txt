@@ -41,7 +41,7 @@ Failure to follow the instructions may result in electric shock, injury, fire,
 breakdown or explosion.
 ------------------------------------------------------------
 
-🔹 Блок 5 (282 слів):
+🔹 Блок 5 (223 слів):
 ------------------------------------------------------------
 Important safety precautions
 WARNING; Risk of fire / flammable materials
@@ -67,7 +67,7 @@ appliance, care should be taken to ensure that no parts of the refrigerating
 circuit are damaged.
 ------------------------------------------------------------
 
-🔹 Блок 6.1 (nn слів):
+🔹 Блок 6 (62 слів):
 ------------------------------------------------------------
 6.	 R-600a or R-134a is used as a refrigerant. Check the compressor label 
 on the rear of the appliance or the rating label inside the fridge to see 
@@ -77,7 +77,7 @@ to safe disposal of this product.
 7.	 Do not damage the refrigerant circuit.
 ------------------------------------------------------------
 
-🔹 Блок 6.2 (nn слів):
+🔹 Блок 6 (144 слів):
 ------------------------------------------------------------
 Important safety precautions
 WARNING; Risk of fire / flammable materials
@@ -96,7 +96,7 @@ damaged.
 at the rear of the appliance.
 ------------------------------------------------------------
 
-🔹 Блок 6.3 (nn слів):
+🔹 Блок 6 (114 слів):
 ------------------------------------------------------------
 13.	 This appliance is intended to be used in household and similar applications 
 such as
@@ -114,7 +114,7 @@ of the appliance, unless they are of the type recommended by the
 manufacturer.
 ------------------------------------------------------------
 
-🔹 Блок 7 (59 слів):
+🔹 Блок 7 (91 слів):
 ------------------------------------------------------------
 Important safety precautions
 WARNING; Risk of fire / flammable materials
@@ -128,7 +128,7 @@ as baskets, drawers, shelves on the position supplied by manufacturer.
 20.	Connect to potable water supply only. (applicable models only)
 ------------------------------------------------------------
 
-🔹 Блок 8 (19 слів):
+🔹 Блок 8 (55 слів):
 ------------------------------------------------------------
 Important safety precautions
 WARNING; Risk of fire / flammable materials
@@ -139,7 +139,7 @@ WARNING; Risk of fire / flammable materials
 refrigerator.
 ------------------------------------------------------------
 
-🔹 Блок 9 (91 слів):
+🔹 Блок 9 (73 слів):
 ------------------------------------------------------------
 Important safety precautions
 WARNING; Risk of fire / flammable materials
@@ -151,7 +151,7 @@ kPa(30-125 psi) is required for the correct operation.
 service centre or it's agents to replace the lamps.
 ------------------------------------------------------------
 
-🔹 Блок 10 (21 слів):
+🔹 Блок 10 (144 слів):
 ------------------------------------------------------------
 Important safety precautions
 WARNING; Risk of fire / flammable materials
@@ -170,7 +170,7 @@ off, defrost, clean, dry, and leave the door open to prevent mould
 developing within the appliance.
 ------------------------------------------------------------
 
-🔹 Блок 11 (31 слів):
+🔹 Блок 11 (47 слів):
 ------------------------------------------------------------
 Installation
 • Be careful not to expose the rear of the appliance when
@@ -181,7 +181,7 @@ power plug of the appliance.
 disassembly.
 ------------------------------------------------------------
 
-🔹 Блок 12 (25 слів):
+🔹 Блок 12 (43 слів):
 ------------------------------------------------------------
 Installation
 • Be careful not to point the power plug up or let the appliance
@@ -198,17 +198,16 @@ Installation
 doubt, consult your dealer.
 ------------------------------------------------------------
 
-🔹 Блок 14 (53 слів):
+🔹 Блок 14 (34 слів):
 ------------------------------------------------------------
 Important safety precautions
 WARNING; Risk of fire / flammable materials
 26.	The temperature of two star section (sections) or compartment 
-(compartments) which have two star symbol ( 
- ) is slightly higher than 
+(compartments) which have two star symbol is slightly higher than 
 other freezer compartment (compartments).
 ------------------------------------------------------------
 
-🔹 Блок 15 (42 слів):
+🔹 Блок 15 (69 слів):
 ------------------------------------------------------------
 Installation
 • This appliance should only be transported by two or more
@@ -279,7 +278,7 @@ styrofoam) away from children. The packaging materials can
 cause suffocation.
 ------------------------------------------------------------
 
-🔹 Блок 24 (28 слів):
+🔹 Блок 24 (17 слів):
 ------------------------------------------------------------
 CAUTION
 • Do not hang from the appliance doors, storage room, shelf or
@@ -376,7 +375,7 @@ The actual refrigerator and provided component parts of your refrigerator may di
 model and the country.
 ------------------------------------------------------------
 
-🔹 Блок 36 (58 слів):
+🔹 Блок 36 (68 слів):
 ------------------------------------------------------------
 Parts of freezer
 01	 Freezer shelves
@@ -410,7 +409,7 @@ LED Lamps
 To replace the lamps of the refrigerator, contact a local Samsung
 service centre.
 ------------------------------------------------------------
-🔹 Блок 40 (35 слів):
+🔹 Блок 40 (36 слів):
 ------------------------------------------------------------
 WARNING
 • Do not use benzene, thinner, vinegar, liquid bleach, baking soda, 
@@ -419,7 +418,7 @@ for cleaning purposes. They may damage the surface of the
 refrigerator and cause a fire.
 ------------------------------------------------------------
 
-🔹 Блок 41 (24 слів):
+🔹 Блок 41 (64 слів):
 ------------------------------------------------------------
 Regularly use a dry cloth to remove all foreign substances such as 
 dust or water from the power plug terminals and contact points.
@@ -430,21 +429,21 @@ refrigerator’s interior and exterior.
 4.	 Plug in the power cord.
 ------------------------------------------------------------
 
-🔹 Блок 42 (40 слів):
+🔹 Блок 42 (15 слів):
 ------------------------------------------------------------
 Safety Instruction
 This refrigerating appliance is not intended to be used as a
 built-in appliance.
 ------------------------------------------------------------
 
-🔹 Блок 43 (18 слів):
+🔹 Блок 43 (19 слів):
 ------------------------------------------------------------
 WARNING
 The lamps are not user-serviceable. Do not attempt to replace a 
 lamp yourself. This can cause electric shock.
 ------------------------------------------------------------
 
-🔹 Блок 44 (24 слів):
+🔹 Блок 44 (38 слів):
 ------------------------------------------------------------
 Lamp (Light Source)
 This product contains a light source of energy efficiency class <G>.
@@ -453,7 +452,7 @@ replace the lamp(s) and/or control gear(s) in the product, contact a
 local Samsung service centre.
 ------------------------------------------------------------
 
-🔹 Блок 45 (30 слів):
+🔹 Блок 45 (29 слів):
 ------------------------------------------------------------
 For detailed instructions on replacing lamp(s) or control gear(s) in 
 your product, visit the Samsung website (http://www.samsung.com),
@@ -524,7 +523,7 @@ The cooling performance and power consumption of the refrigerator may be affecte
 frequency, and the location of the refrigerator. We recommend adjusting the temperature settings as appropriate.
 ------------------------------------------------------------
 
-🔹 Блок 54 (25 слів):
+🔹 Блок 54 (42 слів):
 ------------------------------------------------------------
 Recommended Temperature
 The optimal temperature setting for food storage:
@@ -549,7 +548,7 @@ Power Freeze speeds up the freezing process at maximum fan speed. The freezer ke
 the previous temperature. To freeze large amounts of food, activate Power Freeze for at least 20 hours before putting food in the freezer.
 ------------------------------------------------------------
 
-🔹 Блок 57 (33 слів):
+🔹 Блок 57 (34 слів):
 ------------------------------------------------------------
 NOTE
 When you use function Power Freeze the energy consumption of the refrigerator will increase. Remember to turn it off when you don’t need it and return 
@@ -564,7 +563,7 @@ into small portions and put in shallow containers before being refrigerated. A l
 pieces or placed in shallow containers before refrigerating.
 ------------------------------------------------------------
 
-🔹 Блок 59 (57 слів):
+🔹 Блок 59 (68 слів):
 ------------------------------------------------------------
 Shelves
 Shelves should be adjustable to accommodate a variety of packages.
