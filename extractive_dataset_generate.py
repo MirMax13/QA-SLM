@@ -208,7 +208,7 @@ def find_fuzzy_span(block, answer, threshold=90):
     best_score = 0
     best_start = -1
     for i in range(len(block) - len(answer)):
-        span = block[i:i+len(answer)+20]  # +20 дає трохи більше простору
+        span = block[i:i+len(answer)+20]
         score = fuzz.partial_ratio(answer.lower(), span.lower())
         if score > best_score and score >= threshold:
             best_score = score
@@ -229,13 +229,11 @@ def main():
 
         for qa in base_qas:
             start = find_fuzzy_span(block, qa['answer'])
-            if start is not None:
-                answer_start = start
-            else:
+            answer_start = find_fuzzy_span(block, qa['answer'])
+            if start is None:
                 print(f"⚠️ Відповідь не знайдена в блоці для питання: {qa['question']}")
                 continue
-
-            answer_start = block.find(qa['answer'])
+                       
             paraphrased_qs = [qa['question']] + generate_paraphrases(qa['question'], is_question=True, n=5)
             sleep(1)
             for pq in paraphrased_qs:
