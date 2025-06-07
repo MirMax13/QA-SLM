@@ -257,7 +257,7 @@ def main():
     
     # Add irrelevant QAs
     print("\n🚫 Generating irrelevant questions...")
-    irrelevant_qas = generate_irrelevant_qas(n=100, batch_size=10)
+    irrelevant_qas = generate_irrelevant_qas(n=100, batch_size=20)
     for irr in irrelevant_qas:
         random_block = random.choice(blocks)
         dataset.append({
