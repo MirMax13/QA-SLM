@@ -1,0 +1,35 @@
+🔹 Блок 1 (101 слів):
+------------------------------------------------------------
+Simple user manual
+•	For detailed instructions on installation and cleaning of the appliances, visit the Samsung website 
+(http://www.samsung.com), go to Support > Support home, and then enter the model name.
+•	To check the product’s model name, see the label enclosed with the product or attached to the 
+product.
+•	Open a QR code scanner app and scan the QR code image attached to the product. You can access 
+‘Product registration’, ‘Manual’, and ‘Customer support’.
+•	Figures and illustrations are provided for reference only and may differ from the actual product 
+appearance. Product design and specifications may change without notice.
+------------------------------------------------------------
+
+🔹 Блок 2 (51 слів):
+------------------------------------------------------------
+Safety information
+•	Congratulations on your new Samsung appliances. This manual contains important information on the installation, use, and 
+care of your appliances. Read this manual thoroughly before using the appliances to ensure that you know how to safely and 
+efficiently operate the features and functions that your new appliances offers.
+------------------------------------------------------------
+
+🔹 Блок 3 (16 слів):
+------------------------------------------------------------
+Important safety symbols
+What the icons and signs in this user manual mean:
+WARNING
+Hazards or unsafe practices that may result in severe personal injury, death and/or property damage.
+CAUTION
+Hazards or unsafe practices that may result in personal injury and/or property damage.
+Read the instructions
+After reading this manual, store it in a safe place for future reference.
+Read all instructions before using the appliance.
+NOTE
+Supplementary information that may be useful
+------------------------------------------------------------
