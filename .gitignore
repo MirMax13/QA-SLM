@@ -1,8 +1,11 @@
 /venv
 /bert_finetuned
+/bart_finetuned
 
 # Ignore pdf and xlsx files
 *.pdf
 *.xlsx
+
+*.zip
 
 *.env
