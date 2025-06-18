@@ -11,6 +11,7 @@ from dotenv import load_dotenv
 import os
 import base64
 import matplotlib.pyplot as plt
+import random
 
 load_dotenv()
 
@@ -85,7 +86,7 @@ def call_vision_chat_secondary(image_b64: str, prev_qa_text: str):
     return response["choices"][0]["message"]["content"]
 
 
-def call_lm(messages, model=MODEL_NAME, max_tokens=512, temperature=0.3):
+def call_lm(messages, model=MODEL_NAME, max_tokens=512, temperature=0.7):
     global request_count
     response = openai.ChatCompletion.create(
         model=model,
@@ -223,7 +224,7 @@ def filter_qa_candidates(qas, batch_size=35, log_file="filtered_pairs_log.json")
         # Логування пар, які йшли на фільтрацію
         filtered_pairs.extend(batch)
 
-        result = safe_gpt_call(call_lm,messages, max_tokens=1024,temperature=0.7)
+        result = safe_gpt_call(call_lm,messages, max_tokens=1024)
         indices = set(int(i.strip()) for i in re.findall(r"\d+", result))
         print("🔍 Filtered indices:", indices)
         cleaned.extend([batch[i - 1] for i in indices if 0 < i <= len(batch)])
@@ -250,6 +251,7 @@ def load_data_from_json(file_path):
         return json.load(f)
 
 def main():
+    random.seed(42)
     global request_count
     if os.path.exists(USAGE_FILE):
         with open(USAGE_FILE, "r") as f:
@@ -262,7 +264,8 @@ def main():
     page_images = pdf_to_page_images(PDF_PATH)
     # prev_text = ""
     start_time = time.time()
-    dataset = load_data_from_json("datasets/open_chat/generative/fridge_dataset_v2.4_small.json")
+    dataset = load_data_from_json("datasets/ChatGPT/generative/fridge_dataset_v1.2_small.json")
+    random.shuffle(dataset)
     dataset_cleaned = []
     for idx, image_b64 in enumerate(page_images):
         print(f"🖼️ Processing page {idx+1}/{len(page_images)}")
