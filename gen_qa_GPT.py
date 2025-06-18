@@ -117,6 +117,7 @@ def parse_qa_pairs(text):
     return qas
 
 def switch_api_key(limit=200):
+    global request_count
     if request_count >= limit:
         # Перемикання на наступний ключ
         openai.api_key = OPENAI_KEY_2  # Новий ключ
