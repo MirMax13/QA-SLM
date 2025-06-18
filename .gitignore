@@ -2,6 +2,8 @@
 /bert_finetuned
 /bart_finetuned
 
+blocks.json
+
 # Ignore pdf and xlsx files
 *.pdf
 *.xlsx
