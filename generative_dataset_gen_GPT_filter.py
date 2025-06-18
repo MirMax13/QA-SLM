@@ -210,11 +210,11 @@ def filter_qa_candidates(qas, batch_size=35, log_file="filtered_pairs_log.json")
         You are reviewing QA pairs from a refrigerator manual. Accept all that are:
         - understandable and relevant (minor typos are OK)
         - logical and informative, even if not perfectly structured
-        - not exact duplicates, but paraphrases or minor rewordings are acceptable
+        - not exact duplicates, but paraphrases or minor rewordings are acceptable if they offer new information, additional context, or improved clarity
 
-        Reject only if the pair is irrelevant, confusing, or lacking value.
-        Return a list of valid indices like: 1, 2, 3, 4, 5.
-        {text}"""
+        Reject only if the pair is irrelevant, confusing, or lacking value. Return a list of valid indices like: 1, 2, 3, 4, 5.
+        {text}
+        """
         messages = [
             {"role": "system", "content": "You are a QA data cleaner."},
             {"role": "user", "content": prompt}
@@ -234,8 +234,6 @@ def filter_qa_candidates(qas, batch_size=35, log_file="filtered_pairs_log.json")
         # Записуємо фільтровані пари в JSON
     with open(log_file, "w", encoding="utf-8") as f:
         json.dump(filtered_pairs, f, ensure_ascii=False, indent=2)
-
-    
 
     return cleaned
 
