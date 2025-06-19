@@ -14,6 +14,7 @@ load_dotenv()
 
 PDF_PATH = os.getenv('PDF_PATH')
 MODEL_NAME = os.getenv('MODEL_NAME_V2')
+MODEL_NAME_2 = os.getenv('MODEL_NAME_V2.2')
 OUTPUT_JSON = os.getenv('OUTPUT_JSON')
 OUTPUT_JSON_CLEANED = os.getenv('OUTPUT_JSON_CLEANED')
 openai.api_key = os.getenv("OPENAI_API_KEY")
@@ -28,7 +29,8 @@ def safe_gpt_call(call_func, *args, **kwargs):
         except openai.error.RateLimitError:
             print(f"⏳ Rate limit hit, sleeping 20s (attempt {attempt+1})")
             sleep(20)
-    raise RuntimeError("Rate limit hit too many times.")
+    switch_model()
+    # raise RuntimeError("Rate limit hit too many times.")
 
 def call_vision_chat_primary(image_b64: str, prev_text: str = ""):
     content = [
@@ -116,22 +118,16 @@ def parse_qa_pairs(text):
     print(f"🔍 Found {len(qas)} QA pairs")
     return qas
 
-def switch_api_key(limit=200):
-    global request_count
-    if request_count >= limit:
-        # Перемикання на наступний ключ
-        openai.api_key = OPENAI_KEY_2  # Новий ключ
-        print("🔑 Switched API key.")
-        request_count = 0  # Скидання лічильника для нового ключа
-    return openai.api_key
+def switch_model():
+    global MODEL_NAME
+    MODEL_NAME = MODEL_NAME_2
+    print(f"🔄 Switched model to {MODEL_NAME}")
 
-def increment_request_count():
+def increment_request_count(): #TODO: probably delete this function
     global request_count
     request_count += 1
     with open(USAGE_FILE, "w") as f:
         json.dump({"count": request_count}, f)
-    if request_count == MAX_REQUESTS:
-        switch_api_key(limit=MAX_REQUESTS)
 
 def save_original_qas(new_qas, file_path="original_qas.json"):
     # Зчитуємо існуючі пари, якщо файл вже є
