@@ -1,4 +1,3 @@
-import fitz  # PyMuPDF
 import openai
 import openai.error
 import json
@@ -7,13 +6,13 @@ from time import sleep
 import time
 from dotenv import load_dotenv
 import os
-import base64
 import matplotlib.pyplot as plt
 
 load_dotenv()
 
 PDF_PATH = os.getenv('PDF_PATH')
 MODEL_NAME = os.getenv('MODEL_NAME_V2')
+MODEL_NAME_2 = os.getenv('MODEL_NAME_V2.2')
 OUTPUT_JSON = os.getenv('OUTPUT_JSON')
 OUTPUT_JSON_CLEANED = os.getenv('OUTPUT_JSON_CLEANED')
 openai.api_key = os.getenv("OPENAI_API_KEY_2")
@@ -22,11 +21,6 @@ USAGE_FILE = "api_usage.json"
 MAX_REQUESTS = 200
 ORIG_INPUT_JSON = os.getenv('ORIG_INPUT_JSON')
 
-def encode_file_to_base64(path):
-    with open(path, "rb") as f:
-        return base64.b64encode(f.read()).decode()
-
-
 def safe_gpt_call(call_func, *args, **kwargs):
     for attempt in range(5):
         try:
@@ -34,8 +28,8 @@ def safe_gpt_call(call_func, *args, **kwargs):
         except openai.error.RateLimitError:
             print(f"⏳ Rate limit hit, sleeping 20s (attempt {attempt+1})")
             sleep(20)
-    switch_api_key()
-    raise RuntimeError("Rate limit hit too many times.")
+    switch_model()  # Switch model if rate limit is hit
+    # raise RuntimeError("Rate limit hit too many times.")
 
 def call_lm(messages, model=MODEL_NAME, max_tokens=512, temperature=0.7):
     response = openai.ChatCompletion.create(
@@ -60,21 +54,6 @@ def call_lm(messages, model=MODEL_NAME, max_tokens=512, temperature=0.7):
 
     return response["choices"][0]["message"]["content"]
 
-
-def pdf_to_page_images(pdf_path):
-    doc = fitz.open(pdf_path)
-    images = []
-    for page_num in range(len(doc)):
-        page = doc[page_num]
-        pix = page.get_pixmap(dpi=200)
-        # pix.save(f"page_{page_num+1}.png")
-        image_bytes = pix.tobytes("png")
-        image_b64 = base64.b64encode(image_bytes).decode()
-        
-        images.append(image_b64)
-        
-    return images
-
 def generate_paraphrases(text, is_question=True, n=3):
     role = "question" if is_question else "answer"
     prompt = f"Generate {n} diverse paraphrases of the following {role}, preserving its meaning:\n\n\"{text}\"\n\n"
@@ -87,23 +66,17 @@ def generate_paraphrases(text, is_question=True, n=3):
     print(f"🔄 Generated {len(lines)} paraphrases for {role}")
     return lines[:n]
 
-def switch_api_key(limit=200):
-    global request_count
-    if request_count >= limit:
-        # Перемикання на наступний ключ
-        openai.api_key = OPENAI_KEY_2  # Новий ключ
-        print("🔑 Switched API key.")
-        request_count = 0  # Скидання лічильника для нового ключа
-    return openai.api_key
+def switch_model():
+    global MODEL_NAME
+    MODEL_NAME = MODEL_NAME_2
+    print(f"🔄 Switched model to {MODEL_NAME}")
 
 # Зберегти після кожного запиту
-def increment_request_count():
+def increment_request_count(): #TODO: probably delete this function
     global request_count
     request_count += 1
     with open(USAGE_FILE, "w") as f:
         json.dump({"count": request_count}, f)
-    if request_count == MAX_REQUESTS:
-        switch_api_key(openai.api_key, limit=MAX_REQUESTS)
 
 def load_qas(file_path):
     with open(file_path, "r", encoding="utf-8") as f:
