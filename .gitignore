@@ -3,6 +3,7 @@
 /bart_finetuned
 
 blocks.json
+token_stats.json
 
 # Ignore pdf and xlsx files
 *.pdf
