@@ -124,9 +124,9 @@ def main():
     start_time = time.time()
 
     dataset = []
-
-    for idx, block in enumerate(blocks[3:]): # Пропускаємо перші 3 блоки
-        print(f"\n🔷 Processing block {idx+1+3}/{len(blocks)}")
+    n = 0
+    for idx, block in enumerate(blocks[n:]): # Пропускаємо перші n блоків
+        print(f"\n🔷 Processing block {idx+1+n}/{len(blocks)}")
         all_qas = []
 
         if isinstance(block, dict) and 'instruction' in block and 'response' in block:
@@ -143,11 +143,17 @@ def main():
 
         dataset.extend(all_qas)
 
+        # Зберігаємо дані в JSON файл
+        if os.path.exists(OUTPUT_JSON):
+            with open(OUTPUT_JSON, "r", encoding="utf-8") as f:
+                existing_data = json.load(f)
+            existing_data.extend(all_qas)
+            dataset = existing_data
         with open(OUTPUT_JSON, "w", encoding="utf-8") as f:
             json.dump(dataset, f, ensure_ascii=False, indent=2)
-        print(f"🔷 Processed block {idx+1+3}/{len(blocks)}: {len(all_qas)} QA pairs")
+        print(f"🔷 Processed block {idx+1+n}/{len(blocks)}: {len(all_qas)} QA pairs")
         
-        print(f"➕ Added {len(all_qas)} QA pairs from block {idx+1}")
+        print(f"➕ Added {len(all_qas)} QA pairs from block {idx+1+n}")
 
 
     with open(OUTPUT_JSON, "w", encoding="utf-8") as f:
