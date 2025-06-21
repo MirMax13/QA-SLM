@@ -32,6 +32,11 @@ def safe_gpt_call(call_func, *args, **kwargs):
             sleep(20)
     switch_model()
     # raise RuntimeError("Rate limit hit too many times.")
+    try:
+        return call_func(*args, **kwargs)
+    except Exception as e:
+        print(f"❌ GPT call failed after model switch: {e}")
+        return None
 
 def call_vision_chat_primary(image_b64: str, prev_text: str = ""):
     content = [

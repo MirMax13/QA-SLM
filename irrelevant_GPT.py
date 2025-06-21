@@ -29,7 +29,13 @@ def safe_gpt_call(call_func, *args, **kwargs):
         except openai.error.RateLimitError:
             print(f"⏳ Rate limit hit, sleeping 20s (attempt {attempt+1})")
             sleep(20)
-    raise RuntimeError("Rate limit hit too many times.")
+    # raise RuntimeError("Rate limit hit too many times.")
+    switch_model()
+    try:
+        return call_func(*args, **kwargs)
+    except Exception as e:
+        print(f"❌ GPT call failed after model switch: {e}")
+        return None
 
 def call_lm(messages, model=MODEL_NAME, max_tokens=512, temperature=0.7):
     response = openai.ChatCompletion.create(
