@@ -214,15 +214,6 @@ def parse_qa_pairs(text):
 
 
 def main():
-    global request_count
-    if os.path.exists(USAGE_FILE):
-        with open(USAGE_FILE, "r") as f:
-            request_count = json.load(f).get("count", 0)
-    else:
-        request_count = 0
-
-    global token_stats
-    token_stats = []
     page_images = pdf_to_page_images(PDF_PATH)
     blocks = []
     prev_text = ""
@@ -292,8 +283,6 @@ def main():
 
     elapsed_time = time.time() - start_time
     print(f"⏱️ Total processing time: {elapsed_time / 60:.2f} minutes")
-    with open("token_stats.json", "w", encoding="utf-8") as f:
-        json.dump(token_stats, f, ensure_ascii=False, indent=2)
     plt.figure(figsize=(10, 5))
     plt.show()
 

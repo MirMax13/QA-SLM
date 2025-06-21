@@ -4,7 +4,7 @@ import re
 import time
 import os
 import matplotlib.pyplot as plt
-from config.config import GENERATIVE, ORIG_INPUT_JSON, USAGE_FILE,OUTPUT_JSON,OPENAI_API_KEY
+from config.config import GENERATIVE, ORIG_INPUT_JSON, OUTPUT_JSON,OPENAI_API_KEY
 from utils import safe_gpt_call, call_lm
 openai.api_key = OPENAI_API_KEY
 
@@ -26,15 +26,6 @@ def load_qas(file_path):
     return data
 
 def main():
-    global request_count
-    if os.path.exists(USAGE_FILE):
-        with open(USAGE_FILE, "r") as f:
-            request_count = json.load(f).get("count", 0)
-    else:
-        request_count = 0
-
-    global token_stats
-    token_stats = []
     blocks = load_qas(ORIG_INPUT_JSON)
     start_time = time.time()
 
@@ -85,8 +76,6 @@ def main():
 
     elapsed_time = time.time() - start_time
     print(f"⏱️ Total processing time: {elapsed_time / 60:.2f} minutes")
-    with open("token_stats.json", "w", encoding="utf-8") as f:
-        json.dump(token_stats, f, ensure_ascii=False, indent=2)
     plt.figure(figsize=(10, 5))
     plt.show()
 

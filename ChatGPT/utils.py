@@ -49,5 +49,8 @@ def call_lm(messages, model=MODEL_NAME, max_tokens=512, temperature=0.7):
         "total_tokens": total_tokens,
         "messages": messages[-1]["content"][:100]  # just preview
     })
+    with open("token_stats.json", "w") as f:
+        json.dump(token_stats, f, indent=2)
 
     return response["choices"][0]["message"]["content"]
+
