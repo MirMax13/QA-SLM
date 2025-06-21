@@ -20,6 +20,7 @@ OPENAI_KEY_2 = os.getenv("OPENAI_API_KEY_2")
 USAGE_FILE = "api_usage.json"
 MAX_REQUESTS = 200
 ORIG_INPUT_JSON = os.getenv('ORIG_INPUT_JSON')
+GENERATIVE = True
 
 def safe_gpt_call(call_func, *args, **kwargs):
     for attempt in range(5):
@@ -74,7 +75,7 @@ def generate_paraphrases(text, is_question=True, n=3):
 def switch_model():
     global MODEL_NAME
     MODEL_NAME = MODEL_NAME_2
-    print(f"🔄 Switched model to {MODEL_NAME}")
+    print(f"🔄 Switched model to {MODEL_NAME}") #TODO: Fix
 
 # Зберегти після кожного запиту
 def increment_request_count(): #TODO: probably delete this function
@@ -106,18 +107,32 @@ def main():
     for idx, block in enumerate(blocks[n:]): # Пропускаємо перші n блоків
         print(f"\n🔷 Processing block {idx+1+n}/{len(blocks)}")
         all_qas = []
+        question = 'question'
+        answer = 'answers'
+        if GENERATIVE:
+            question = 'instruction'
+            answer = 'response'
 
-        if isinstance(block, dict) and 'instruction' in block and 'response' in block:
-            paraphrased_qs = generate_paraphrases(block['instruction'], is_question=True, n=5)
+        if isinstance(block, dict) and question in block and answer in block:
+            paraphrased_qs = generate_paraphrases(block[question], is_question=True, n=6)
             increment_request_count()
 
-            paraphrased_as = generate_paraphrases(block['response'], is_question=False, n=3)
-            increment_request_count()
-
-            # Додаємо оригінальні пари та перефразовані варіанти
-            for pq in [block['instruction']] + paraphrased_qs:
-                for pa in [block['response']] + paraphrased_as:
-                    all_qas.append({"instruction": pq, "response": pa, "tag": "good"})
+            if GENERATIVE:
+                paraphrased_as = generate_paraphrases(block[answer], is_question=False, n=3)
+                increment_request_count()
+                for pq in [block[question]] + paraphrased_qs:
+                    for pa in [block[answer]] + paraphrased_as:
+                        all_qas.append({"instruction": pq, "response": pa, "tag": "good"})
+            else:
+                # Додаємо оригінальні пари та перефразовані варіанти
+                for pq in [block[question]] + paraphrased_qs:
+                    for pa in block[answer]:
+                        all_qas.append({
+                            "context": block['context'],
+                            "question": pq,
+                            "answers": [pa],
+                            "is_impossible": False
+                            })
 
         dataset.extend(all_qas)
 
@@ -130,13 +145,7 @@ def main():
         with open(OUTPUT_JSON, "w", encoding="utf-8") as f:
             json.dump(dataset, f, ensure_ascii=False, indent=2)
         print(f"🔷 Processed block {idx+1+n}/{len(blocks)}: {len(all_qas)} QA pairs")
-        
         print(f"➕ Added {len(all_qas)} QA pairs from block {idx+1+n}")
-
-
-    with open(OUTPUT_JSON, "w", encoding="utf-8") as f:
-        json.dump(dataset, f, ensure_ascii=False, indent=2)
-
 
     print(f"\n✅ Saved {len(dataset)} total entries (full)")
 
