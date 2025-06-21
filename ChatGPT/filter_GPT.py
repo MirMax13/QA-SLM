@@ -1,30 +1,14 @@
 
 import openai
-import openai.error
 import json
 import re
-from time import sleep
 import time
 import os
 import matplotlib.pyplot as plt
 import random
-from config.config import GENERATIVE, MODEL_NAME, MODEL_NAME_2, OUTPUT_JSON, OUTPUT_JSON_CLEANED, OPENAI_API_KEY,USAGE_FILE
+from config.config import GENERATIVE, MODEL_NAME, OUTPUT_JSON, OUTPUT_JSON_CLEANED, OPENAI_API_KEY,USAGE_FILE
+from utils import safe_gpt_call
 openai.api_key = OPENAI_API_KEY
-
-def safe_gpt_call(call_func, *args, **kwargs):
-    for attempt in range(5):
-        try:
-            return call_func(*args, **kwargs)
-        except openai.error.RateLimitError:
-            print(f"⏳ Rate limit hit, sleeping 20s (attempt {attempt+1})")
-            sleep(20)
-    switch_model()  # Switch model if rate limit is hit
-    # raise RuntimeError("Rate limit hit too many times.")
-    try:
-        return call_func(*args, **kwargs)
-    except Exception as e:
-        print(f"❌ GPT call failed after model switch: {e}")
-        return None
 
 def call_lm(messages, model=MODEL_NAME, max_tokens=512, temperature=0.7):
     response = openai.ChatCompletion.create(
@@ -101,11 +85,6 @@ def filter_qa_candidates(qas, batch_size=35):
 
     print(f"✅ Total kept after filtering: {len(cleaned)} out of {total} pairs")
     return cleaned
-
-def switch_model():
-    global MODEL_NAME
-    MODEL_NAME = MODEL_NAME_2
-    print(f"🔄 Switched model to {MODEL_NAME}")
 
 def main():
     random.seed(42)

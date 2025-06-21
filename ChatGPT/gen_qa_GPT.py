@@ -1,31 +1,15 @@
 import fitz  # PyMuPDF
 import openai
-import openai.error
 import json
 import re
-from time import sleep
 import time
 import os
 import base64
 import matplotlib.pyplot as plt
 from datetime import datetime
-from config.config import PDF_PATH, MODEL_NAME, MODEL_NAME_2, USAGE_FILE, GENERATIVE,OPENAI_API_KEY
+from config.config import PDF_PATH, MODEL_NAME, USAGE_FILE, GENERATIVE,OPENAI_API_KEY
+from utils import safe_gpt_call
 openai.api_key = OPENAI_API_KEY
-
-def safe_gpt_call(call_func, *args, **kwargs):
-    for attempt in range(5):
-        try:
-            return call_func(*args, **kwargs)
-        except openai.error.RateLimitError:
-            print(f"⏳ Rate limit hit, sleeping 20s (attempt {attempt+1})")
-            sleep(20)
-    switch_model()
-    # raise RuntimeError("Rate limit hit too many times.")
-    try:
-        return call_func(*args, **kwargs)
-    except Exception as e:
-        print(f"❌ GPT call failed after model switch: {e}")
-        return None
 
 def call_vision_chat_primary(image_b64: str, prev_text: str = ""):
     if GENERATIVE:
@@ -172,11 +156,6 @@ def pdf_to_page_images(pdf_path):
         images.append(image_b64)
         
     return images
-
-def switch_model():
-    global MODEL_NAME
-    MODEL_NAME = MODEL_NAME_2
-    print(f"🔄 Switched model to {MODEL_NAME}")
 
 def save_original_qas(new_qas, file_path="original_qas.json"):
     # Зчитуємо існуючі пари, якщо файл вже є
