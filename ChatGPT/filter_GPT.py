@@ -20,6 +20,7 @@ OUTPUT_JSON_CLEANED = os.getenv('OUTPUT_JSON_CLEANED')
 openai.api_key = os.getenv("OPENAI_API_KEY")
 USAGE_FILE = "api_usage.json"
 MAX_REQUESTS = 200
+GENERATIVE = True
 
 def safe_gpt_call(call_func, *args, **kwargs):
     for attempt in range(5):
@@ -30,6 +31,11 @@ def safe_gpt_call(call_func, *args, **kwargs):
             sleep(20)
     switch_model()  # Switch model if rate limit is hit
     # raise RuntimeError("Rate limit hit too many times.")
+    try:
+        return call_func(*args, **kwargs)
+    except Exception as e:
+        print(f"❌ GPT call failed after model switch: {e}")
+        return None
 
 def call_lm(messages, model=MODEL_NAME, max_tokens=512, temperature=0.7):
     response = openai.ChatCompletion.create(
@@ -62,10 +68,13 @@ def filter_qa_candidates(qas, batch_size=35):
     total = len(qas)
     batches = [qas[i:i + batch_size] for i in range(0, total, batch_size)]
 
-    n = 60
+    n = 0
     for b_idx, batch in enumerate(batches[n:]): # Пропускаємо перші n партій
         print(f"🔍 Filtering batch {b_idx+1+n}/{len(batches)} with {len(batch)} pairs")
-        text = "\n".join([f"{i+1}. Q: {qa['instruction']}\n   A: {qa['response']}" for i, qa in enumerate(batch)])
+        if GENERATIVE:
+            text = "\n".join([f"{i+1}. Q: {qa['instruction']}\n   A: {qa['response']}" for i, qa in enumerate(batch)])
+        else:
+            text = "\n".join([f"{i+1}. Q: {qa['question']}\n   A: {qa['answers'][0]['text']}" for i, qa in enumerate(batch)])
         prompt = f"""
         You are reviewing QA pairs from a refrigerator manual. Accept all that are:
         - understandable and relevant (minor typos are OK)
@@ -115,7 +124,6 @@ def increment_request_count(): #TODO: probably delete this function
     request_count += 1
     with open(USAGE_FILE, "w") as f:
         json.dump({"count": request_count}, f)
-
 
 def main():
     random.seed(42)
