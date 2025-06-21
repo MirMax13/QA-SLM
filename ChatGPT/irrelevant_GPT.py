@@ -20,6 +20,7 @@ OUTPUT_JSON_CLEANED = os.getenv('OUTPUT_JSON_CLEANED')
 openai.api_key = os.getenv("OPENAI_API_KEY")
 USAGE_FILE = "api_usage.json"
 MAX_REQUESTS = 200
+GENERATIVE = True
 
 
 def safe_gpt_call(call_func, *args, **kwargs):
@@ -60,16 +61,35 @@ def call_lm(messages, model=MODEL_NAME, max_tokens=512, temperature=0.7):
 
     return response["choices"][0]["message"]["content"]
 
+def load_qas(file_path):
+    with open(file_path, "r", encoding="utf-8") as f:
+        data = json.load(f)
+    return data
+
+def load_blocks_from_json(file_path):
+    with open(file_path, "r", encoding="utf-8") as f:
+        data = json.load(f)
+    if isinstance(data, list) and all("context" in block for block in data):
+        print(f"📄 Завантажено {len(data)} блоків із {file_path}")
+        return [block["context"] for block in data]
+    else:
+        raise ValueError(f"JSON file {file_path} does not contain valid blocks with 'context' keys")
+
 def parse_qa_pairs(text):
     qas = []
     
     # Спершу класичний формат Q:... A:...
     qa_blocks = re.findall(r"Q\d*:\s*(.*?)\s*A:\s*(.*?)(?=Q\d*:|$)", text, re.DOTALL)
-    for q, a in qa_blocks:
+    blocks = load_blocks_from_json("blocks.json")
+    for q, a in qa_blocks: #TODO: maybe delete this loop
         question = re.sub(r'^(Paraphrase\s*\d+:|^\d+\.\s*)', '', q.strip().replace("\n", " ")).strip()
         answer = re.sub(r'^(Paraphrase\s*\d+:|^\d+\.\s*)', '', a.strip().replace("\n", " ")).strip()
         if question and answer:
-            qas.append({"instruction": question, "response": answer, "tag": "good"})
+            if GENERATIVE:
+                qas.append({"instruction": question, "response": answer, "tag": "irrelevant"})
+            else:
+                context = random.choice(blocks)
+                qas.append({"context": context, "question": question, "answers": [], "is_impossible": True})
 
     # Якщо нічого не знайшли — шукаємо формат "1. ... - ..."
     if not qas:
@@ -78,8 +98,11 @@ def parse_qa_pairs(text):
             question = q.strip().replace("\n", " ")
             answer = a.strip().replace("\n", " ")
             if question and answer:
-                qas.append({"instruction": question, "response": answer, "tag": "good"})
-
+                if GENERATIVE:
+                    qas.append({"instruction": question, "response": answer, "tag": "irrelevant"})
+                else:
+                    context = random.choice(blocks)
+                    qas.append({"context": context, "question": question, "answers": [], "is_impossible": True})
     print(f"🔍 Found {len(qas)} QA pairs")
     return qas
 
@@ -115,7 +138,10 @@ def generate_irrelevant_qas(n=50, batch_size=10, used_questions=None):
         text = safe_gpt_call(call_lm,messages, max_tokens=1024)
         batch_qas = parse_qa_pairs(text)
         for qa in batch_qas:
-            used_questions.add(qa['instruction'])
+            if GENERATIVE: #TODO: merge to one
+                used_questions.add(qa['instruction'])
+            else:
+                used_questions.add(qa['question'])
 
         qas.extend(batch_qas)
 
@@ -161,8 +187,6 @@ def main():
     print("\n🚫 Generating irrelevant questions...")
     irrelevant_qas,_ = generate_irrelevant_qas(n=150, batch_size=16)
     
-    for qa in irrelevant_qas:
-        qa["tag"] = "irrelevant"
     dataset.extend(irrelevant_qas)
     dataset_cleaned.extend(irrelevant_qas)
 
