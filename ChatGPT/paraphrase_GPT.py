@@ -4,23 +4,10 @@ import json
 import re
 from time import sleep
 import time
-from dotenv import load_dotenv
 import os
 import matplotlib.pyplot as plt
-
-load_dotenv()
-
-PDF_PATH = os.getenv('PDF_PATH')
-MODEL_NAME = os.getenv('MODEL_NAME_V2')
-MODEL_NAME_2 = os.getenv('MODEL_NAME_V2.2')
-OUTPUT_JSON = os.getenv('OUTPUT_JSON')
-OUTPUT_JSON_CLEANED = os.getenv('OUTPUT_JSON_CLEANED')
-openai.api_key = os.getenv("OPENAI_API_KEY_2")
-OPENAI_KEY_2 = os.getenv("OPENAI_API_KEY_2")
-USAGE_FILE = "api_usage.json"
-ORIG_INPUT_JSON = os.getenv('ORIG_INPUT_JSON')
-GENERATIVE = True
-
+from config.config import MODEL_NAME, MODEL_NAME_2, GENERATIVE, ORIG_INPUT_JSON, USAGE_FILE,OUTPUT_JSON,OPENAI_API_KEY
+openai.api_key = OPENAI_API_KEY
 def safe_gpt_call(call_func, *args, **kwargs):
     for attempt in range(5):
         try:

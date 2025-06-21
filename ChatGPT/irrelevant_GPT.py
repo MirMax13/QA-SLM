@@ -5,22 +5,11 @@ import json
 import re
 from time import sleep
 import time
-from dotenv import load_dotenv
 import os
 import matplotlib.pyplot as plt
 import random
-
-load_dotenv()
-
-PDF_PATH = os.getenv('PDF_PATH')
-MODEL_NAME = os.getenv('MODEL_NAME_V2')
-MODEL_NAME_2 = os.getenv('MODEL_NAME_V2.2')
-OUTPUT_JSON = os.getenv('OUTPUT_JSON')
-OUTPUT_JSON_CLEANED = os.getenv('OUTPUT_JSON_CLEANED')
-openai.api_key = os.getenv("OPENAI_API_KEY")
-USAGE_FILE = "api_usage.json"
-GENERATIVE = True
-
+from config.config import MODEL_NAME, MODEL_NAME_2, GENERATIVE, USAGE_FILE, OUTPUT_JSON, OUTPUT_JSON_CLEANED, OPENAI_API_KEY
+openai.api_key = OPENAI_API_KEY
 
 def safe_gpt_call(call_func, *args, **kwargs):
     for attempt in range(5):
