@@ -18,7 +18,6 @@ OUTPUT_JSON_CLEANED = os.getenv('OUTPUT_JSON_CLEANED')
 openai.api_key = os.getenv("OPENAI_API_KEY_2")
 OPENAI_KEY_2 = os.getenv("OPENAI_API_KEY_2")
 USAGE_FILE = "api_usage.json"
-MAX_REQUESTS = 200
 ORIG_INPUT_JSON = os.getenv('ORIG_INPUT_JSON')
 GENERATIVE = True
 

@@ -19,7 +19,6 @@ OUTPUT_JSON = os.getenv('OUTPUT_JSON')
 OUTPUT_JSON_CLEANED = os.getenv('OUTPUT_JSON_CLEANED')
 openai.api_key = os.getenv("OPENAI_API_KEY")
 USAGE_FILE = "api_usage.json"
-MAX_REQUESTS = 200
 GENERATIVE = True
 
 
@@ -114,9 +113,6 @@ def generate_irrelevant_qas(n=50, batch_size=10, used_questions=None):
     if used_questions is None:
         used_questions = set()
     for b_idx, (start, end) in enumerate(batches):
-        if request_count >= MAX_REQUESTS:
-            print("🚫 Reached request limit. Saving and exiting.")
-            break
         count = end - start
         print(f"🔄 Generating irrelevant QAs batch {b_idx+1}/{len(batches)} ({count} pairs)")
         prompt = f""" Write {count} unrelated questions that a refrigerator cannot answer, and assign each an appropriate refusal response.

@@ -19,7 +19,6 @@ OUTPUT_JSON = os.getenv('OUTPUT_JSON')
 OUTPUT_JSON_CLEANED = os.getenv('OUTPUT_JSON_CLEANED')
 openai.api_key = os.getenv("OPENAI_API_KEY")
 USAGE_FILE = "api_usage.json"
-MAX_REQUESTS = 200
 GENERATIVE = True
 
 def safe_gpt_call(call_func, *args, **kwargs):
