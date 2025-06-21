@@ -6,32 +6,9 @@ import time
 import os
 import matplotlib.pyplot as plt
 import random
-from config.config import GENERATIVE, MODEL_NAME, OUTPUT_JSON, OUTPUT_JSON_CLEANED, OPENAI_API_KEY,USAGE_FILE
-from utils import safe_gpt_call
+from config.config import GENERATIVE, OUTPUT_JSON, OUTPUT_JSON_CLEANED, OPENAI_API_KEY,USAGE_FILE
+from utils import safe_gpt_call, call_lm
 openai.api_key = OPENAI_API_KEY
-
-def call_lm(messages, model=MODEL_NAME, max_tokens=512, temperature=0.7):
-    response = openai.ChatCompletion.create(
-        model=model,
-        messages=messages,
-        max_tokens=max_tokens,
-        temperature=temperature,
-    )
-    prompt_tokens = response["usage"]["prompt_tokens"]
-    completion_tokens = response["usage"]["completion_tokens"]
-    total_tokens = prompt_tokens + completion_tokens
-    print(f"📊 Tokens used: prompt={prompt_tokens}, completion={completion_tokens}")
-
-    # Save stats to global list
-    token_stats.append({
-        "model": model,
-        "prompt_tokens": prompt_tokens,
-        "completion_tokens": completion_tokens,
-        "total_tokens": total_tokens,
-        "messages": messages[-1]["content"][:100]  # just preview
-    })
-
-    return response["choices"][0]["message"]["content"]
 
 def filter_qa_candidates(qas, batch_size=35):
     if not qas:

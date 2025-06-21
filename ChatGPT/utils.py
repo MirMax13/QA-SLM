@@ -1,5 +1,7 @@
 import openai
 from time import sleep
+import json
+import os
 from config.config import MODEL_NAME, MODEL_NAME_2, OPENAI_API_KEY
 openai.api_key = OPENAI_API_KEY
 
@@ -22,3 +24,30 @@ def switch_model():
     global MODEL_NAME
     MODEL_NAME = MODEL_NAME_2
     print(f"🔄 Switched model to {MODEL_NAME}")
+
+def call_lm(messages, model=MODEL_NAME, max_tokens=512, temperature=0.7):
+    response = openai.ChatCompletion.create(
+        model=model,
+        messages=messages,
+        max_tokens=max_tokens,
+        temperature=temperature,
+    )
+    prompt_tokens = response["usage"]["prompt_tokens"]
+    completion_tokens = response["usage"]["completion_tokens"]
+    total_tokens = prompt_tokens + completion_tokens
+    print(f"📊 Tokens used: prompt={prompt_tokens}, completion={completion_tokens}")
+
+    token_stats = []
+    # Save stats to global list
+    if os.path.exists("token_stats.json"):
+        with open("token_stats.json", "r") as f:
+            token_stats = json.load(f)
+    token_stats.append({
+        "model": model,
+        "prompt_tokens": prompt_tokens,
+        "completion_tokens": completion_tokens,
+        "total_tokens": total_tokens,
+        "messages": messages[-1]["content"][:100]  # just preview
+    })
+
+    return response["choices"][0]["message"]["content"]

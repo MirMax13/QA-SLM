@@ -4,32 +4,9 @@ import re
 import time
 import os
 import matplotlib.pyplot as plt
-from config.config import MODEL_NAME, GENERATIVE, ORIG_INPUT_JSON, USAGE_FILE,OUTPUT_JSON,OPENAI_API_KEY
-from utils import safe_gpt_call
+from config.config import GENERATIVE, ORIG_INPUT_JSON, USAGE_FILE,OUTPUT_JSON,OPENAI_API_KEY
+from utils import safe_gpt_call, call_lm
 openai.api_key = OPENAI_API_KEY
-
-def call_lm(messages, model=MODEL_NAME, max_tokens=512, temperature=0.7):
-    response = openai.ChatCompletion.create(
-        model=model,
-        messages=messages,
-        max_tokens=max_tokens,
-        temperature=temperature,
-    )
-    prompt_tokens = response["usage"]["prompt_tokens"]
-    completion_tokens = response["usage"]["completion_tokens"]
-    total_tokens = prompt_tokens + completion_tokens
-    print(f"📊 Tokens used: prompt={prompt_tokens}, completion={completion_tokens}")
-
-    # Save stats to global list
-    token_stats.append({
-        "model": model,
-        "prompt_tokens": prompt_tokens,
-        "completion_tokens": completion_tokens,
-        "total_tokens": total_tokens,
-        "messages": messages[-1]["content"][:100]  # just preview
-    })
-
-    return response["choices"][0]["message"]["content"]
 
 def generate_paraphrases(text, is_question=True, n=3):
     role = "question" if is_question else "answer"
