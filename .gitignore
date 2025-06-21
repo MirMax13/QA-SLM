@@ -1,6 +1,5 @@
 /venv
-/bert_finetuned
-/bart_finetuned
+/models
 
 blocks.json
 token_stats.json
