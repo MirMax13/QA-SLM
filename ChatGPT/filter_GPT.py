@@ -93,7 +93,6 @@ def filter_qa_candidates(qas, batch_size=35):
         indices = set(int(i.strip()) for i in re.findall(r"\d+", result))
         print("🔍 Filtered indices:", indices)
         new_cleaned = [batch[i - 1] for i in indices if 0 < i <= len(batch)]
-        increment_request_count()
         print(f"✅ {len(new_cleaned)} pairs kept after filtering")
 
         # Зберігаємо дані в JSON файл
@@ -118,12 +117,6 @@ def switch_model():
     global MODEL_NAME
     MODEL_NAME = MODEL_NAME_2
     print(f"🔄 Switched model to {MODEL_NAME}")
-
-def increment_request_count(): #TODO: probably delete this function
-    global request_count
-    request_count += 1
-    with open(USAGE_FILE, "w") as f:
-        json.dump({"count": request_count}, f)
 
 def main():
     random.seed(42)

@@ -190,12 +190,6 @@ def switch_model():
     MODEL_NAME = MODEL_NAME_2
     print(f"🔄 Switched model to {MODEL_NAME}")
 
-def increment_request_count(): #TODO: probably delete this function
-    global request_count
-    request_count += 1
-    with open(USAGE_FILE, "w") as f:
-        json.dump({"count": request_count}, f)
-
 def save_original_qas(new_qas, file_path="original_qas.json"):
     # Зчитуємо існуючі пари, якщо файл вже є
     if os.path.exists(file_path):
@@ -275,14 +269,12 @@ def main():
                 qas_raw = safe_gpt_call(call_vision_chat_primary,image_b64, prev_text)
             else:
                 context, qas_raw = safe_gpt_call(call_vision_chat_primary, image_b64, prev_text)
-            increment_request_count()
             qas_primary = []
             print(f" Found {len(qas_raw)} primary Q&A pairs")
 
             if GENERATIVE:
                 qas_primary = parse_qa_pairs(qas_raw)
                 raw_secondary = safe_gpt_call(call_vision_chat_secondary,image_b64, qas_raw)
-                increment_request_count()
                 # print("🧾 Secondary GPT output:\n", raw_secondary)
                 qas_secondary = parse_qa_pairs(raw_secondary)
                 blocks.append({"qas": combined_qas, "image": image_b64})
@@ -302,7 +294,6 @@ def main():
             
                 prev_questions_text = "\n".join([f"Q: {qa['question'].strip()}" for qa in qas_raw])
                 qas_secondary_raw = safe_gpt_call(call_vision_chat_secondary, image_b64, prev_questions_text, context)
-                increment_request_count()
                 qas_secondary = []
 
                 print(f" Found {len(qas_secondary_raw)} secondary Q&A pairs")

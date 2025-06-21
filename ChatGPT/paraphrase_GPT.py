@@ -77,13 +77,6 @@ def switch_model():
     MODEL_NAME = MODEL_NAME_2
     print(f"🔄 Switched model to {MODEL_NAME}") #TODO: Fix
 
-# Зберегти після кожного запиту
-def increment_request_count(): #TODO: probably delete this function
-    global request_count
-    request_count += 1
-    with open(USAGE_FILE, "w") as f:
-        json.dump({"count": request_count}, f)
-
 def load_qas(file_path):
     with open(file_path, "r", encoding="utf-8") as f:
         data = json.load(f)
@@ -115,11 +108,9 @@ def main():
 
         if isinstance(block, dict) and question in block and answer in block:
             paraphrased_qs = generate_paraphrases(block[question], is_question=True, n=6)
-            increment_request_count()
 
             if GENERATIVE:
                 paraphrased_as = generate_paraphrases(block[answer], is_question=False, n=3)
-                increment_request_count()
                 for pq in [block[question]] + paraphrased_qs:
                     for pa in [block[answer]] + paraphrased_as:
                         all_qas.append({"instruction": pq, "response": pa, "tag": "good"})

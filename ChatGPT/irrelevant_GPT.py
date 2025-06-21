@@ -152,7 +152,6 @@ def generate_irrelevant_qas(n=50, batch_size=10, used_questions=None):
             qas = existing_data
         with open("irrelevant_qa.json", "w", encoding="utf-8") as f:
             json.dump(qas, f, ensure_ascii=False, indent=2)
-        increment_request_count()
 
     return qas[:n], used_questions
 
@@ -160,12 +159,6 @@ def switch_model():
     global MODEL_NAME
     MODEL_NAME = MODEL_NAME_2
     print(f"🔄 Switched model to {MODEL_NAME}")
-
-def increment_request_count(): #TODO: probably delete this function
-    global request_count
-    request_count += 1
-    with open(USAGE_FILE, "w") as f:
-        json.dump({"count": request_count}, f)
 
 def main():
     global request_count
