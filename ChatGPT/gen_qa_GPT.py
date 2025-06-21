@@ -7,8 +7,8 @@ import os
 import base64
 import matplotlib.pyplot as plt
 from datetime import datetime
-from config.config import PDF_PATH, MODEL_NAME, USAGE_FILE, GENERATIVE,OPENAI_API_KEY
-from utils import safe_gpt_call
+from config.config import PDF_PATH, MODEL_NAME, GENERATIVE,OPENAI_API_KEY
+from utils import safe_gpt_call,parse_qa_pairs
 openai.api_key = OPENAI_API_KEY
 
 def call_vision_chat_primary(image_b64: str, prev_text: str = ""):
@@ -189,30 +189,6 @@ def find_answer_start_fuzzy(context, answer):
 
     return -1
 
-def parse_qa_pairs(text):
-    qas = []
-    
-    # Спершу класичний формат Q:... A:...
-    qa_blocks = re.findall(r"Q\d*:\s*(.*?)\s*A:\s*(.*?)(?=Q\d*:|$)", text, re.DOTALL)
-    for q, a in qa_blocks:
-        question = re.sub(r'^(Paraphrase\s*\d+:|^\d+\.\s*)', '', q.strip().replace("\n", " ")).strip()
-        answer = re.sub(r'^(Paraphrase\s*\d+:|^\d+\.\s*)', '', a.strip().replace("\n", " ")).strip()
-        if question and answer:
-            qas.append({"instruction": question, "response": answer, "tag": "good"})
-
-    # Якщо нічого не знайшли — шукаємо формат "1. ... - ..."
-    if not qas:
-        alt_blocks = re.findall(r"\d+\.\s*(.*?)\n\s*[-•]\s*(.*?)(?=\n\d+\.|\Z)", text, re.DOTALL)
-        for q, a in alt_blocks:
-            question = q.strip().replace("\n", " ")
-            answer = a.strip().replace("\n", " ")
-            if question and answer:
-                qas.append({"instruction": question, "response": answer, "tag": "good"})
-
-    print(f"🔍 Found {len(qas)} QA pairs")
-    return qas
-
-
 def main():
     page_images = pdf_to_page_images(PDF_PATH)
     blocks = []
@@ -231,7 +207,7 @@ def main():
             print(f" Found {len(qas_raw)} primary Q&A pairs")
 
             if GENERATIVE:
-                qas_primary = parse_qa_pairs(qas_raw)
+                qas_primary = parse_qa_pairs(qas_raw, status="good")
                 raw_secondary = safe_gpt_call(call_vision_chat_secondary,image_b64, qas_raw)
                 # print("🧾 Secondary GPT output:\n", raw_secondary)
                 qas_secondary = parse_qa_pairs(raw_secondary)
