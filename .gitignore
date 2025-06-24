@@ -1,5 +1,6 @@
 /venv
 /models
+/config/__pycache__
 
 blocks.json
 token_stats.json
