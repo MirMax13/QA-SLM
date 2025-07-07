@@ -2,6 +2,10 @@ import json
 import re
 
 def find_answer_start(context, answer):
+    # Якщо відповіді немає, повертаємо -1
+    if not answer:
+        return -1
+
     idx = context.find(answer)
     if idx != -1:
         return idx
@@ -24,6 +28,11 @@ def update_answer_starts(json_path, output_path):
 
     for entry in data:
         context = entry["context"]
+        
+        # Перевірка на наявність відповіді
+        if not entry["answers"]:
+            continue  # Пропускаємо записи, де відповіді немає
+
         for ans in entry["answers"]:
             answer = ans["text"]
             ans["answer_start"] = find_answer_start(context, answer)
@@ -34,4 +43,4 @@ def update_answer_starts(json_path, output_path):
     print(f"✅ Updated file saved to {output_path}")
 
 # 🔧 Запуск:
-update_answer_starts("original_qas_best.json", "res4.json")
+update_answer_starts("./datasets/ChatGPT/extractive/fridge_dataset_v1.1_clean.json", "res5.json")
