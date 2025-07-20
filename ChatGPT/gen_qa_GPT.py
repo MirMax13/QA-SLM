@@ -97,7 +97,9 @@ def call_vision_chat_secondary(image_b64: str, prev_qa_text: str, context: str):
             model=MODEL_NAME,
             messages=[
                 {"role": "system", "content":
-                "You are a documentation assistant continuing a QA extraction task. Provide all relevant and detailed Q&A pairs. Ensure each new question adds value and is based on context."},
+                """You are a documentation assistant continuing a QA extraction task.
+                 Provide all relevant and detailed Q&A pairs.
+                 Ensure each new question adds value and is based on context."""},
                 {"role": "user", "content": content}
             ],
             max_tokens=2000

@@ -12,7 +12,11 @@ def generate_paraphrases(text, is_question=True, n=3):
     role = "question" if is_question else "answer"
     prompt = f"Generate {n} diverse paraphrases of the following {role}, preserving its meaning:\n\n\"{text}\"\n\n"
     messages = [
-        {"role": "system", "content": "You are a helpful assistant that generates diverse, high-quality paraphrases of questions and answers from manuals. Do not invent information, stay on topic, and vary structure and wording."},
+        {"role": "system", "content": 
+        """You are a helpful assistant that generates diverse, 
+        high-quality paraphrases of questions and answers from
+         manuals. Do not invent information, stay on topic, and
+          vary structure and wording."""},
         {"role": "user", "content": prompt}
     ]
     raw = safe_gpt_call(call_lm,messages)
