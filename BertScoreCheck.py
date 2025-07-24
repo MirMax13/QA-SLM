@@ -21,7 +21,9 @@ def calculate_average_bertscore(json_file_path):
         
         for item in data:
             if 'BERTScore' in item:
-                score = float(item['BERTScore'].strip('"'))
+                # Конвертуємо рядок у float (видаляємо лапки якщо є)
+                score_str = item['BERTScore'].strip('"')
+                score = float(score_str)
                 bert_scores.append(score)
         
         # Обраховуємо середнє значення
@@ -42,6 +44,7 @@ def calculate_average_bertscore(json_file_path):
         print(f"Виникла помилка: {e}")
         return None
 
+def detailed_bertscore_analysis(json_file_path):
     """
     Детальний аналіз BERTScore значень
     
@@ -75,10 +78,10 @@ def calculate_average_bertscore(json_file_path):
             poor = sum(1 for score in bert_scores if score < 0.85)
             
             print(f"\nРозподіл якості відповідей:")
-            print(f"Відмінно (≥0.95): {excellent} ({excellent/len(bert_scores)*100:.1f}%)")
-            print(f"Добре (0.90-0.94): {good} ({good/len(bert_scores)*100:.1f}%)")
-            print(f"Задовільно (0.85-0.89): {fair} ({fair/len(bert_scores)*100:.1f}%)")
-            print(f"Потребує покращення (<0.85): {poor} ({poor/len(bert_scores)*100:.1f}%)")
+            print(f"(≥0.95): {excellent} ({excellent/len(bert_scores)*100:.1f}%)")
+            print(f"(0.90-0.94): {good} ({good/len(bert_scores)*100:.1f}%)")
+            print(f"(0.85-0.89): {fair} ({fair/len(bert_scores)*100:.1f}%)")
+            print(f"(<0.85): {poor} ({poor/len(bert_scores)*100:.1f}%)")
             
         else:
             print("Не знайдено жодного BERTScore значення у файлі")
@@ -88,10 +91,17 @@ def calculate_average_bertscore(json_file_path):
 
 # Основна функція
 if __name__ == "__main__":
-    file_path = "chatgpt_1.3_new_gpt_val_pred.json"
+    # Шлях до вашого JSON файлу
+    file_path = "chatgpt_1.3_67mb_gpt_val_pred.json"
     
     # Простий розрахунок середнього
     average = calculate_average_bertscore(file_path)
     if average is not None:
         print(f"Середнє значення BERTScore: {average:.4f}")
-
+    
+    print("\n" + "="*50)
+    print("ДЕТАЛЬНИЙ АНАЛІЗ:")
+    print("="*50)
+    
+    # Детальний аналіз
+    detailed_bertscore_analysis(file_path)
