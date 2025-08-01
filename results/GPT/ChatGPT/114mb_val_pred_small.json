@@ -1,0 +1,74 @@
+[
+  {
+    "instruction": "What procedures should business users follow to dispose of items marked with the WEEE symbol?",
+    "expected": "It is important for business users to discuss disposal options with their supplier and refer to the purchase contract’s terms and conditions. WEEE directives require that electronic equipment and related accessories are not disposed of together with general commercial waste, ensuring regulatory compliance.",
+    "generated": "Business users should consult with their supplier and review the terms and conditions of the purchase contract regarding disposal. Under WEEE guidelines, electronic products and their accessories should not be mixed with other commercial waste. This ensures compliance with regulations concerning electronic waste.",
+    "BERTScore": "0.9400"
+  },
+  {
+    "instruction": "How should the appliance be transported and installed?",
+    "expected": "The appliance ought to be handled by multiple persons during relocation to prevent accidents. It should be installed on a firm, level surface, steering clear of humid, dusty, outdoor, or sunlit areas. These precautions are essential for maintaining its stability and proper performance.",
+    "generated": "The appliance should be plugged into a multi-socket adapter without an appropriate power cable. If a multi-socket adapter is used, it must be properly grounded and suitable for the appliance's power capacity.",
+    "BERTScore": "0.8610"
+  },
+  {
+    "instruction": "How does the WEEE label affect electronic products, and what information does it convey?",
+    "expected": "The WEEE symbol, representing Waste Electrical and Electronic Equipment, signifies that electronic devices and related accessories—including chargers, headsets, and USB cables—should not be thrown away with ordinary household garbage. This label helps ensure such items are disposed of separately, reducing risks to the environment and human health from improper waste management. Recycling these electronics supports the responsible reuse of valuable materials.",
+    "generated": "The purpose of the WEEE label is to mitigate environmental and health hazards from improper electronic disposal and to foster the environmentally friendly reuse and recycling of material resources.",
+    "BERTScore": "0.8867"
+  },
+  {
+    "instruction": "Where do consumers look to find the refrigerator's servicing manuals?",
+    "expected": "You can locate refrigerator servicing manuals on Samsung’s official website by going to the support page at http://samsung.com/support.",
+    "generated": "Refrigerator servicing manuals are available on the Samsung official site under the support area, which can be reached at http://samsung.com/support.",
+    "BERTScore": "0.9397"
+  },
+  {
+    "instruction": "What supervision requirements are specified for children around the appliance?",
+    "expected": "Ensuring children are under supervision prevents them from interacting with the appliance, thereby reducing the risk of accidents or damage and supporting safe operation at home.",
+    "generated": "Children must be closely supervised to ensure that they do not play with the appliance. This supervision helps prevent accidents or damage due to misuse, contributing to safer operation of the appliance in the household.",
+    "BERTScore": "0.9216"
+  },
+  {
+    "instruction": "What are the dimensional requirements for installing the refrigerator?",
+    "expected": "Proper installation of the refrigerator requires certain clearances to maintain its efficiency and safety. The recommended dimensions are 726 mm in depth, 912 mm in width, 1746 mm in height, and 1784 mm in total height. Furthermore, a clearance exceeding 50 mm is suggested, accommodating door swings at 165° and 170°, among other detailed measurements. These specifications ensure adequate airflow, accessibility, and overall usability.",
+    "generated": "To guarantee optimal performance and safety, the refrigerator must be installed with precise clearances: a depth of 726 mm, width of 912 mm, height of 1746 mm, and an overall height of 1784 mm. It is also advised to have at least 50 mm of extra space, allowing for door openings at 165° and 170°, along with other specified measurements. These dimensions ensure sufficient ventilation, ease of access, and proper operation.",
+    "BERTScore": "0.9428"
+  },
+  {
+    "instruction": "What is the meaning of the caution symbol in the safety guidelines?",
+    "expected": "The caution sign serves to alert you to risks or unsafe practices that might result in injury or property damage. It’s vital to heed these warnings to maintain safety and safeguard the appliance, thereby enhancing its longevity and performance.",
+    "generated": "The caution note highlights that the equipment’s 5 GHz WLAN feature must be used exclusively indoors. This limitation is essential to adhere to regulations and avoid interference, guaranteeing the device functions within the legal requirements established across all EU member states and the UK.",
+    "BERTScore": "0.8695"
+  },
+  {
+    "instruction": "How might animals interfere with the appliance, and what precautions should be implemented to protect it?",
+    "expected": "Prevent animals from nibbling on the power cable or water hose as this can cause damage and increase the risk of malfunctions.",
+    "generated": "To prevent damage and potential malfunctions, ensure that animals do not bite or chew on the power cable or water hose.",
+    "BERTScore": "0.9389"
+  },
+  {
+    "instruction": "How should cabbage, cauliflower, celery, cucumbers, and lettuce be stored?",
+    "expected": "Store these vegetables in the fridge for no more than a week; freezing is not recommended.",
+    "generated": "Store these vegetables in the fridge for no more than a week; freezing is not recommended.",
+    "BERTScore": "1.0000"
+  },
+  {
+    "instruction": "What type of water should be used to fill the water tank, ice tray, and water cubes in the appliance?",
+    "expected": "To ensure proper operation and prevent damage, only drinkable water—such as mineral or purified water—should be used to fill the water tank, ice tray, and water cubes. Avoid using beverages like tea, juice, or sports drinks, as they may harm the refrigerator parts.",
+    "generated": "Only potable water (mineral or purified water) should be used to fill the water tank, ice tray, and water cubes. This ensures the appliance functions properly and avoids potential damage. Using other liquids like tea, juice, or sports drink can cause harm to the refrigerator components.",
+    "BERTScore": "0.9425"
+  },
+  {
+    "instruction": "What environments are appropriate for this equipment?",
+    "expected": "The product is suitable for household use and other comparable environments, including staff kitchen areas in retail stores, workplaces, farms, hotels, motels, bed and breakfasts, and catering or similar non-commercial venues, making it adaptable to various contexts.",
+    "generated": "This device is designed for domestic and comparable environments, such as staff kitchens in retail stores, offices, workplaces, farmhouses, hotels, motels, B&Bs, and catering or similar non-commercial settings, providing flexibility across different situations.",
+    "BERTScore": "0.9458"
+  },
+  {
+    "instruction": "How can ambient temperature affect the refrigerator's performance?",
+    "expected": "The cooling performance and energy usage of a refrigerator depend on the environment’s temperature, how often the door is opened, and the unit’s location. If these conditions stray notably from the guidelines related to the refrigerator’s climate class, energy consumption may rise and cooling effectiveness may decline. To ensure the appliance works efficiently, it’s best to set the temperature correctly.",
+    "generated": "The cooling performance and energy usage of a refrigerator depend on the environment’s temperature, how often the door is opened, and the unit’s location. If these conditions stray notably from the guidelines related to the refrigerator’s climate class, energy consumption may rise and cooling effectiveness may decline. To ensure the appliance works efficiently, it’s best to set the temperature correctly.",
+    "BERTScore": "1.0000"
+  }
+]
