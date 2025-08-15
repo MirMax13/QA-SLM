@@ -1,6 +1,7 @@
 /venv
 /models
 /config/__pycache__
+/results/Semantic Research
 
 blocks.json
 token_stats.json
