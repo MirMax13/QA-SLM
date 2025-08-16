@@ -15,3 +15,7 @@ OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 USAGE_FILE = "api_usage.json"
 ORIG_INPUT_JSON = os.getenv('ORIG_INPUT_JSON')
 GENERATIVE = True
+
+NOUN_PATH = os.getenv('NOUN_PATH')
+VERB_PATH = os.getenv('VERB_PATH')
+ADJ_PATH = os.getenv('ADJ_PATH')
