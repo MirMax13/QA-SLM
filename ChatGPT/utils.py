@@ -5,7 +5,7 @@ import os
 import re
 import random
 from config.config import MODEL_NAME, MODEL_NAME_2, OPENAI_API_KEY, GENERATIVE
-openai.api_key = OPENAI_API_KEY
+# openai.api_key = OPENAI_API_KEY
 
 def safe_gpt_call(call_func, *args, **kwargs):
     for attempt in range(5):
@@ -15,8 +15,10 @@ def safe_gpt_call(call_func, *args, **kwargs):
                 openai.APIConnectionError,
                 openai.APITimeoutError,
                 openai.APIError) as e:
-            print(f"⏳ Rate limit hit, sleeping 20s (attempt {attempt+1})")
-            sleep(20)
+            sec = 5
+            print(f"⏳ Rate limit hit, sleeping {sec}s (attempt {attempt+1})")
+            print(f"❌ Error: {e}")
+            sleep(sec)
     switch_model()  # Switch model if rate limit is hit
     # raise RuntimeError("Rate limit hit too many times.")
     try:
