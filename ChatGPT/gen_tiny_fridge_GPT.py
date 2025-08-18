@@ -46,10 +46,12 @@ def generate_story(verb: str, noun: str, adj: str, feature: str, ending: str, te
             max_output_tokens=1100,
             # temperature=temperature,
         )
-        return response.choices[0].message.content.strip()
+        story = response.output_text.strip()
+        usage = response.usage.to_dict()
+        return story, usage
+    story, usage = safe_gpt_call(_call)
 
-    story = safe_gpt_call(_call)
-    return story, prompt
+    return story, usage
 
 def save_story(entry: dict, file_path: str = "stories.json"):
     """Append a generated story record to a JSON file (list of entries)."""
@@ -90,7 +92,7 @@ def main():
             print(f"  Feature: {random_feature}")
             print(f"  Ending: {random_ending}")
 
-            story, prompt = generate_story(random_verb, random_noun, random_adjective, random_feature, random_ending)
+            story, usage = generate_story(random_verb, random_noun, random_adjective, random_feature, random_ending)
             if story is None:
                 print("❌ Story generation failed, skipping.")
                 continue
@@ -99,7 +101,6 @@ def main():
 
             entry = {
                 "id": str(uuid.uuid4()),
-                "prompt": prompt,
                 "story": story,
                 "metadata": {
                     "verb": random_verb,
@@ -108,43 +109,12 @@ def main():
                     "feature": random_feature,
                     "ending": random_ending,
                     "model": MODEL_NAME,
-                    "timestamp": datetime.utcnow().isoformat()+"Z"
+                    "timestamp": datetime.utcnow().isoformat()+"Z",
+                    "usage": usage
                 }
             }
             save_story(entry)
             story_count += 1
-
-            cont = input("Generate another? (y/n / number): ").strip().lower()
-            if cont.isdigit():
-                batch = int(cont)
-                for _ in range(batch):
-                    random_noun = random.choice(nouns)
-                    random_verb = random.choice(verbs)
-                    random_adjective = random.choice(adjectives)
-                    random_feature = random.choice(features)
-                    random_ending = random.choices(endings, weights=[33, 33, 30, 4], k=1)[0]
-                    story, prompt = generate_story(random_verb, random_noun, random_adjective, random_feature, random_ending)
-                    if story is None:
-                        continue
-                    entry = {
-                        "id": str(uuid.uuid4()),
-                        "prompt": prompt,
-                        "story": story,
-                        "metadata": {
-                            "verb": random_verb,
-                            "noun": random_noun,
-                            "adjective": random_adjective,
-                            "feature": random_feature,
-                            "ending": random_ending,
-                            "model": MODEL_NAME,
-                            "timestamp": datetime.utcnow().isoformat()+"Z"
-                        }
-                    }
-                    save_story(entry)
-                    story_count += 1
-                continue  # ask again after batch
-            if cont != 'y':
-                break
     except KeyboardInterrupt:
         print("\n🛑 Interrupted by user.")
     print(f"✅ Finished. Total stories generated: {story_count}")
