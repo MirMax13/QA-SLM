@@ -18,15 +18,18 @@ def generate_story(verb: str, noun: str, adj: str, feature: str, ending: str, te
     prompt = (
         f"Write a short story (3-5 paragraphs) about a person and their smart fridge. "
         f"The story must use the verb '{verb}', noun '{noun}', and adjective '{adj}'. "
-        f"The story must include a {feature} and a {ending}. "
+        f"The story must naturally contain {feature} and end with a {ending}, "
+        "but do not mention these words directly."
         "Use only simple words that could appear in a refrigerator instruction manual. "
         "Avoid complex literary wording. Keep it clear, concrete, and practical. "
+        "Do not use labels like 'The moral:' or 'The foreshadowing:'. "
         "Return ONLY the story text (no explanations)."
     )
 
     system_msg = (
         "You are a helpful writing assistant that produces simple, clear training stories about a smart fridge. "
-        "Respect the lexical constraints. Maintain 3-5 short paragraphs separated by blank lines."
+        "Respect the lexical constraints. Maintain 3-5 short paragraphs separated by blank lines. "
+        "Do not use meta commentary or explicit labels; let features be shown through the story itself."
     )
 
     def _call():
