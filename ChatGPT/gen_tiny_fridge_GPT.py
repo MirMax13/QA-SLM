@@ -33,14 +33,18 @@ def generate_story(verb: str, noun: str, adj: str, feature: str, ending: str, te
     )
 
     def _call():
-        response = client.chat.completions.create(
+        response = client.responses.create(
             model=MODEL_NAME,
-            messages=[
+            input=[
                 {"role": "system", "content": system_msg},
                 {"role": "user", "content": prompt}
             ],
-            max_tokens=900,
-            temperature=temperature,
+            reasoning={
+                "effort": "minimal",
+                "summary": None,
+            },
+            max_output_tokens=1100,
+            # temperature=temperature,
         )
         return response.choices[0].message.content.strip()
 
