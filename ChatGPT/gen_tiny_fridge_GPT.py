@@ -50,21 +50,16 @@ def generate_story(verb: str, noun: str, adj: str, feature: str, ending: str, te
 def save_story(entry: dict, file_path: str = "stories.json"):
     """Append a generated story record to a JSON file (list of entries)."""
     if os.path.exists(file_path):
-        try:
-            with open(file_path, "r", encoding="utf-8") as f:
-                data = json.load(f)
-            if not isinstance(data, list):
-                print("⚠ stories.json corrupted (not list) — recreating.")
-                data = []
-        except Exception:
-            print("⚠ stories.json unreadable — recreating.")
-            data = []
+        with open(file_path, "a", encoding="utf-8") as file:
+            file.write(",\n")
+            file.write(json.dumps(entry, ensure_ascii=False, indent=2))
     else:
-        data = []
-    data.append(entry)
-    with open(file_path, "w", encoding="utf-8") as f:
-        json.dump(data, f, ensure_ascii=False, indent=2)
-    print(f"💾 Saved story {entry['id']} (total {len(data)})")
+        with open(file_path, "w", encoding="utf-8") as file:
+            file.write("[\n")
+            file.write(json.dumps(entry, ensure_ascii=False, indent=2))
+            # file.write("\n]")
+
+    print(f"💾 Saved story {entry['id']}")
 
 
 def main():
