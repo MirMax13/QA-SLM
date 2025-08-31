@@ -2,7 +2,9 @@
 /models
 /config/__pycache__
 /ChatGPT/__pycache__
+/datasets/ChatGPT/generative/stories.json
 /results/Semantic Research
+/filtered_tinystories
 
 blocks.json
 token_stats.json
