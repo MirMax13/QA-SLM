@@ -1,0 +1,22 @@
+[
+  {
+    "instruction": "Can the refrigerator be transported lying down?",
+    "response": "no"
+  },
+  {
+    "instruction": "Should the refrigerator only be connected to a grounded outlet?",
+    "response": "yes"
+  },
+  {
+    "instruction": "Can raw meat be stored on a shelf without a container?",
+    "response": "no"
+  },
+  {
+    "instruction": "Does PowerCool turn off automatically after a few hours?",
+    "response": "yes"
+  },
+  {
+    "instruction": "Can old hose-sets be reused for the water connection?",
+    "response": "no"
+  }
+]

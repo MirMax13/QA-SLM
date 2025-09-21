@@ -1,0 +1,22 @@
+[
+  {
+    "instruction": "The user placed raw meat in a container and put it in the fridge so _ would not contaminate other food. meat container",
+    "response": "meat"
+  },
+  {
+    "instruction": "The child opened the fridge door, although _ was heavy. child door",
+    "response": "door"
+  },
+  {
+    "instruction": "The technician checked the compressor because _ was noisy. technician compressor",
+    "response": "compressor"
+  },
+  {
+    "instruction": "The user put a bottle in the fridge door because _ was tall. bottle door",
+    "response": "bottle"
+  },
+  {
+    "instruction": "The mother gave the manual to the child so _ would know how to use the fridge. mother child",
+    "response": "child"
+  }
+]

@@ -1,0 +1,22 @@
+[
+  {
+    "instruction": "How should eggs be stored in the fridge – in the door or in a carton on a shelf?",
+    "response": "in a carton on a shelf"
+  },
+  {
+    "instruction": "What is the safe way to clean the fridge – unplug it first or wash inside with a water jet?",
+    "response": "unplug it first"
+  },
+  {
+    "instruction": "How can frost be avoided – by opening the door often or by ensuring proper ventilation and temperature?",
+    "response": "by ensuring proper ventilation and temperature"
+  },
+  {
+    "instruction": "What should be done when leaving the fridge unused for a long time – keep it running with doors closed or turn it off, clean it, and leave doors open?",
+    "response": "turn it off, clean it, and leave doors open"
+  },
+  {
+    "instruction": "What is the safe way to deal with a damaged power cord – replace it at a service center or wrap it with tape and keep using it?",
+    "response": "replace it at a service center"
+  }
+]
