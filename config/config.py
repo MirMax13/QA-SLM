@@ -5,7 +5,7 @@ load_dotenv()
 
 # Змінні конфігурації
 PDF_PATH = os.getenv('PDF_PATH')
-MODEL_NAME = os.getenv('MODEL_NAME_V2')
+# MODEL_NAME = os.getenv('MODEL_NAME_V2')
 MODEL_NAME_2 = os.getenv('MODEL_NAME_V2.2')
 OUTPUT_JSON = os.getenv('OUTPUT_JSON')
 OUTPUT_JSON_CLEANED = os.getenv('OUTPUT_JSON_CLEANED')
@@ -19,3 +19,8 @@ GENERATIVE = True
 NOUN_PATH = os.getenv('NOUN_PATH')
 VERB_PATH = os.getenv('VERB_PATH')
 ADJ_PATH = os.getenv('ADJ_PATH')
+
+LM_API_URL = os.getenv('LM_API_URL')
+HEADERS = {"Content-Type": "application/json"}
+MODEL_NAME = os.getenv('MODEL_NAME')
+INSTRUCTION_PATH = os.getenv('INSTRUCTION_PATH')
