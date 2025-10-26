@@ -1,0 +1,833 @@
+🔹 Блок 1 (100 слів):
+------------------------------------------------------------
+Simple user manual
+•	For detailed instructions on installation and cleaning of the appliances, visit the Samsung website 
+(http://www.samsung.com), go to Support > Support home, and then enter the model name.
+•	To check the product’s model name, see the label enclosed with the product or attached to the 
+product.
+•	Open a QR code scanner app and scan the QR code image attached to the product. You can access 
+‘Product registration’, ‘Manual’, and ‘Customer support’.
+•	Figures and illustrations are provided for reference only and may differ from the actual product 
+appearance. Product design and specifications may change without notice.
+------------------------------------------------------------
+
+🔹 Блок 2 (50 слів):
+------------------------------------------------------------
+Safety information
+•	Congratulations on your new Samsung appliances. This manual contains important information on the installation, use, and 
+care of your appliances. Read this manual thoroughly before using the appliances to ensure that you know how to safely and 
+efficiently operate the features and functions that your new appliances offers.
+------------------------------------------------------------
+
+🔹 Блок 3 (77 слів):
+------------------------------------------------------------
+Safety information
+Important safety symbols
+What the icons and signs in this user manual mean:
+WARNING
+Hazards or unsafe practices that may result in severe personal injury, death and/or property damage.
+CAUTION
+Hazards or unsafe practices that may result in personal injury and/or property damage.
+Read the instructions
+After reading this manual, store it in a safe place for future reference.
+Read all instructions before using the appliance.
+NOTE
+Supplementary information that may be useful
+------------------------------------------------------------
+
+🔹 Блок 4 (18 слів):
+------------------------------------------------------------
+Safety information
+WARNING
+Failure to follow the instructions may result in electric shock, injury, fire, 
+breakdown or explosion.
+------------------------------------------------------------
+
+🔹 Блок 5 (224 слів):
+------------------------------------------------------------
+Safety information
+Important safety precautions
+WARNING; Risk of fire / flammable materials
+1.	 This appliance is not intended for use by persons (including children) with 
+reduced physical, sensory or mental capabilities, or lack of experience 
+and knowledge, unless they have been given supervision or instruction 
+concerning use of the appliance by a person responsible for their safety. 
+2.	 For use in Europe : This appliance can be used by children aged from 
+8 years and above and persons with reduced physical, sensory or mental 
+capabilities or lack of experience and knowledge if they have been given 
+supervision or instruction concerning use of the appliance in a safe way 
+and understand the hazards involved. Children shall not play with the 
+appliance. Cleaning and user maintenance shall not be made by children 
+without supervision. Children aged from 3 to 8 years are allowed to load 
+and unload refrigerating appliances.
+3.	 Children should be supervised to ensure that they do not play with the 
+appliance.
+4.	 If the supply cord is damaged, it must be replaced by the manufacturer, its 
+service agent or similarly qualified persons in order to avoid a hazard.
+5.	 This appliance contains a small amount of combustible refrigerant 
+isobutane (R-600a). For installation, handling, servicing and disposal of the 
+appliance, care should be taken to ensure that no parts of the refrigerating 
+circuit are damaged.
+------------------------------------------------------------
+
+🔹 Блок 6 (76 слів):
+------------------------------------------------------------
+Safety information
+Important safety precautions
+WARNING; Risk of fire / flammable materials
+6.	 R-600a or R-134a is used as a refrigerant. Check the compressor label 
+on the rear of the appliance or the rating label inside the fridge to see 
+which refrigerant is used for your appliance. When this product contains 
+flammable gas (Refrigerant R-600a), contact your local authority in regard 
+to safe disposal of this product.
+7.	 Do not damage the refrigerant circuit.
+------------------------------------------------------------
+
+🔹 Блок 7 (148 слів):
+------------------------------------------------------------
+Safety information
+Important safety precautions
+WARNING; Risk of fire / flammable materials
+8.	 To avoid the creation of a flammable gas-air mixture if a leak in the 
+refrigerating circuit occurs, the room size must be 1 m3 in size for every 
+8 g of R-600a refrigerant inside the appliance. And, unplug the appliance 
+showing any signs of damage and please consult to your dealer if in doubt.
+9.	 Cyclopentane is used in the insulation. The gases in the insulation material 
+require a special disposal procedure. Please contact your local authorities 
+for environmentally safe disposal.
+10.	The socket must be easily accessible so that the appliance can be quickly 
+disconnected from the supply in an emergency.
+11.	 When positioning the appliance, ensure the supply cord is not trapped or 
+damaged.
+12.	 Do not locate multiple portable socket-outlets or portable power supplies 
+at the rear of the appliance.
+------------------------------------------------------------
+
+🔹 Блок 8 (116 слів):
+------------------------------------------------------------
+Safety information
+Important safety precautions
+13.	 This appliance is intended to be used in household and similar applications 
+such as
+	- staff kitchen areas in shops, offices and other working environments;
+	- farm houses and by clients in hotels, motels and other residential type 
+environments;
+	- bed and breakfast type environments;
+	- catering and similar non-retail applications.
+14.	Keep ventilation openings, in the appliance enclosure or in the builtin 
+structure, clear of obstruction.
+15.	 Do not use mechanical devices or any other means to accelerate the 
+defrosting process, other than those recommended by the manufacturer.
+16.	Do not use electrical appliances inside the food storage compartments 
+of the appliance, unless they are of the type recommended by the 
+manufacturer.
+------------------------------------------------------------
+
+🔹 Блок 9 (90 слів):
+------------------------------------------------------------
+Safety information
+Important safety precautions
+WARNING; Risk of fire / flammable materials
+17.	 Do not keep volatile or flammable objects or substances in the refrigerator.
+	- This refrigerator is for storing food only. 
+	- This may result in fire or explosion.
+18.	Do not store explosive substances such as aerosol cans with a flammable 
+propellant in this appliance.
+19.	 For the most efficient use of energy, please keep the all inner fittings such 
+as baskets, drawers, shelves on the position supplied by manufacturer.
+20.	Connect to potable water supply only. (applicable models only)
+------------------------------------------------------------
+
+🔹 Блок 10 (48 слів):
+------------------------------------------------------------
+Safety information
+Important safety precautions
+21. Fill with potable water only. (applicable models only)
+	- Fill the water tank, ice tray and water cubes only with potable water 
+(mineral water or purified water).
+	- Do not fill the tank with tea, juice or sports drink, this may damage the 
+refrigerator.
+------------------------------------------------------------
+
+🔹 Блок 11 (73 слів):
+------------------------------------------------------------
+Safety information
+Important safety precautions
+22.	New hose-sets supplied with the appliance are to be used and old hose-
+sets should not be reused.
+23.	Please connect to the potable water supply only. Water pressure of 206-861 
+kPa(30-125 psi) is required for the correct operation.
+24.	If the product is equipped with LED lamps, please contact a local Samsung 
+service centre or it's agents to replace the lamps.
+------------------------------------------------------------
+
+🔹 Блок 12 (136 слів):
+------------------------------------------------------------
+Safety information
+Important safety precautions
+25.	To avoid contamination of food, please respect the following instructions:
+	- Opening the door for long periods can cause a significant increase of the 
+temperature in the compartments of the appliance.
+	- Clean water tanks if they have not been used for 48 h; flush the water 
+system connected to a water supply if water has not been drawn for 5 
+days.
+	- Store raw meat and fish in suitable containers in the refrigerator, so that 
+it is not in contact with or drip onto other food.
+	- Two-star frozen-food compartments are suitable for storing prefrozen 
+food, storing or making icecream and making ice cubes.
+	- If the refrigerating appliance is left empty for long periods, switch 
+off, defrost, clean, dry, and leave the door open to prevent mould 
+developing within the appliance.
+------------------------------------------------------------
+
+🔹 Блок 13 (29 слів):
+------------------------------------------------------------
+Safety information
+Important safety precautions
+26.	The temperature of two star section (sections) or compartment 
+(compartments) which have two star symbol is slightly higher than 
+other freezer compartment (compartments).
+------------------------------------------------------------
+
+🔹 Блок 14 (68 слів):
+------------------------------------------------------------
+Safety information
+Installation
+• This appliance should only be transported by two or more
+people holding the appliance securely.
+• Install the appliance on a firm and level floor
+• Do not install the appliance in a damp and dusty place. Do not 
+install or store the appliance in any outdoor area, or any area 
+that is subject to weathering conditions such as direct sunlight, 
+wind, rain, or temperatures below freezing.
+
+------------------------------------------------------------
+
+🔹 Блок 15 (68 слів):
+------------------------------------------------------------
+Safety information
+Installation
+• Do not place the appliance in direct sunlight or expose it to the 
+heat from heating appliances such as stoves or heaters.
+• Be careful not to expose the rear of the appliance when
+installing.
+• Install the appliance in a place where it is easy to unplug the
+power plug of the appliance.
+• Be careful not to let the appliance door fall during assembly or
+disassembly.
+------------------------------------------------------------
+
+🔹 Блок 16 (61 слів):
+------------------------------------------------------------
+Safety information
+Installation
+• Be careful not to pinch, crush, or damage the power cable 
+during assembly or disassembly of the appliance door.
+• Be careful not to point the power plug up or let the appliance
+lean against the power plug.
+• Do not connect a plug adapter or other accessories to the power
+plug.
+• Do not modify or extend the power cable.
+------------------------------------------------------------
+
+🔹 Блок 17 (41 слів):
+------------------------------------------------------------
+Safety information
+Installation
+• Ensure that the outlet socket is properly grounded, and that the 
+earth pin on the power cord is not damaged or removed from 
+the power plug. For more details on grounding, inquire at the Samsung Electronics service centre
+------------------------------------------------------------
+
+🔹 Блок 18 (61 слів):
+------------------------------------------------------------
+Safety information
+Installation
+• This appliance is equipped with a power cord having an 
+equipment-grounding conductor and a grounding power plug.
+The power plug must be plugged into an appropriate outlet 
+socket that is installed and grounded in accordance with all 
+local codes and ordinances
+• Never start up an appliance showing any signs of damage. If in
+doubt, consult your dealer.
+------------------------------------------------------------
+
+🔹 Блок 19 (70 слів):
+------------------------------------------------------------
+Safety information
+Installation
+• Do not plug the appliance into a multi-socket adapter which 
+does not have a power cable (mounted).
+• Do not use a multi-socket outlet which is not properly grounded 
+(portable). In case of using a properly-grounded multi-socket 
+(portable), use the multi-socket outlet with the current capacity 
+of the power cord rating or higher and use the multi-socket 
+outlet only for the appliance.
+------------------------------------------------------------
+
+🔹 Блок 20 (23 слів):
+------------------------------------------------------------
+Safety information
+Installation
+• Dispose of all packaging materials (such as plastic bags and 
+styrofoam) away from children. The packaging materials can 
+cause suffocation.
+------------------------------------------------------------
+
+🔹 Блок 21 (94 слів):
+------------------------------------------------------------
+Safety information
+Operation
+CAUTION
+To reduce the risk of minor injury to persons, malfunction, or
+damage to the product or property when using this product, follow
+basic precaution, including the following:
+• Be careful of nearby children when you open or close the 
+appliance door, The door may bump the child and cause injury.
+• Avoid the danger of children getting trapped inside the 
+appliance. A child trapped inside the appliance can cause 
+suffocation. Do not touch frozen food or the metal parts in the 
+freezer compartment with wet or damp hands. It may cause 
+frostbite.
+------------------------------------------------------------
+
+🔹 Блок 22 (105 слів):
+------------------------------------------------------------
+Safety information
+Operation
+CAUTION
+To reduce the risk of minor injury to persons, malfunction, or
+damage to the product or property when using this product, follow
+basic precaution, including the following:
+• Do not place glass containers, bottles or cans (especially those 
+containing carbonated drinks) in the freezer compartment, 
+shelves or ice bin that will be exposed to temperatures below 
+freezing.
+• The tempered glass on the front side of the appliance door or 
+the selves can be damaged by an impact. If it is broken. Do not 
+touch it with hands.
+• Do not hang from the appliance doors, storage room, shelf or
+climb up into it.
+------------------------------------------------------------
+
+🔹 Блок 23 (82 слів):
+------------------------------------------------------------
+Safety information
+Operation
+CAUTION
+To reduce the risk of minor injury to persons, malfunction, or
+damage to the product or property when using this product, follow
+basic precaution, including the following:
+• Do not store an excessive amount of water bottles or containers
+for side dishes on the door baskets.
+• Do not open or close the appliance door with excessive force.
+• If the hinge of the appliance door is damaged or operates
+improperly, stop using the appliance and contact an authorized
+service centre.
+------------------------------------------------------------
+
+🔹 Блок 24 (78 слів):
+------------------------------------------------------------
+Safety information
+Operation
+CAUTION
+To reduce the risk of minor injury to persons, malfunction, or
+damage to the product or property when using this product, follow
+basic precaution, including the following:
+• Prevent animals from nibbling on the power cable or water
+hose.
+• Never eat frozen foods immediately after they have been taken
+out in the freezer compartment.
+• Make sure not to get a hand or foot stuck upon opening or
+closing the appliance door or door in door.
+------------------------------------------------------------
+
+🔹 Блок 25 (66 слів):
+------------------------------------------------------------
+Safety information
+Maintenance
+• Do not clean glass shelves or covers with warm water when they
+are cold. They my shatter if exposed to sudden temperature
+changes.
+• Do not insert the shelves upside down. The shelves may fall.
+• To remove frost from the appliance, contact the Samsung
+Electronics service centre.
+• Dispose of the ice inside the ice bin in the freezer compartment
+during an extended power outage.
+------------------------------------------------------------
+
+🔹 Блок 26 (75 слів):
+------------------------------------------------------------
+Safety information
+Declaration of conformity
+Hereby, Samsung declares that this radio equipment is in compliance with Directive 2014/53/EU and with the relevant statutory requirements 
+in the UK.
+The full text of the EU declaration of conformity and the UK declaration of conformity is available at the following internet address: The official 
+Declaration of conformity may be found at http://www.samsung.com, go to Support > Search Product Support and enter the model name.
+------------------------------------------------------------
+
+🔹 Блок 27 (103 слів):
+------------------------------------------------------------
+Safety information
+Declaration of conformity
+CAUTION (Applicable to Family Hub type only)
+The 5 GHz WLAN function of this equipment may only be operated indoors. This equipment may be operated in all EU countries and in the UK.
+Technical Specifications:
+Wi-Fi:
+
+Frequency range 2412-2472 MHz with maximum transmitter power of 20 dBm
+Frequency range 5120-5250 MHz with maximum transmitter power of 23 dBm
+Frequency range 5250-5350 MHz with maximum transmitter power of 20 dBm
+Frequency range 5470-5725 MHz with maximum transmitter power of 27 dBm
+
+Bluetooth:
+
+Frequency range 2402-2480 MHz with maximum transmitter power of 20 dBm
+------------------------------------------------------------
+
+🔹 Блок 28 (107 слів):
+------------------------------------------------------------
+Installation
+Refrigerator at a glance
+The actual refrigerator and provided component parts of your refrigerator may differ from the illustrations in this manual, depending on the 
+model and the country.
+Two Main Configuration Types:
+The refrigerator comes in two main internal layout configurations:
+Type A: Features a side-by-side design with the freezer compartment on the left and the refrigerator compartment on the right. Both doors open outward, revealing multiple shelves, bins, and storage drawers arranged vertically within each section.
+Type B: Also features a side-by-side design with similar door configuration, but with a different internal shelf and bin arrangement compared to Type A.
+------------------------------------------------------------
+
+🔹 Блок 29 (214 слів):
+------------------------------------------------------------
+Installation
+Refrigerator at a glance
+Parts of freezer
+Component Parts and Features:
+
+01 - Freezer shelves: Storage shelves located in the freezer compartment
+02 - Multipurpose freezer bin: Versatile storage bin in the freezer section
+03 - Dried food and meat storage drawer: Specialized drawer for storing dried foods and meat products
+04 - Fridge bin: Storage bin in the refrigerator compartment
+05 - Fridge shelves: Multiple shelves in the refrigerator section for organizing food items
+06 - Vegetable drawer: Dedicated drawer for storing vegetables and produce
+07 - Multipurpose drawer: Flexible storage drawer for various items
+08 - Ice maker bucket: Container for collecting ice (dispenser models only)**
+09 - Water tank: Internal water storage tank (applicable models only)*
+10 - Wine rack: Specialized rack for storing wine bottles (applicable models only)*
+11 - Lower freezer bin: Storage bin at the bottom of the freezer compartment (applicable models only)*
+12 - Lower fridge bin: Storage bin at the bottom of the refrigerator compartment (applicable models only)*
+13 - Auto Ice Maker: Automatic ice-making system (applicable models only)*
+14 - Switch Cover: Cover for control switches (applicable models only)*
+Notes:
+A. Freezer section indicated in the diagram
+Applicable models only (feature availability varies by model)
+** Dispenser models only (specific to models with water/ice dispensers)
+The design of the egg container may differ depending on the model
+------------------------------------------------------------
+
+🔹 Блок 30 (38 слів):
+------------------------------------------------------------
+Installation
+Refrigerator at a glance
+CAUTION
+For normal models, do not change the position of the freezer shelves. Freezer shelves have different lengths, and if you change the position, 
+you may damage the product when closing the door.
+------------------------------------------------------------
+
+🔹 Блок 31 (170 слів):
+------------------------------------------------------------
+Installation
+Clearance - Installation Space Requirements
+Overall Dimensions:
+
+Depth "A": 726 mm
+Width "B": 912 mm
+Height "C": 1746 mm
+Overall Height "D": 1784 mm
+
+Installation Clearances and Measurements:
+
+01: More than 50 mm recommended (clearance above the appliance)
+02: 165° (door opening angle)
+03: 170° (door opening angle)
+04: 564 mm (dimension related to door opening space)
+05: 1730 mm (side clearance measurement)
+06: 620 mm (depth clearance when door is open)
+07: 912 mm (width measurement)
+08: 30 mm without handle (clearance at the front)
+09: 1175 mm (clearance measurement)
+
+Installation Notes:
+The diagrams show the refrigerator's dimensions and the space required for proper door opening and ventilation. A minimum clearance of 50 mm is recommended above the appliance. The door requires adequate space to open fully, with opening angles of 165° and 170° indicated. Ensure sufficient depth clearance (620 mm) when the door is fully opened.
+NOTE
+The measurements in the table above may differ slightly from the actual measurements, depending on the measuring and rounding method.
+------------------------------------------------------------
+
+🔹 Блок 32 (53 слів):
+------------------------------------------------------------
+Maintenance
+Cleaning
+Interior and exterior
+WARNING
+• Do not use benzene, thinner, vinegar, liquid bleach, baking soda, 
+citric, salt mixtures or home/car detergent such as Clorox™ 
+for cleaning purposes. They may damage the surface of the 
+refrigerator and cause a fire.
+• Do not spray water onto the refrigerator. This may cause electric
+shock.
+------------------------------------------------------------
+
+🔹 Блок 33 (71 слів):
+------------------------------------------------------------
+Maintenance
+Cleaning
+Interior and exterior
+Regularly use a dry cloth to remove all foreign substances such as 
+dust or water from the power plug terminals and contact points.
+1.   Unplug the power cord.
+2.	 Use a moistened, soft, lint-free cloth or paper towel to clean the 
+refrigerator’s interior and exterior.
+3.	 When done, use a dry cloth or paper towel to dry well.
+4.	 Plug in the power cord.
+------------------------------------------------------------
+
+🔹 Блок 34 (37 слів):
+------------------------------------------------------------
+Maintenance
+Cleaning
+LED Lamps
+To replace the lamps of the refrigerator, contact a local Samsung
+service centre.
+WARNING
+The lamps are not user-serviceable. Do not attempt to replace a 
+lamp yourself. This can cause electric shock.
+------------------------------------------------------------
+
+🔹 Блок 35 (101 слів):
+------------------------------------------------------------
+Maintenance
+Cleaning
+Lamp (Light Source)
+This product contains a light source of energy efficiency class <G>.
+The lamp(s) and/or control gear(s) are not user-serviceable. To 
+replace the lamp(s) and/or control gear(s) in the product, contact a 
+local Samsung service centre.
+For detailed instructions on replacing lamp(s) or control gear(s) in 
+your product, visit the Samsung website (http://www.samsung.com),
+go to Support > Support home, and then enter the model 
+name.
+For detailed instructions on dismantling lamp(s) and/or control 
+gear(s), simply follow the replacement instruction reached as 
+described above.
+------------------------------------------------------------
+
+🔹 Блок 36 (17 слів):
+------------------------------------------------------------
+Appendix
+Safety Instruction
+This refrigerating appliance is not intended to be used as a
+built-in appliance.
+------------------------------------------------------------
+
+🔹 Блок 37 (46 слів):
+------------------------------------------------------------
+Appendix
+Information for model and ordering spare
+parts
+Model information
+To access energy labelling information about this product on the
+European Product Registry for Energy Labelling (EPREL), scan QRCode on the energy label.
+You can find QR-Code on the energy label in your product box
+------------------------------------------------------------
+
+🔹 Блок 38 (50 слів):
+------------------------------------------------------------
+Appendix
+Information for model and ordering spare
+parts
+Part information
+The minimum period during which spare parts, necessary for 
+the repair of the appliance, are available 
+	- 7 Years thermostats, temperature sensors, printed circuit 
+boards and light sources, door handles, door hinges, trays, 
+baskets (boxes or drawers) 
+	- 10 Years door gaskets
+
+------------------------------------------------------------
+
+🔹 Блок 39 (67 слів):
+------------------------------------------------------------
+Appendix
+Information for model and ordering spare
+parts
+Part information
+• The minimum duration of the guarantee of the refrigerating 
+appliance offered by the manufacturer 24 Months.
+• Relevant information for ordering spare parts, directly or 
+through other channels provided by the manufacturer, importer 
+or authorized representative
+• You can find professional repair information on http://samsung.
+com/support.
+• You can find user servicing manual on http://samsung.com/
+support.
+------------------------------------------------------------
+
+🔹 Блок 40 (64 слів):
+------------------------------------------------------------
+Appendix
+Install Instruction
+For refrigerating appliances with climate class
+• Depending on the climate class, this refrigerating appliance is 
+intended to be used at ambient temperatures range as specified 
+following table.
+• The climate class can be found on the rating plate. The product
+may not operate properly at temperatures outside of the
+specific range.
+• You can find climate class on label inside of your refrigerator
+------------------------------------------------------------
+
+🔹 Блок 41 (151 слів):
+------------------------------------------------------------
+Appendix
+Install Instruction
+Effective Temperature Range
+The refrigerator is designed to operate normally in the temperature range specified by its class rating.
+Climate Class Ratings and Ambient Temperature Ranges:
+
+Extended Temperate (SN): Operates in ambient temperatures from +10°C to +32°C according to both IEC 62552 (ISO 15502) and ISO 8561 standards
+Temperate (N): Operates in ambient temperatures from +16°C to +32°C according to both IEC 62552 (ISO 15502) and ISO 8561 standards
+Subtropical (ST): Operates in ambient temperatures from +16°C to +38°C according to IEC 62552 (ISO 15502), and from +18°C to +38°C according to ISO 8561
+Tropical (T): Operates in ambient temperatures from +16°C to +43°C according to IEC 62552 (ISO 15502), and from +18°C to +43°C according to ISO 8561
+
+The climate class symbol indicates the range of room temperatures in which the refrigerator can operate effectively.
+------------------------------------------------------------
+
+🔹 Блок 42 (41 слів):
+------------------------------------------------------------
+Appendix
+Install Instruction
+Effective Temperature Range
+NOTE
+The cooling performance and power consumption of the refrigerator may be affected by the ambient temperature, the door-opening 
+frequency, and the location of the refrigerator. We recommend adjusting the temperature settings as appropriate.
+------------------------------------------------------------
+
+🔹 Блок 43 (43 слів):
+------------------------------------------------------------
+Appendix
+Temperature Instruction
+Recommended Temperature
+The optimal temperature setting for food storage:
+• Fridge: 3 °C
+• Freezer: -19 °C
+NOTE
+The optimal temperature setting of each compartment depends on the ambient temperature. Above optimal temperature is based on the 
+ambient temperature of 25 °C.
+------------------------------------------------------------
+
+🔹 Блок 44 (36 слів):
+------------------------------------------------------------
+Appendix
+Temperature Instruction
+Power Cool
+Power Cool speeds up the cooling process at maximum fan speed. The fridge keeps running at full speed for two and a half hours and then 
+returns to the previous temperature.
+------------------------------------------------------------
+
+🔹 Блок 45 (53 слів):
+------------------------------------------------------------
+Appendix
+Temperature Instruction
+Power Freeze
+Power Freeze speeds up the freezing process at maximum fan speed. The freezer keeps running at full speed for 50 hours and then returns to 
+the previous temperature. To freeze large amounts of food, activate Power Freeze for at least 20 hours before putting food in the freezer.
+------------------------------------------------------------
+
+🔹 Блок 46 (40 слів):
+------------------------------------------------------------
+Appendix
+Temperature Instruction
+Power Freeze
+NOTE
+When you use function Power Freeze the energy consumption of the refrigerator will increase. Remember to turn it off when you don’t need it and return 
+the freezer to your original temperature setting.
+------------------------------------------------------------
+
+🔹 Блок 47 (71 слів):
+------------------------------------------------------------
+Appendix
+Temperature Instruction
+How to store for best preservation (applicable models only)
+Cover foods to retain moisture and prevent them from picking up odors from other foods. A large pot of food like soup or stew should be divided 
+into small portions and put in shallow containers before being refrigerated. A large cut of meat or whole poultry should be divided into smaller 
+pieces or placed in shallow containers before refrigerating.
+------------------------------------------------------------
+
+🔹 Блок 48 (83 слів):
+------------------------------------------------------------
+Appendix
+Temperature Instruction
+How to store for best preservation (applicable models only)
+Placement of Food
+Shelves
+Shelves should be adjustable to accommodate a variety of packages.
+Specialized compartment
+(applicable models only)
+Sealed crisper drawers provide an optimal storage environment for fruits and vegetables. 
+Vegetables require higher humidity conditions while fruits require lower humidity conditions.
+Crispers are equipped with controls devices to control the humidity level. (*Depending on model 
+and options) An adjustable temperature meat drawer maximizes the storage time of meats and 
+cheeses.
+------------------------------------------------------------
+
+🔹 Блок 49 (54 слів):
+------------------------------------------------------------
+Appendix
+Temperature Instruction
+How to store for best preservation (applicable models only)
+Placement of Food
+Stored on the door
+Don’t store perishable foods in the door. Eggs should be stored in the carton on a shelf. The 
+temperature of the storage bins in the door fluctuate more than the temperature in the cabinet.
+------------------------------------------------------------
+
+🔹 Блок 50 (33 слів):
+------------------------------------------------------------
+Appendix
+Temperature Instruction
+How to store for best preservation (applicable models only)
+Placement of Food
+Freezer Compartment
+You can store frozen food, make ice cubes and freeze fresh food in the freezer compartment.
+------------------------------------------------------------
+
+🔹 Блок 51 (46 слів):
+------------------------------------------------------------
+Appendix
+Temperature Instruction
+How to store for best preservation (applicable models only)
+NOTE
+Freeze fresh, undamaged food only. Keep food which is to be frozen away from food which is already frozen. To prevent food from losing its 
+flavour or drying out, place in airtight containers.
+------------------------------------------------------------
+
+🔹 Блок 52 (84 слів):
+------------------------------------------------------------
+Appendix
+Temperature Instruction
+How to store for best preservation (applicable models only)
+Placement of Food
+Refrigerator & Freezer Storage Chart
+The freshness longevity depends on temperature and exposure to moisture. Since product dates aren’t a guide for safe use of a product, 
+consult this chart and follow these tips.
+Storage Guidelines by Product Category:
+Milk Products:
+Milk: 1 week in refrigerator, 1 month in freezer
+Butter: 2 weeks in refrigerator, 12 months in freezer
+Cream cheese: 2 weeks in refrigerator, not recommended for freezer
+
+------------------------------------------------------------
+
+🔹 Блок 53 (85 слів):
+------------------------------------------------------------
+Appendix
+Temperature Instruction
+How to store for best preservation (applicable models only)
+Placement of Food
+Refrigerator & Freezer Storage Chart
+The freshness longevity depends on temperature and exposure to moisture. Since product dates aren’t a guide for safe use of a product, 
+consult this chart and follow these tips.
+Storage Guidelines by Product Category:
+Meat:
+Fresh roasts, steaks, chops: 3-4 days in refrigerator, 2-3 months in freezer
+Sausage, raw from pork, beef, turkey: 1-2 days in refrigerator, 1-2 months in freezer
+------------------------------------------------------------
+
+🔹 Блок 54 (80 слів):
+------------------------------------------------------------
+Appendix
+Temperature Instruction
+How to store for best preservation (applicable models only)
+Placement of Food
+Refrigerator & Freezer Storage Chart
+The freshness longevity depends on temperature and exposure to moisture. Since product dates aren’t a guide for safe use of a product, 
+consult this chart and follow these tips.
+Storage Guidelines by Product Category:
+Poultry / Eggs:
+Fresh poultry: 2 days in refrigerator, 6-8 months in freezer
+Eggs, fresh in shell: 2-4 weeks in refrigerator, not recommended for freezer
+
+------------------------------------------------------------
+
+🔹 Блок 55 (80 слів):
+------------------------------------------------------------
+Appendix
+Temperature Instruction
+How to store for best preservation (applicable models only)
+Placement of Food
+Refrigerator & Freezer Storage Chart
+The freshness longevity depends on temperature and exposure to moisture. Since product dates aren’t a guide for safe use of a product, 
+consult this chart and follow these tips.
+Storage Guidelines by Product Category:
+
+Fish / Seafood:
+Fresh fish: 1-2 days in refrigerator, 3-6 months in freezer
+Dried or pickled fish: 3-4 weeks in refrigerator, freezing not specified
+
+------------------------------------------------------------
+
+🔹 Блок 56 (76 слів):
+------------------------------------------------------------
+Appendix
+Temperature Instruction
+How to store for best preservation (applicable models only)
+Placement of Food
+Refrigerator & Freezer Storage Chart
+The freshness longevity depends on temperature and exposure to moisture. Since product dates aren’t a guide for safe use of a product, 
+consult this chart and follow these tips.
+Storage Guidelines by Product Category:
+
+Fruits:
+Apples: 1 month in refrigerator, freezing not specified
+Other fresh fruit: 3-5 days in refrigerator, 9-12 months in freezer
+
+------------------------------------------------------------
+
+🔹 Блок 57 (100 слів):
+------------------------------------------------------------
+Appendix
+Temperature Instruction
+How to store for best preservation (applicable models only)
+Placement of Food
+Refrigerator & Freezer Storage Chart
+The freshness longevity depends on temperature and exposure to moisture. Since product dates aren’t a guide for safe use of a product, 
+consult this chart and follow these tips.
+Storage Guidelines by Product Category:
+
+Vegetables:
+Asparagus: 2-3 days in refrigerator, freezing not specified
+Broccoli, Brussels sprouts, green peas, mushrooms: 3-5 days in refrigerator, freezing not specified
+Cabbage, cauliflower, celery, cucumbers, lettuce: 1 week in refrigerator, freezing not specified
+Carrots, beets, radishes: 2 weeks in refrigerator, freezing not specified
+
+------------------------------------------------------------
+
+🔹 Блок 58 (195 слів):
+------------------------------------------------------------
+Appendix
+Instructions about the WEEE
+Correct Disposal of This Product (Waste Electrical & Electronic Equipment)
+(Applicable in countries with separate collection systems)
+This marking on the product, accessories or literature indicates that the product and its electronic accessories (e.g. 
+charger, headset, USB cable) should not be disposed of with other household waste at the end of their working life. 
+To prevent possible harm to the environment or human health from uncontrolled waste disposal, please separate 
+these items from other types of waste and recycle them responsibly to promote the sustainable reuse of material 
+resources.
+Household users should contact either the retailer where they purchased this product, or their local government 
+office, for details of where and how they can take these items for environmentally safe recycling.
+Business users should contact their supplier and check the terms and conditions of the purchase contract. This 
+product and its electronic accessories should not be mixed with other commercial wastes for disposal.
+For information on Samsung’s environmental commitments and product regulatory obligations, e.g. REACH, WEEE or Batteries, visit our 
+sustainability page available via www.samsung.com
+(For products sold in European countries and in the UK only)
+------------------------------------------------------------
