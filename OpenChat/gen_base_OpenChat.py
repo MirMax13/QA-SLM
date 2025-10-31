@@ -1,12 +1,10 @@
 import fitz  # PyMuPDF
-import requests
 import json
 import re
 from time import sleep
 from dotenv import load_dotenv
 import os
 
-from transformers import AutoTokenizer
 load_dotenv()
 
 PDF_PATH = os.getenv('PDF_PATH')
@@ -21,23 +19,7 @@ INSTRUCTION_PATH = os.getenv('INSTRUCTION_PATH')
 # 2*1*1*300 + 2*5*5*300 = 15600
 # 3*1*1*300 + 3*5*3*512 = 23940
 
-def num_tokens(text):
-    tokenizer = AutoTokenizer.from_pretrained("openchat/openchat-3.6-8b-20240522", trust_remote_code=True)
-    return len(tokenizer.encode(text))
-def call_lm(messages, temperature=0.7, max_tokens=300):
-    payload = {
-        "model": MODEL_NAME,
-        "messages": messages,
-        "temperature": temperature,
-        "max_tokens": max_tokens
-    }
-    try:
-        response = requests.post(LM_API_URL, headers=HEADERS, json=payload, timeout=40)
-        response.raise_for_status()
-        return response.json()["choices"][0]["message"]["content"]
-    except Exception as e:
-        print(f"❌ Error during LM call: {e}")
-        return ""
+from OpenChat.common import num_tokens, call_lm, load_blocks_from_txt, parse_qa_pairs, save_qa, filter_qa_candidates
     
 # ========== STEP 0: Create blocks ==========
 def extract_text_blocks(pdf_path):
@@ -59,17 +41,6 @@ def extract_text_blocks(pdf_path):
             f.write(block + "\n")
             f.write("-" * 60 + "\n\n")
 
-    return blocks
-
-# ========== STEP 1: Extract blocks ==========
-def load_blocks_from_txt(file_path):
-    with open(file_path, "r", encoding="utf-8") as f:
-        content = f.read()
-
-    raw_blocks = re.split(r'🔹 Блок \d+ \(\d+ слів\):\n[-]+\n(.*?)\n[-]+\n', content, flags=re.DOTALL)
-    # re.split() повертає масив [префікс, блок1, блок2, ...], тому беремо лише блоки
-    blocks = [b.strip() for b in raw_blocks if b.strip()]
-    print(f"📄 Завантажено {len(blocks)} блоків із {file_path}")
     return blocks
 
 # ========== STEP 2: QA Generation ==========
@@ -98,22 +69,6 @@ def generate_qa_pairs(block_text):
         print("⚠️ Prompt too long")
     content = call_lm([{"role": "user", "content": prompt}])
     return parse_qa_pairs(content)
-
-# ========== STEP 3: Parse QA ==========
-def parse_qa_pairs(text):
-    qas = []
-    qa_blocks = re.findall(r"Q\d*:\s*(.*?)\s*A:\s*(.*?)(?=Q\d*:|$)", text, re.DOTALL) #TODO: check if this regex works
-    for q, a in qa_blocks:
-        question = re.sub(r'^(Paraphrase\s*\d+:|^\d+\.\s*)', '', q.strip().replace("\n", " ")).strip()
-        answer = re.sub(r'^(Paraphrase\s*\d+:|^\d+\.\s*)', '', a.strip().replace("\n", " ")).strip()
-        if question and answer:
-            qas.append({
-                "instruction": question,
-                "response": answer,
-                "tag": "good",
-            })
-    print(f"🔍 Found {len(qas)} QA pairs")
-    return qas
 
 # ========== STEP 4: Paraphrasing ==========
 def generate_paraphrases(text, is_question=True, n=3):
@@ -174,41 +129,6 @@ def generate_irrelevant_qas(n=50, batch_size=10):
         sleep(2)  # Add small delay between batches
     
     return qas[:n]  # Ensure we return exactly n pairs
-
-
-def filter_qa_candidates(qas, batch_size=35):
-    if not qas:
-        return []
-    
-    cleaned = []
-    total = len(qas)
-    batches = [qas[i:i + batch_size] for i in range(0, total, batch_size)]
-    
-    for b_idx, batch in enumerate(batches):
-        print(f"🔍 Filtering batch {b_idx+1}/{len(batches)} with {len(batch)} pairs")
-        text = "\n".join([f"{i+1}. Q: {qa['instruction']}\n   A: {qa['response']}" for i, qa in enumerate(batch)])
-        prompt = f"""
-        <|im_start|>system
-        You are a QA data cleaner. Review the following question-answer pairs and keep all that are:
-        - grammatically correct
-        - meaningful and relevant to a refrigerator manual
-        - not exact duplicates (slightly reworded paraphrases are OK)
-
-        Return a list of indices (e.g., 1, 2, 3, 5, 6).
-        <|im_end|>
-        <|im_start|>user
-        {text}
-        <|im_end|>
-        <|im_start|>assistant
-        """
-        if num_tokens(prompt) > 8000:
-            print(f"⚠️ Filtering prompt too long in batch {b_idx+1}")
-        result = call_lm([{"role": "user", "content": prompt}])
-        indices = set(int(i.strip()) for i in re.findall(r"\d+", result))
-        cleaned.extend([batch[i - 1] for i in indices if 0 < i <= len(batch)])
-    
-    return cleaned
-
 
 # ========== STEP 6: Main loop ==========
 def main():
