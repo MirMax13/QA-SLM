@@ -138,12 +138,7 @@ def parse_qa_pairs(text):
 
 
 def save_qa(entry, file_path: str = "orig.json"):
-    """Append generated QA(s) to a JSON array file.
-
-    This uses the same lightweight append style as earlier scripts: it creates the file
-    with an opening `[` and appends `,`+JSON for subsequent entries. This matches existing
-    repository usage and avoids loading very large files into memory.
-    """
+    """Append generated QA(s) to a JSON array file."""
     # allow passing a list
     entries = entry if isinstance(entry, list) else [entry]
 
