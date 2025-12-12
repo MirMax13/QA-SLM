@@ -14,6 +14,7 @@ OUTPUT_DIR = "dataset_output"
 PARAPHRASE_Q_COUNT = 5  # 5 варіантів питання
 PARAPHRASE_A_COUNT = 3  # 3 варіанти відповіді
 STYLES = ["standard", "boolq", "piqa", "hellaswag"]
+FILTER_BATCH_SIZE = 20
 
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
@@ -243,6 +244,69 @@ The questions must be clearly unrelated to refrigerators, food, or household app
 Output ONLY a JSON list: [{{"instruction": "...", "response": "..."}}]
 """
 
+
+
+def filter_qa_candidates(qas, batch_size=20):
+    """
+    Фільтрує QA пари, використовуючи LLM як рев'ювера.
+    """
+    if not qas:
+        return []
+
+    cleaned = []
+    total = len(qas)
+    # Розбиваємо на батчі
+    batches = [qas[i:i + batch_size] for i in range(0, total, batch_size)]
+
+    print(f"   🔍 LLM Filtering: {total} pairs in {len(batches)} batches...")
+
+    for b_idx, batch in enumerate(batches):
+        # Формуємо текст для перевірки
+        text_lines = []
+        for i, qa in enumerate(batch):
+            q_text = qa.get('instruction', '')
+            a_text = qa.get('response', '')
+            text_lines.append(f"{i+1}. Q: {q_text}\n   A: {a_text}")
+        
+        text_content = "\n".join(text_lines)
+
+        prompt = f"""
+You are a QA data cleaner for a refrigerator manual. 
+Review the following list of Question-Answer pairs.
+
+Accept pairs that are:
+- Understandable and relevant.
+- Logical and informative.
+- Not duplicates (paraphrases are OK if they add clarity).
+
+Reject pairs that are:
+- Irrelevant to refrigerators.
+- Confusing, broken text, or hallucinations.
+- Factually wrong based on common sense.
+
+Return ONLY a list of valid indices numbers (e.g., 1, 3, 5).
+
+List to review:
+{text_content}
+"""
+        # Виклик моделі
+        result = llm_call(prompt, max_new=512, temp=0.1) # Низька температура для точності
+
+        # Парсинг індексів
+        indices = set()
+        found_numbers = re.findall(r"\d+", result)
+        for num in found_numbers:
+            idx = int(num)
+            if 0 < idx <= len(batch):
+                indices.add(idx)
+        
+        # Відбір "виживших"
+        kept_batch = [batch[i - 1] for i in indices]
+        cleaned.extend(kept_batch)
+        print(f"      Batch {b_idx+1}/{len(batches)}: Kept {len(kept_batch)}/{len(batch)}")
+
+    return cleaned
+
 # ================= PIPELINE =================
 
 def process_block(block_text, block_idx):
@@ -298,16 +362,12 @@ def process_block(block_text, block_idx):
 
         save_jsonl(paraphrased_list, f"{style}_paraphrased.jsonl")
 
-        # --- 3. ФІЛЬТРАЦІЯ ---
-        filtered_list = []
-        for item in paraphrased_list:
-            q = item['instruction']
-            a = item['response']
-            # Проста евристика: довжина + відсутність порожніх рядків
-            if len(q) > 10 and len(a) > 5:
-                filtered_list.append(item)
-        
+        # 3. ФІЛЬТРАЦІЯ (LLM-Based)
+        filtered_list = filter_qa_candidates(paraphrased_list, batch_size=FILTER_BATCH_SIZE)
         save_jsonl(filtered_list, f"{style}_filtered.jsonl")
+        print(f"   [{style}] Filtered: {len(filtered_list)} pairs kept")
+
+
 
 def main():
     start_time = time.time()
