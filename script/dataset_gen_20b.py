@@ -344,13 +344,13 @@ def process_block(block_text, block_idx):
             paraphrased_list.append({**item, "tag": "original"})
 
             # Перефраз Питань (x5)
-            pq_raw = llm_call(get_paraphrase_prompt(q_orig, True, PARAPHRASE_Q_COUNT))
+            pq_raw = llm_call(get_paraphrase_prompt(q_orig, True, PARAPHRASE_Q_COUNT, style))
             new_qs = re.findall(r'\d+\.\s*(.*)', pq_raw)
             for nq in new_qs[:PARAPHRASE_Q_COUNT]:
                 paraphrased_list.append({"instruction": nq.strip(), "response": a_orig, "style": style, "tag": "para_q"})
 
             # Перефраз Відповідей (x3)
-            pa_raw = llm_call(get_paraphrase_prompt(a_orig, False, PARAPHRASE_A_COUNT))
+            pa_raw = llm_call(get_paraphrase_prompt(a_orig, False, PARAPHRASE_A_COUNT, style))
             new_as = re.findall(r'\d+\.\s*(.*)', pa_raw)
             for na in new_as[:PARAPHRASE_A_COUNT]:
                 paraphrased_list.append({"instruction": q_orig, "response": na.strip(), "style": style, "tag": "para_a"})
