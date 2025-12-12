@@ -102,7 +102,7 @@ def call_vision_chat_secondary(image_b64: str, prev_qa_text: str, context: str):
                  Ensure each new question adds value and is based on context."""},
                 {"role": "user", "content": content}
             ],
-            max_tokens=2000
+            max_tokens=3000
         )
     else:
         content = [
@@ -129,7 +129,7 @@ def call_vision_chat_secondary(image_b64: str, prev_qa_text: str, context: str):
                 "You are a documentation assistant continuing a QA extraction task.Your goal is to extract additional high-quality QA pairs that were not in the previous response."},
                 {"role": "user", "content": content}
             ],
-            max_tokens=2000
+            max_tokens=3000
         )
     response_text = response["choices"][0]["message"]["content"].strip()
     if not response_text:
