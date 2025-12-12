@@ -175,7 +175,6 @@ Output ONLY a numbered list:
 """
 
 def get_irrelevant_prompt(batch_size, style):
-    # Логіка з вашої функції generate_irrelevant_qas
     style_instructions = ""
     
     if style == "boolq":
@@ -255,13 +254,13 @@ def filter_qa_candidates(qas, batch_size=20):
 
     cleaned = []
     total = len(qas)
-    # Розбиваємо на батчі
+
     batches = [qas[i:i + batch_size] for i in range(0, total, batch_size)]
 
     print(f"   🔍 LLM Filtering: {total} pairs in {len(batches)} batches...")
 
     for b_idx, batch in enumerate(batches):
-        # Формуємо текст для перевірки
+
         text_lines = []
         for i, qa in enumerate(batch):
             q_text = qa.get('instruction', '')
@@ -289,10 +288,7 @@ Return ONLY a list of valid indices numbers (e.g., 1, 3, 5).
 List to review:
 {text_content}
 """
-        # Виклик моделі
-        result = llm_call(prompt, max_new=512, temp=0.1) # Низька температура для точності
-
-        # Парсинг індексів
+        result = llm_call(prompt, temp=0.1)
         indices = set()
         found_numbers = re.findall(r"\d+", result)
         for num in found_numbers:
@@ -300,7 +296,6 @@ List to review:
             if 0 < idx <= len(batch):
                 indices.add(idx)
         
-        # Відбір "виживших"
         kept_batch = [batch[i - 1] for i in indices]
         cleaned.extend(kept_batch)
         print(f"      Batch {b_idx+1}/{len(batches)}: Kept {len(kept_batch)}/{len(batch)}")
@@ -373,27 +368,27 @@ def main():
     start_time = time.time()
     blocks = load_blocks_from_txt(INPUT_TXT)
     
-    # Обробка блоків
     for idx, block in enumerate(blocks):
         process_block(block, idx+1)
         print(f"✅ Block {idx+1} finished.")
 
-    # Irrelevant
-    print("\n🚫 Generating Irrelevant...")
-    irrelevant_qas = []
-    for _ in range(5): # 5 batches x 10 = 50 items
-        prompt = get_irrelevant_prompt(10)
-        raw = llm_call(prompt, temp=0.9)
-        batch = parse_json_robust(raw)
-        for b in batch:
-            b['style'] = 'irrelevant'
-            b['tag'] = 'irrelevant'
-            irrelevant_qas.append(b)
+    # 2. Irrelevant Process
+    print("\n🚫 Generating Irrelevant Pairs...")
+    irrelevant_styles = ["boolq", "piqa", "hellaswag", "standard"]
+    for style in irrelevant_styles:
+        irrelevant_qas = []
+        for _ in range(15): # 150 pairs total (15*10)
+            prompt = get_irrelevant_prompt(10, style)
+            raw = llm_call(prompt, temp=0.9)
+            batch = parse_json_robust(raw)
+            for b in batch:
+                b['style'] = style
+                b['tag'] = 'irrelevant'
+                irrelevant_qas.append(b)
+        save_jsonl(irrelevant_qas, f"irrelevant_{style}.jsonl")
+        print(f"   [{style}] Irrelevant: {len(irrelevant_qas)} pairs")
     
-    save_jsonl(irrelevant_qas, "irrelevant_raw.jsonl")
-    save_jsonl(irrelevant_qas, "irrelevant_filtered.jsonl") # Вони одразу вважаються good
-
-    print(f"\n🎉 Done! Time: {(time.time()-start_time)/60:.2f} min")
+    print(f"\n Done! Time: {(time.time()-start_time)/60:.2f} min")
 
 if __name__ == "__main__":
     main()
