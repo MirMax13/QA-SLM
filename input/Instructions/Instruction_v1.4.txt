@@ -161,13 +161,15 @@ kPa(30-125 psi) is required for the correct operation.
 service centre or it's agents to replace the lamps.
 ------------------------------------------------------------
 
-🔹 Блок 12 (136 слів):
+🔹 Блок 12 (165 слів):
 ------------------------------------------------------------
 Safety information
 Important safety precautions
 25.	To avoid contamination of food, please respect the following instructions:
 	- Opening the door for long periods can cause a significant increase of the 
 temperature in the compartments of the appliance.
+	- Clean regularly surfaces that can come in contact with food and
+accessible drainage systems.
 	- Clean water tanks if they have not been used for 48 h; flush the water 
 system connected to a water supply if water has not been drawn for 5 
 days.
@@ -175,6 +177,8 @@ days.
 it is not in contact with or drip onto other food.
 	- Two-star frozen-food compartments are suitable for storing prefrozen 
 food, storing or making icecream and making ice cubes.
+	- One-, two- and three-star compartments are not suitable for the
+freezing of fresh food.
 	- If the refrigerating appliance is left empty for long periods, switch 
 off, defrost, clean, dry, and leave the door open to prevent mould 
 developing within the appliance.
@@ -680,7 +684,7 @@ and options) An adjustable temperature meat drawer maximizes the storage time of
 cheeses.
 ------------------------------------------------------------
 
-🔹 Блок 49 (54 слів):
+🔹 Блок 49 (62 слів):
 ------------------------------------------------------------
 Appendix
 Temperature Instruction
@@ -689,6 +693,7 @@ Placement of Food
 Stored on the door
 Don’t store perishable foods in the door. Eggs should be stored in the carton on a shelf. The 
 temperature of the storage bins in the door fluctuate more than the temperature in the cabinet.
+Keep the door closed as much as possible.
 ------------------------------------------------------------
 
 🔹 Блок 50 (33 слів):
