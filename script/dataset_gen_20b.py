@@ -124,11 +124,10 @@ def extract_json_from_markdown(text):
     return []
 def get_messages(style, text, existing_qs=""):
     system_content = (
-        "You are a strict dataset generator. "
-        "Your ONLY goal is to output a valid JSON array inside a ```json``` markdown block. "
-        "TONE RULES: Simulate a real user asking for help. Use simple, conversational English. "
-        "Avoid formal manual jargon (e.g., use 'How do I turn it on?' instead of 'What is the activation procedure?'). "
-        "Do NOT provide explanations, reasoning, or intros."
+        "You are a dataset generator. Your ONLY goal is to output a valid JSON array inside a ```json``` markdown block.\n"
+        "TONE RULES: Simulate a real, slightly confused user asking for help. Use simple, conversational English. "
+        "Avoid formal jargon (e.g., say 'Is it better to...' instead of 'Does the manual mandate...').\n"
+        "CRITICAL: Do NOT provide explanations, reasoning, or intros. Start your response IMMEDIATELY with ```json."
     )
     
     avoid_instr = f"Do NOT generate these questions again: {existing_qs}." if existing_qs else ""
