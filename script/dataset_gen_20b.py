@@ -10,10 +10,10 @@ INPUT_TXT = "Instruction_v1.4.txt"
 MODEL_ID = "models/openai_gpt-oss-20b"
 OUTPUT_DIR = "output"
 
-PARAPHRASE_Q_COUNT = 1  
-PARAPHRASE_A_COUNT = 1  
-STYLES = ["boolq"]
-FILTER_BATCH_SIZE = 5
+PARAPHRASE_Q_COUNT = 2  
+PARAPHRASE_A_COUNT = 2  
+STYLES = ["piqa"]
+FILTER_BATCH_SIZE = 10
 CYCLES = 1
 BATCHES = 5
 
@@ -126,7 +126,7 @@ def get_messages(style, text, existing_qs=""):
     system_content = (
         "You are a strict dataset generator. "
         "Your ONLY goal is to output a valid JSON array inside a ```json``` markdown block. "
-"TONE RULES: Simulate a real user asking for help. Use simple, conversational English. "
+        "TONE RULES: Simulate a real user asking for help. Use simple, conversational English. "
         "Avoid formal manual jargon (e.g., use 'How do I turn it on?' instead of 'What is the activation procedure?'). "
         "Do NOT provide explanations, reasoning, or intros."
     )
@@ -224,9 +224,6 @@ def get_irrelevant_messages(batch_size, style):
     return [ {"role": "system", "content": system_content}, {"role": "user", "content": user_content} ]
 
 def filter_qa_candidates(qas, batch_size=20):
-    """
-    Фільтрує QA пари, використовуючи LLM як рев'ювера.
-    """
     if not qas:
         return []
 
@@ -243,40 +240,53 @@ def filter_qa_candidates(qas, batch_size=20):
         for i, qa in enumerate(batch):
             q_text = qa.get('instruction', '')
             a_text = qa.get('response', '')
-            text_lines.append(f"{i+1}. Q: {q_text}\n    A: {a_text}")
+            text_lines.append(f"ID {i+1}:\nQ: {q_text}\nA: {a_text}\n")
 
         text_content = "\n".join(text_lines)
 
         prompt_text = f"""
-        You are a QA data cleaner for a refrigerator manual.
-        Review the following list of Question-Answer pairs.
+        You are a strict QA dataset cleaner. Review the following pairs.
 
-        Accept pairs that are:
-        - Understandable and relevant.
-        - Logical and informative.
-        - Not duplicates (paraphrases are OK if they add clarity).
+CRITERIA FOR KEEPING:
+- Clear, logical, and helpful.
+- Relevant to the topic.
+- NOT duplicates of previous items in this list.
 
-        Reject pairs that are:
-        - Irrelevant to refrigerators.
-        - Confusing, broken text, or hallucinations.
-        - Factually wrong based on common sense.
+INPUT LIST:
+{text_content}
 
-        Return ONLY a list of valid indices numbers (e.g., 1, 3, 5).
+TASK:
+Output a JSON object with a single key "valid_ids" containing the list of ID numbers to keep.
+Example:
+```json
+{{
+  "valid_ids": [1, 3, 5]
+}}
+NO explanations. Just the JSON. """
 
-            List to review:
-            {text_content}
-            """
         messages = [{"role": "user", "content": prompt_text}]
         result = llm_call(messages, temp=0.1)
-        indices = set()
-        found_numbers = re.findall(r"\d+", result)
-        for num in found_numbers:
-            idx = int(num)
-            if 0 < idx <= len(batch):
-                indices.add(idx)
-        kept_batch = [batch[i - 1] for i in indices]
+        parsed_json = extract_json_from_markdown(result)
+    
+        valid_indices = []
+        if isinstance(parsed_json, dict) and "valid_ids" in parsed_json:
+            valid_indices = parsed_json["valid_ids"]
+        elif isinstance(parsed_json, list): 
+            valid_indices = parsed_json
+            
+        if not valid_indices:
+            print(f"      ⚠️ Warning: Could not parse filter decision. Keeping all {len(batch)} for safety.")
+            valid_indices = range(1, len(batch) + 1)
+
+        indices_set = set(valid_indices)
+        kept_batch = []
+        for i in range(len(batch)):
+            if (i + 1) in indices_set:
+                kept_batch.append(batch[i])
+        
         cleaned.extend(kept_batch)
         print(f"      Batch {b_idx+1}/{len(batches)}: Kept {len(kept_batch)}/{len(batch)}")
+
     return cleaned
 
 # ================= PIPELINE =================
