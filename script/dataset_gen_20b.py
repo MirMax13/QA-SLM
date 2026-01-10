@@ -126,6 +126,8 @@ def get_messages(style, text, existing_qs=""):
     system_content = (
         "You are a strict dataset generator. "
         "Your ONLY goal is to output a valid JSON array inside a ```json``` markdown block. "
+"TONE RULES: Simulate a real user asking for help. Use simple, conversational English. "
+        "Avoid formal manual jargon (e.g., use 'How do I turn it on?' instead of 'What is the activation procedure?'). "
         "Do NOT provide explanations, reasoning, or intros."
     )
     
