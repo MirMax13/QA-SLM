@@ -1,6 +1,7 @@
 /venv
 /models
 /datasets/ChatGPT/generative/stories.json
+/datasets/open_chat/generative/cut
 /results/Semantic Research
 /filtered_tinystories
 
