@@ -13,7 +13,7 @@ OUTPUT_DIR = "output"
 PARAPHRASE_Q_COUNT = 3  
 PARAPHRASE_A_COUNT = 2  
 STYLES = ["hellaswag"]
-FILTER_BATCH_SIZE = 10
+FILTER_BATCH_SIZE = 15
 CYCLES = 1
 BATCHES = 10
 
@@ -212,7 +212,7 @@ def get_irrelevant_messages(batch_size, style):
     """
     return [ {"role": "system", "content": system_content}, {"role": "user", "content": user_content} ]
 
-def filter_qa_candidates(qas, batch_size=20):
+def filter_qa_candidates(qas, batch_size=25):
     if not qas:
         return []
 
@@ -234,27 +234,27 @@ def filter_qa_candidates(qas, batch_size=20):
         text_content = "\n".join(text_lines)
 
         prompt_text = f"""
-        You are a strict QA dataset cleaner. Review the following pairs.
-
-CRITERIA FOR KEEPING:
-- Clear, logical, and helpful.
-- Relevant to the topic.
-- NOT duplicates of previous items in this list.
+        You are a dataset quality checker. We are building a dataset for training AI, so we need MANY different ways to ask the same question.
 
 INPUT LIST:
 {text_content}
 
+CRITERIA FOR KEEPING (Valid IDs):
+1. **High Quality**: The text is complete, grammatical, and makes sense.
+2. **Paraphrases are WANTED**: If two items ask the same thing but use DIFFERENT words, KEEP BOTH. This is data augmentation.
+   - Example: "How do I clean it?" and "What is the cleaning procedure?" -> KEEP BOTH.
+
+CRITERIA FOR REJECTING (Exclude these IDs):
+1. **Garbage**: Text that is cut off, incomplete, or contains meta-instructions (e.g., "Here is the rewrite").
+2. **Exact Duplicates**: Only reject if the wording is 100% identical to a previous item in this batch.
+
 TASK:
 Output a JSON object with a single key "valid_ids" containing the list of ID numbers to keep.
-Example:
-```json
-{{
-  "valid_ids": [1, 3, 5]
-}}
+Example: {{   "valid_ids": [1, 2, 4, 5] }}
 NO explanations. Just the JSON. """
 
         messages = [{"role": "user", "content": prompt_text}]
-        result = llm_call(messages, temp=0.1)
+        result = llm_call(messages, temp=0.2)
         parsed_json = extract_json_from_markdown(result)
     
         valid_indices = []
