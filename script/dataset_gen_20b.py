@@ -355,15 +355,43 @@ def process_block(block_text, block_idx):
             paraphrased_list.append({**item, "tag": "original"})
 
             pq_raw = llm_call(get_paraphrase_messages(q_orig, True, PARAPHRASE_Q_COUNT, style), temp=0.5)
+
+            pq_raw = pq_raw.replace("assistantfinal", "")
+
             new_qs = re.findall(r'^\d+\.\s+(.{5,})$', pq_raw, re.MULTILINE)
-            new_qs = [q.replace("assistantfinal", "").strip('" ').strip() for q in new_qs]
-            for nq in new_qs[:PARAPHRASE_Q_COUNT]:
+            
+            clean_qs = []
+            for q in new_qs:
+                q = q.strip('" ').strip()
+
+                lower_q = q.lower()
+                if (lower_q.startswith("we need to") or 
+                    lower_q.startswith("here is") or 
+                    lower_q.startswith("the rewritten") or
+                    len(q) > len(q_orig) * 3):
+                    continue
+                clean_qs.append(q)
+            
+            for nq in clean_qs[:PARAPHRASE_Q_COUNT]:
                 paraphrased_list.append({"instruction": nq.strip(), "response": a_orig, "style": style, "tag": "para_q"})
 
             pa_raw = llm_call(get_paraphrase_messages(a_orig, False, PARAPHRASE_A_COUNT, style), temp=0.5)
+pa_raw = pa_raw.replace("assistantfinal", "")
+            
             new_as = re.findall(r'^\d+\.\s+(.{5,})$', pa_raw, re.MULTILINE)
-            new_as = [a.replace("assistantfinal", "").strip('" ').strip() for a in new_as]
-            for na in new_as[:PARAPHRASE_A_COUNT]:
+            
+            clean_as = []
+            for a in new_as:
+                a = a.strip('" ').strip()
+                lower_a = a.lower()
+                if (lower_a.startswith("we need to") or 
+                    lower_a.startswith("here is") or 
+                    lower_a.startswith("i will rewrite") or
+                    len(a) > len(a_orig) * 3):
+                    continue
+                clean_as.append(a)
+
+            for na in clean_as[:PARAPHRASE_A_COUNT]:
                 paraphrased_list.append({"instruction": q_orig, "response": na.strip(), "style": style, "tag": "para_a"})
 
         if paraphrased_list:
