@@ -77,39 +77,37 @@ def llm_call(messages_list, max_new=2048, temp=0.3):
         return ""
 
 def extract_json_from_markdown(text):
-    """
-    Robust extraction:
-    1. Tries to find markdown blocks.
-    2. Tries to find the raw list structure [ ... ].
-    3. Tries json.loads (strict).
-    4. Tries ast.literal_eval (permissive, handles trailing commas/single quotes).
-    """
-    candidates = []
+    text = text.replace("assistantfinal", "") 
 
-    # 1. Regex to find markdown blocks (ignoring case, optional "json" tag)
-    # This regex looks for ``` ... ``` containing a square bracket at the start
-    pattern_block = r"```(?:json)?\s*(\[.*?\])\s*```"
-    matches = re.findall(pattern_block, text, re.DOTALL | re.IGNORECASE)
-    candidates.extend(matches)
+    # Знаходимо всі дужки (і квадратні, і фігурні)
+    starts = [m.start() for m in re.finditer(r'[\[\{]', text)]
+    ends = [m.start() for m in re.finditer(r'[\]\}]', text)]
+    
+    if not starts or not ends:
+        return []
+        
+    # Шукаємо З КІНЦЯ
+    for end in reversed(ends):
+        # Шукаємо відповідний початок
+        valid_starts = [s for s in starts if s < end]
+        
+        for start in reversed(valid_starts):
+            candidate = text[start : end+1]
+            
+            # Базова перевірка балансу (не гарантія, але відсіює явне сміття)
+            # Якщо почали з {, маємо закінчити }. Якщо з [, то ].
+            first_char = candidate[0]
+            last_char = candidate[-1]
+            if (first_char == '{' and last_char != '}') or (first_char == '[' and last_char != ']'):
+                continue
 
-    # 2. Fallback: Find the outermost brackets if no blocks found
-    if not candidates:
-        start = text.find('[')
-        end = text.rfind(']')
-        if start != -1 and end != -1:
-            candidates.append(text[start:end+1])
-
-    for json_str in candidates:
-        # Attempt 1: Standard JSON
         try:
-            return json.loads(json_str)
+            return json.loads(candidate)
         except json.JSONDecodeError:
             pass
 
-        # Attempt 2: AST literal_eval (Handles trailing commas and single quotes)
-        try:
-            # AST is safer than eval() but handles python-syntax dicts
-            return ast.literal_eval(json_str)
+                try:
+                        return ast.literal_eval(candidate)
         except (ValueError, SyntaxError):
             pass
             
