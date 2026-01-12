@@ -234,7 +234,7 @@ def filter_qa_candidates(qas, batch_size=25):
         text_content = "\n".join(text_lines)
 
         prompt_text = f"""
-        You are a dataset quality checker. We are building a dataset for training AI, so we need MANY different ways to ask the same question.
+You are a dataset quality checker. We are building a dataset for training AI, so we need MANY different ways to ask the same question.
 
 INPUT LIST:
 {text_content}
@@ -250,7 +250,7 @@ CRITERIA FOR REJECTING (Exclude these IDs):
 
 TASK:
 Output a JSON object with a single key "valid_ids" containing the list of ID numbers to keep.
-Example: {{   "valid_ids": [1, 2, 4, 5] }}
+Example: {{ "valid_ids": [1, 2, 4, 5] }}
 NO explanations. Just the JSON. """
 
         messages = [{"role": "user", "content": prompt_text}]
@@ -309,7 +309,6 @@ def process_block(block_text, block_idx):
         if qas:
             print(f"   ✅ Loaded {len(qas)} pairs from file. Skipping generation.")
         else:
-            # === 2. ЯКЩО ДАНИХ НЕМАЄ — ГЕНЕРУЄМО ===
             print("   Generating new Q&A pairs (LLM)...")
             prompt = get_messages(style, block_text)
             raw_text = llm_call(prompt, temp=0.3)
@@ -317,14 +316,30 @@ def process_block(block_text, block_idx):
             print("   Parsing JSON array...")
             qas = extract_json_from_markdown(raw_text)
 
-            # Gap Filling (Догенерація)
+            # Gap Filling
             if qas:
                 print("   Gap Filling...")
+                # Формуємо список існуючих питань для промпта
                 prev_qs = ", ".join([q.get('instruction', '')[:50] for q in qas])
+                
                 prompt_v2 = get_messages(style, block_text, existing_qs=prev_qs)
                 raw_text_v2 = llm_call(prompt_v2, temp=0.4)
                 qas_v2 = extract_json_from_markdown(raw_text_v2)
-                qas.extend(qas_v2)
+
+
+                existing_instructions = set(item.get('instruction', '').strip().lower() for item in qas)
+
+                unique_new_count = 0
+                for new_item in qas_v2:
+                    new_q = new_item.get('instruction', '').strip().lower()
+                    
+                    # Додаємо тільки якщо питання не пусте і його ще немає в списку
+                    if new_q and new_q not in existing_instructions:
+                        qas.append(new_item)
+                        existing_instructions.add(new_q)
+                
+                print(f"   Gap Filling added {unique_new_count} unique pairs (ignored {len(qas_v2) - unique_new_count} duplicates)")
+                # ============================================
 
             if not qas:
                 print(f"   [{style}] Empty or invalid JSON from model.")
@@ -411,7 +426,17 @@ def main():
         for _ in range(CYCLES): 
             raw = llm_call(get_irrelevant_messages(BATCHES, style), temp=0.5)
             batch = extract_json_from_markdown(raw)
+
+            if isinstance(batch, dict):
+                batch = [batch]
+            
+            if not isinstance(batch, list):
+                continue
+
             for b in batch:
+                if not isinstance(b, dict):
+                    continue
+                
                 b['style'] = style
                 b['tag'] = 'irrelevant'
                 irrelevant_qas.append(b)
