@@ -10,12 +10,12 @@ INPUT_TXT = "Instruction_v1.4.txt"
 MODEL_ID = "models/openai_gpt-oss-20b"
 OUTPUT_DIR = "output"
 
-PARAPHRASE_Q_COUNT = 2  
+PARAPHRASE_Q_COUNT = 3  
 PARAPHRASE_A_COUNT = 2  
-STYLES = ["piqa"]
+STYLES = ["hellaswag"]
 FILTER_BATCH_SIZE = 10
 CYCLES = 1
-BATCHES = 5
+BATCHES = 10
 
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
@@ -101,24 +101,16 @@ def extract_json_from_markdown(text):
             if (first_char == '{' and last_char != '}') or (first_char == '[' and last_char != ']'):
                 continue
 
-        try:
-            return json.loads(candidate)
-        except json.JSONDecodeError:
-            pass
-
-                try:
-                        return ast.literal_eval(candidate)
-        except (ValueError, SyntaxError):
-            pass
+            try:
+                return json.loads(candidate)
+            except json.JSONDecodeError:
+                pass
             
-        # Attempt 3: Try to clean trailing commas manually (common LLM error)
-        try:
-            # Remove comma before closing bracket or brace
-            cleaned_str = re.sub(r',\s*([\]}])', r'\1', json_str)
-            return json.loads(cleaned_str)
-        except json.JSONDecodeError:
-            pass
-
+            try:
+                return ast.literal_eval(candidate)
+            except (ValueError, SyntaxError):
+                pass
+                
     return []
 def get_messages(style, text, existing_qs=""):
     system_content = (
@@ -355,11 +347,11 @@ def process_block(block_text, block_idx):
             paraphrased_list.append({**item, "tag": "original"})
 
             pq_raw = llm_call(get_paraphrase_messages(q_orig, True, PARAPHRASE_Q_COUNT, style), temp=0.5)
-
+            
             pq_raw = pq_raw.replace("assistantfinal", "")
 
             new_qs = re.findall(r'^\d+\.\s+(.{5,})$', pq_raw, re.MULTILINE)
-            
+
             clean_qs = []
             for q in new_qs:
                 q = q.strip('" ').strip()
@@ -376,7 +368,7 @@ def process_block(block_text, block_idx):
                 paraphrased_list.append({"instruction": nq.strip(), "response": a_orig, "style": style, "tag": "para_q"})
 
             pa_raw = llm_call(get_paraphrase_messages(a_orig, False, PARAPHRASE_A_COUNT, style), temp=0.5)
-pa_raw = pa_raw.replace("assistantfinal", "")
+            pa_raw = pa_raw.replace("assistantfinal", "")
             
             new_as = re.findall(r'^\d+\.\s+(.{5,})$', pa_raw, re.MULTILINE)
             
@@ -413,23 +405,22 @@ def main():
             break 
     
     # 2. Irrelevant Process
-    # print("\n🚫 Generating Irrelevant Pairs...")
-    # for style in STYLES:
-    #     irrelevant_qas = []
-    #     for _ in range(CYCLES): 
-    #         prompt = get_irrelevant_prompt(BATCHES, style)
-    #         raw = llm_call(prompt, temp=0.5)
-    #         batch = extract_json_array(raw)
-    #         for b in batch:
-    #             b['style'] = style
-    #             b['tag'] = 'irrelevant'
-    #             irrelevant_qas.append(b)
+    print("\n🚫 Generating Irrelevant Pairs...")
+    for style in STYLES:
+        irrelevant_qas = []
+        for _ in range(CYCLES): 
+            raw = llm_call(get_irrelevant_messages(BATCHES, style), temp=0.5)
+            batch = extract_json_from_markdown(raw)
+            for b in batch:
+                b['style'] = style
+                b['tag'] = 'irrelevant'
+                irrelevant_qas.append(b)
         
-    #     if irrelevant_qas:
-    #         save_jsonl(irrelevant_qas, f"irrelevant_{style}.jsonl")
-    #         print(f"   [{style}] Irrelevant: {len(irrelevant_qas)} pairs")
-    #     else:
-    #         print(f"   [{style}] ⚠️ Failed to generate irrelevant pairs.")
+        if irrelevant_qas:
+            save_jsonl(irrelevant_qas, f"irrelevant_{style}.jsonl")
+            print(f"   [{style}] Irrelevant: {len(irrelevant_qas)} pairs")
+        else:
+            print(f"   [{style}] ⚠️ Failed to generate irrelevant pairs.")
 
     print(f"\nDone! Time: {(time.time()-start_time)/60:.2f} min")
 
