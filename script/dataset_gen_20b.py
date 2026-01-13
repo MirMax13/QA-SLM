@@ -10,12 +10,12 @@ INPUT_TXT = "Instruction_v1.4.txt"
 MODEL_ID = "models/openai_gpt-oss-20b"
 OUTPUT_DIR = "output"
 
-PARAPHRASE_Q_COUNT = 3  
-PARAPHRASE_A_COUNT = 2  
-STYLES = ["hellaswag"]
-FILTER_BATCH_SIZE = 15
-CYCLES = 1
-BATCHES = 10
+PARAPHRASE_Q_COUNT = 5  
+PARAPHRASE_A_COUNT = 3  
+STYLES = ["standard"]
+FILTER_BATCH_SIZE = 27
+CYCLES = 10
+BATCHES = 15
 
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
@@ -51,7 +51,7 @@ def save_jsonl(entries, filename):
         for entry in entries:
             f.write(json.dumps(entry, ensure_ascii=False) + "\n")
 
-def llm_call(messages_list, max_new=2048, temp=0.3):
+def llm_call(messages_list, max_new=2548, temp=0.3):
 
     prompt = ""
     for msg in messages_list:
