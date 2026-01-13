@@ -122,7 +122,7 @@ def get_messages(style, text, existing_qs=""):
     
     avoid_instr = f"Do NOT generate these questions again: {existing_qs}." if existing_qs else ""
     
-max_instr = "Generate 10-15 unique pairs. Extract as many details as possible from the text."
+    max_instr = "Generate 10-15 unique pairs. Extract as many details as possible from the text."
 
     user_content = ""
     if style == "standard":
@@ -320,27 +320,43 @@ def process_block(block_text, block_idx):
 
             # Gap Filling
             if qas:
-                print("   Gap Filling...")
-                # Формуємо список існуючих питань для промпта
-                prev_qs = ", ".join([q.get('instruction', '')[:50] for q in qas])
+                gap_attempts = 0
+                max_gap_attempts = 2
                 
-                prompt_v2 = get_messages(style, block_text, existing_qs=prev_qs)
-                raw_text_v2 = llm_call(prompt_v2, temp=0.4)
-                qas_v2 = extract_json_from_markdown(raw_text_v2)
-
-
-                existing_instructions = set(item.get('instruction', '').strip().lower() for item in qas)
-
-                unique_new_count = 0
-                for new_item in qas_v2:
-                    new_q = new_item.get('instruction', '').strip().lower()
+                while gap_attempts < max_gap_attempts:
+                    print(f"   Gap Filling (Attempt {gap_attempts + 1}/{max_gap_attempts})...")
                     
-                    # Додаємо тільки якщо питання не пусте і його ще немає в списку
-                    if new_q and new_q not in existing_instructions:
-                        qas.append(new_item)
-                        existing_instructions.add(new_q)
-                
-                print(f"   Gap Filling added {unique_new_count} unique pairs (ignored {len(qas_v2) - unique_new_count} duplicates)")
+                    current_instr_snippets = [q.get('instruction', '')[:50] for q in qas]
+                    if len(current_instr_snippets) > 30:
+                        current_instr_snippets = current_instr_snippets[-30:]
+                    
+                    prev_qs_str = ", ".join(current_instr_snippets)
+                    
+                    prompt_v2 = get_messages(style, block_text, existing_qs=prev_qs_str)
+                    raw_text_v2 = llm_call(prompt_v2, temp=0.5) 
+                    qas_v2 = extract_json_from_markdown(raw_text_v2)
+
+                    if not qas_v2:
+                        print("   -> No new candidates generated. Stopping gap fill.")
+                        break
+
+                    existing_instructions = set(item.get('instruction', '').strip().lower() for item in qas)
+                    unique_new_count = 0
+                    
+                    for new_item in qas_v2:
+                        new_q = new_item.get('instruction', '').strip().lower()
+                        if new_q and new_q not in existing_instructions:
+                            qas.append(new_item)
+                            existing_instructions.add(new_q)
+                            unique_new_count += 1
+                    
+                    print(f"   -> Added {unique_new_count} unique pairs.")
+                    
+                    if unique_new_count == 0:
+                        print("   -> Model exhausted unique ideas. Stopping.")
+                        break
+                        
+                    gap_attempts += 1
                 # ============================================
 
             if not qas:
