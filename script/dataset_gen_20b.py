@@ -122,10 +122,12 @@ def get_messages(style, text, existing_qs=""):
     
     avoid_instr = f"Do NOT generate these questions again: {existing_qs}." if existing_qs else ""
     
+max_instr = "Generate 10-15 unique pairs. Extract as many details as possible from the text."
+
     user_content = ""
     if style == "standard":
         user_content = f"""
-Based on the text, generate 5 Question-Answer pairs.
+Based on the text, {max_instr}.
 Text: \"\"\"{text}\"\"\"
 
 Output format example (Do not copy this, generate new based on text):
@@ -139,7 +141,7 @@ Output:
 """
     elif style == "boolq":
         user_content = f"""
-Generate 5 'Yes/No' questions based on the text. Answer with 'Yes/No' + reasoning.
+Generate 10-15 'Yes/No' questions based on the text. Answer with 'Yes/No' + reasoning.
 Text: \"\"\"{text}\"\"\"
 
 Output format example:
@@ -153,7 +155,7 @@ Output:
 """
     elif style == "piqa":
         user_content = f"""
-Generate 5 comparison questions (Option A vs B) based on the text.
+Generate 10-15 comparison questions (Option A vs B) based on the text.
 Text: \"\"\"{text}\"\"\"
 
 Output format example:
@@ -167,7 +169,7 @@ Output:
 """
     elif style == "hellaswag":
         user_content = f"""
-Generate 5 'What happens if...' questions based on the text.
+Generate 10-15 'What happens if...' questions based on the text.
 Text: \"\"\"{text}\"\"\"
 
 Output format example:
