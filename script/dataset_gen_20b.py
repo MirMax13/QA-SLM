@@ -205,15 +205,43 @@ Output:
     return [{"role": "user", "content": user_content}]
 
 def get_irrelevant_messages(batch_size, style):
-    system_content = "You are a dataset generator. Output JSON inside json block only."
-    user_content = f""" Generate {batch_size} questions completely UNRELATED to refrigerators (e.g. history, space).
-      Style: {style.upper()}. Refusal Answer MUST be: "I apologize, but I am a refrigerator assistant and cannot help with [topic]."
-        Output format:
+    system_content = (
+"You are a dataset generator. Your ONLY goal is to output a valid JSON array inside a ```json``` markdown block. "
+        "Language: English Only."
+    )
+
+    style_desc = ""
+    example_q = ""
+
+    if style == "standard":
+        style_desc = "Generate general knowledge questions (History, Science, Geography, etc.)."
+        example_q = "Who was the first president of the USA?"
+    elif style == "boolq":
+        style_desc = "Generate 'Yes/No' questions about general facts (History, Science, etc.)."
+        example_q = "Is the sun a planet?"
+    elif style == "piqa":
+        style_desc = "Generate comparison questions (Option A vs Option B) about general topics (Travel, Food, Sports)."
+        example_q = "Is it better to travel by plane or by train for a trans-atlantic trip?"
+    elif style == "hellaswag":
+        style_desc = "Generate 'What happens if...' scenarios about physics, nature, or daily life (NOT appliances)."
+        example_q = "What happens if it rains while the sun is shining?"
+
+
+    refusal = f"I apologize, but I am a refrigerator assistant and cannot help with [topic]."
+
+    user_content = f"""
+Generate {batch_size} questions completely UNRELATED to refrigerators.
+Style: {style.upper()} ({style_desc}).
+Language: English.
+
+The 'response' MUST be a refusal in this format: "{refusal}"
+
+        Output format example:
         ```json
         [
-  {{"instruction": "Question...", "response": "Refusal..."}}
+  {{"instruction": "{example_q}", "response": "{refusal}"}}
 ]
-    """
+Output:     """
     return [ {"role": "system", "content": system_content}, {"role": "user", "content": user_content} ]
 
 def filter_qa_candidates(qas, batch_size=25):
