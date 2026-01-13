@@ -206,7 +206,7 @@ Output:
 
 def get_irrelevant_messages(batch_size, style):
     system_content = (
-"You are a dataset generator. Your ONLY goal is to output a valid JSON array inside a ```json``` markdown block. "
+        "You are a dataset generator. Your ONLY goal is to output a valid JSON array inside a ```json``` markdown block. "
         "Language: English Only."
     )
 
@@ -236,12 +236,12 @@ Language: English.
 
 The 'response' MUST be a refusal in this format: "{refusal}"
 
-        Output format example:
-        ```json
-        [
+Output format example:
+```json
+[
   {{"instruction": "{example_q}", "response": "{refusal}"}}
 ]
-Output:     """
+Output: """
     return [ {"role": "system", "content": system_content}, {"role": "user", "content": user_content} ]
 
 def filter_qa_candidates(qas, batch_size=25):
@@ -373,7 +373,18 @@ def process_block(block_text, block_idx):
                     existing_instructions = set(item.get('instruction', '').strip().lower() for item in qas)
                     unique_new_count = 0
                     
+                    if isinstance(qas_v2, dict):
+                        qas_v2 = [qas_v2]
+
+                    if not isinstance(qas_v2, list):
+                        print("   -> Invalid format from parser (not a list). Skipping.")
+                        gap_attempts += 1
+                        continue
+
                     for new_item in qas_v2:
+                        if not isinstance(new_item, dict):
+                            continue
+
                         new_q = new_item.get('instruction', '').strip().lower()
                         if new_q and new_q not in existing_instructions:
                             qas.append(new_item)
