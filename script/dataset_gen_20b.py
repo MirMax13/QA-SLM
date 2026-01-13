@@ -114,10 +114,12 @@ def extract_json_from_markdown(text):
     return []
 def get_messages(style, text, existing_qs=""):
     system_content = (
-        "You are a dataset generator. Your ONLY goal is to output a valid JSON array inside a ```json``` markdown block.\n"
-        "TONE RULES: Simulate a real user asking for help. Use simple, conversational English. "
-        "Avoid formal jargon (e.g., say 'Is it better to...' instead of 'Does the manual mandate...').\n"
-        "CRITICAL: Do NOT provide explanations, reasoning, or intros. Start your response IMMEDIATELY with ```json."
+        "You are a strict dataset generator. Output ONLY a valid JSON array.\n"
+        "RULES:\n"
+        "1. NO internal monologue, NO reasoning, NO 'Let's think'.\n"
+        "2. NO introductions (e.g. 'Here is the JSON').\n"
+        "3. Your response must START immediately with ```json\n"
+        "4. Use simple, conversational English."
     )
     
     avoid_instr = f"Do NOT generate these questions again: {existing_qs}." if existing_qs else ""
@@ -137,7 +139,7 @@ Output format example (Do not copy this, generate new based on text):
   {{"instruction": "Where is the water filter located?", "response": "It is located in the bottom right corner of the fridge."}}
 ]
 {avoid_instr}
-Output:
+CRITICAL: Output JSON ONLY. No other text.
 """
     elif style == "boolq":
         user_content = f"""
@@ -151,7 +153,7 @@ Output format example:
   {{"instruction": "Is the door reversible?", "response": "Yes, the door can be installed to open from either side."}}
 ]
 {avoid_instr}
-Output:
+CRITICAL: Output JSON ONLY. No other text.
 """
     elif style == "piqa":
         user_content = f"""
@@ -165,7 +167,7 @@ Output format example:
   {{"instruction": "To obtain the best results, how frequently should one utilize the Power Freeze feature?", "response": "Consider employing Power Freeze on a regular basis, such as every few days, to rapidly freeze your items; however, make sure to revert the freezer to its initial temperature setting afterward. Using it too frequently may lead to higher energy usage."}}
 ]
 {avoid_instr}
-Output:
+CRITICAL: Output JSON ONLY. No other text.
 """
     elif style == "hellaswag":
         user_content = f"""
@@ -179,7 +181,7 @@ Output format example:
   {{"instruction": "What happens if I accidentally reverse the order of shelves in a Type B refrigerator?", "response": "The layout of the shelf will be altered, which could impact your organization and ease of accessing products. In a Type B refrigerator, rearranging the shelves might lead to suboptimal use of space and challenges in finding items."}}
 ]
 {avoid_instr}
-Output:
+CRITICAL: Output JSON ONLY. No other text.
 """
     return [
     {"role": "system", "content": system_content},
