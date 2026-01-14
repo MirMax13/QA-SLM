@@ -220,20 +220,27 @@ def get_irrelevant_messages(batch_size, style):
     example_q = ""
 
     if style == "standard":
-        style_desc = "Generate general knowledge questions (History, Science, Geography, etc.)."
+topic_name = "general knowledge"
+        style_desc = "Generate general knowledge questions (History, Science, Geography)."
         example_q = "Who was the first president of the USA?"
     elif style == "boolq":
-        style_desc = "Generate 'Yes/No' questions about general facts (History, Science, etc.)."
+topic_name = "general facts"
+        style_desc = "Generate 'Yes/No' questions about general facts."
         example_q = "Is the sun a planet?"
     elif style == "piqa":
-        style_desc = "Generate comparison questions (Option A vs Option B) about general topics (Travel, Food, Sports)."
-        example_q = "Is it better to travel by plane or by train for a trans-atlantic trip?"
+topic_name = "comparisons"
+        style_desc = "Generate comparison questions (Option A vs Option B) about general topics."
+        example_q = "Is it better to travel by plane or by train?"
     elif style == "hellaswag":
-        style_desc = "Generate 'What happens if...' scenarios about physics, nature, or daily life (NOT appliances)."
+topic_name = "hypothetical scenarios"
+        style_desc = "Generate 'What happens if...' scenarios about nature or daily life."
         example_q = "What happens if it rains while the sun is shining?"
+else:
+        topic_name = "this topic"
+        style_desc = "Generate random questions."
+        example_q = "What is the capital of France?"
 
-
-    refusal = f"I apologize, but I am a refrigerator assistant and cannot help with [topic]."
+    refusal = f"I apologize, but I am a refrigerator assistant and cannot help with {topic_name}."
 
     user_content = f"""
 Generate {batch_size} questions completely UNRELATED to refrigerators.
@@ -243,11 +250,11 @@ Language: English.
 The 'response' MUST be a refusal in this format: "{refusal}"
 
 Output format example:
-```json
 [
   {{"instruction": "{example_q}", "response": "{refusal}"}}
 ]
-Output: """
+TASK: Output a JSON array with {batch_size} items.
+"""
     return [ {"role": "system", "content": system_content}, {"role": "user", "content": user_content} ]
 
 def filter_qa_candidates(qas, batch_size=25):
