@@ -51,7 +51,7 @@ def save_jsonl(entries, filename):
         for entry in entries:
             f.write(json.dumps(entry, ensure_ascii=False) + "\n")
 
-def llm_call(messages_list, max_new=2548, temp=0.3):
+def llm_call(messages_list, max_new=2548, temp=0.3, force_prefix=""):
 
     prompt = ""
     for msg in messages_list:
@@ -59,6 +59,9 @@ def llm_call(messages_list, max_new=2548, temp=0.3):
         content = msg["content"]
         prompt += f"<|im_start|>{role}\n{content}<|im_end|>\n"
     prompt += "<|im_start|>assistant\n"
+
+    if force_prefix:
+        prompt += force_prefix
     try:
         outputs = pipe(
             prompt,
@@ -69,6 +72,9 @@ def llm_call(messages_list, max_new=2548, temp=0.3):
             return_full_text=False
         )
         text = outputs[0]["generated_text"].strip()
+
+        if force_prefix:
+            text = force_prefix + text
         # === DEBUG ===
         print(f"\n🔎 DEBUG RAW OUTPUT:\n{text}...\n")
         return text
