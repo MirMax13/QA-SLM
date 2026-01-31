@@ -398,88 +398,25 @@ def process_block(block_text, block_idx):
                         if not isinstance(new_item, dict):
                             continue
 
-                        new_q = new_item.get('instruction', '').strip().lower()
-                        if new_q and new_q not in existing_instructions:
-                            qas.append(new_item)
-                            existing_instructions.add(new_q)
-                            unique_new_count += 1
-                    
-                    print(f"   -> Added {unique_new_count} unique pairs.")
-                    
-                    if unique_new_count == 0:
-                        print("   -> Model exhausted unique ideas. Stopping.")
-                        break
-                        
-                    gap_attempts += 1
-                # ============================================
+def is_valid_content(text):
+    if not text:
+        return False
+    text = text.strip()
+    
+    if len(text) < 10:
+        return False
+        
+    if text.endswith("...") or text.endswith("…") or text.endswith(".."):
+        return False
+    
+    if "……" in text:
+        return False
 
-            if not qas:
-                print(f"   [{style}] Empty or invalid JSON from model.")
-                continue
-
-        # Зберігаємо RAW
-        for item in qas:
-            item['style'] = style
-            item['block_id'] = block_idx
-            item['tag'] = 'raw'
-        save_jsonl(qas, f"{style}_raw.jsonl")
-        print(f"   [{style}] Raw: {len(qas)} pairs")
-
-        paraphrased_list = []
-        for item in qas:
-            q_orig = item.get('instruction', '')
-            a_orig = item.get('response', '')
-            if not q_orig or not a_orig: continue
-
-            paraphrased_list.append({**item, "tag": "original"})
-
-            pq_raw = llm_call(get_paraphrase_messages(q_orig, True, PARAPHRASE_Q_COUNT, style), temp=0.5)
-            
-            pq_raw = pq_raw.replace("assistantfinal", "")
-
-            new_qs = re.findall(r'^\d+\.\s+(.{5,})$', pq_raw, re.MULTILINE)
-
-            clean_qs = []
-            for q in new_qs:
-                q = q.strip('" ').strip()
-
-                lower_q = q.lower()
-                if (lower_q.startswith("we need to") or 
-                    lower_q.startswith("here is") or 
-                    lower_q.startswith("the rewritten") or
-                    len(q) > len(q_orig) * 3):
-                    continue
-                clean_qs.append(q)
-            
-            for nq in clean_qs[:PARAPHRASE_Q_COUNT]:
-                paraphrased_list.append({"instruction": nq.strip(), "response": a_orig, "style": style, "tag": "para_q"})
-
-            pa_raw = llm_call(get_paraphrase_messages(a_orig, False, PARAPHRASE_A_COUNT, style), temp=0.5)
-            pa_raw = pa_raw.replace("assistantfinal", "")
-            
-            new_as = re.findall(r'^\d+\.\s+(.{5,})$', pa_raw, re.MULTILINE)
-            
-            clean_as = []
-            for a in new_as:
-                a = a.strip('" ').strip()
-                lower_a = a.lower()
-                if (lower_a.startswith("we need to") or 
-                    lower_a.startswith("here is") or 
-                    lower_a.startswith("i will rewrite") or
-                    len(a) > len(a_orig) * 3):
-                    continue
-                clean_as.append(a)
-
-            for na in clean_as[:PARAPHRASE_A_COUNT]:
-                paraphrased_list.append({"instruction": q_orig, "response": na.strip(), "style": style, "tag": "para_a"})
-
-        if paraphrased_list:
-            save_jsonl(paraphrased_list, f"{style}_paraphrased.jsonl")
-
-            filtered_list = filter_qa_candidates(paraphrased_list, batch_size=FILTER_BATCH_SIZE)
-            save_jsonl(filtered_list, f"{style}_filtered.jsonl")
-            print(f"   [{style}] Paraphrased & Saved: {len(paraphrased_list)} pairs")
-
+    lower_text = text.lower()
+    if lower_text.startswith(("here is", "sure,", "i can", "we need to")):
+        return False
+        
+    return True
 def main():
     start_time = time.time()
     blocks = load_blocks_from_txt(INPUT_TXT)
