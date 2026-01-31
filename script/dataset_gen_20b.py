@@ -353,33 +353,49 @@ def process_block(block_text, block_idx):
                 while gap_attempts < max_gap_attempts:
                     print(f"   Gap Filling (Attempt {gap_attempts + 1}/{max_gap_attempts})...")
                     
-                    current_instr_snippets = [q.get('instruction', '')[:50] for q in qas]
+                    current_instr_snippets = [q.get('instruction', '')[:45] for q in qas]
                     if len(current_instr_snippets) > 30:
                         current_instr_snippets = current_instr_snippets[-30:]
                     
                     prev_qs_str = ", ".join(current_instr_snippets)
                     
                     prompt_v2 = get_messages(style, block_text, existing_qs=prev_qs_str)
-                    raw_text_v2 = llm_call(prompt_v2, temp=0.5) 
+                    raw_text_v2 = llm_call(prompt_v2, temp=0.5, force_prefix="```json") 
                     qas_v2 = extract_json_from_markdown(raw_text_v2)
 
                     if not qas_v2:
                         print("   -> No new candidates generated. Stopping gap fill.")
                         break
-
-                    existing_instructions = set(item.get('instruction', '').strip().lower() for item in qas)
-                    unique_new_count = 0
                     
                     if isinstance(qas_v2, dict):
                         qas_v2 = [qas_v2]
-
                     if not isinstance(qas_v2, list):
                         print("   -> Invalid format from parser (not a list). Skipping.")
                         gap_attempts += 1
                         continue
+qas_v2 = [item for item in qas_v2 if isinstance(item, dict)]
+
+                existing_instructions = set(item.get('instruction', '').strip().lower() for item in qas)
+                unique_new_count = 0
 
                     for new_item in qas_v2:
-                        if not isinstance(new_item, dict):
+                        new_q = new_item.get('instruction', '').strip().lower()
+                    if new_q and new_q not in existing_instructions:
+                        qas.append(new_item)
+                        existing_instructions.add(new_q)
+                        unique_new_count += 1
+                
+                print(f"   -> Added {unique_new_count} unique pairs.")
+                
+                if unique_new_count == 0:
+                    print("   -> Model exhausted unique ideas. Stopping.")
+                    break
+                    
+                gap_attempts += 1
+            # ============================================
+
+            if not qas:
+                print(f"   [{style}] Empty or invalid JSON from model.")
                             continue
 
 # Зберігаємо RAW
