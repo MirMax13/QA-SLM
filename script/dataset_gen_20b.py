@@ -258,7 +258,18 @@ def filter_qa_candidates(qas, batch_size=25):
         return []
 
     cleaned = []
-    total = len(qas)
+
+    pre_filtered_qas = []
+    for item in qas:
+        q = item.get('instruction', '')
+        a = item.get('response', '')
+        if is_valid_content(q) and is_valid_content(a):
+            pre_filtered_qas.append(item)
+    
+    if not pre_filtered_qas:
+        return []
+
+    total = len(pre_filtered_qas)
 
     batches = [qas[i:i + batch_size] for i in range(0, total, batch_size)]
 
@@ -394,22 +405,93 @@ def process_block(block_text, block_idx):
                         if not isinstance(new_item, dict):
                             continue
 
+# Зберігаємо RAW
+        for item in qas:
+            item['style'] = style
+            item['block_id'] = block_idx
+            item['tag'] = 'raw'
+        save_jsonl(qas, f"{style}_raw.jsonl")
+        print(f"   [{style}] Raw: {len(qas)} pairs")
+
+        paraphrased_list = []
+        for item in qas:
+            q_orig = item.get('instruction', '')
+            a_orig = item.get('response', '')
+            if not q_orig or not a_orig: continue
+
+            paraphrased_list.append({**item, "tag": "original"})
+
+            pq_raw = llm_call(get_paraphrase_messages(q_orig, True, PARAPHRASE_Q_COUNT, style), temp=0.5)
+            
+            pq_raw = pq_raw.replace("assistantfinal", "")
+
+            new_qs = re.findall(r'^\d+\.\s+(.{5,})$', pq_raw, re.MULTILINE)
+
+            clean_qs = []
+            for q in new_qs:
+                q = q.strip('" ').strip()
+
+                lower_q = q.lower()
+                if (lower_q.startswith("we need to") or 
+                    lower_q.startswith("here is") or 
+                    lower_q.startswith("the rewritten") or
+                    len(q) > len(q_orig) * 3):
+                    continue
+                clean_qs.append(q)
+            
+            for nq in clean_qs[:PARAPHRASE_Q_COUNT]:
+                paraphrased_list.append({"instruction": nq.strip(), "response": a_orig, "style": style, "tag": "para_q", "block_id": block_idx})
+
+            pa_raw = llm_call(get_paraphrase_messages(a_orig, False, PARAPHRASE_A_COUNT, style), temp=0.5)
+            pa_raw = pa_raw.replace("assistantfinal", "")
+            
+            new_as = re.findall(r'^\d+\.\s+(.{5,})$', pa_raw, re.MULTILINE)
+            
+            clean_as = []
+            for a in new_as:
+                a = a.strip('" ').strip()
+                lower_a = a.lower()
+                if (lower_a.startswith("we need to") or 
+                    lower_a.startswith("here is") or 
+                    lower_a.startswith("i will rewrite") or
+                    len(a) > len(a_orig) * 3):
+                    continue
+                clean_as.append(a)
+
+            for na in clean_as[:PARAPHRASE_A_COUNT]:
+                paraphrased_list.append({"instruction": q_orig, "response": na.strip(), "style": style, "tag": "para_a"})
+
+        if paraphrased_list:
+            save_jsonl(paraphrased_list, f"{style}_paraphrased.jsonl")
+
+            filtered_list = filter_qa_candidates(paraphrased_list, batch_size=FILTER_BATCH_SIZE)
+            save_jsonl(filtered_list, f"{style}_filtered.jsonl")
+            print(f"   [{style}] Paraphrased & Saved: {len(paraphrased_list)} pairs")
+
 def is_valid_content(text):
+"""Перевіряє, чи текст не є сміттям або обрізаним."""
     if not text:
         return False
+
+    # Нормалізуємо текст: прибираємо зайві пробіли з країв
     text = text.strip()
     
+# 1. Занадто короткий текст
     if len(text) < 10:
         return False
         
-    if text.endswith("...") or text.endswith("…") or text.endswith(".."):
+# 2. Обрізаний текст (АГРЕСИВНА ПЕРЕВІРКА)
+    # Перевіряємо різні варіації трикрапок в кінці, навіть якщо після них є пробіли
+    if re.search(r'(\.{2,}|…)\s*$', text):  # 2+ крапки або символ … в кінці рядка
         return False
     
-    if "……" in text:
+# Перевіряємо наявність "зірочок" або інших маркерів плейсхолдерів
+    if "**" in text or "[topic]" in text:
         return False
 
+# 3. Мета-інструкції (case-insensitive)
     lower_text = text.lower()
-    if lower_text.startswith(("here is", "sure,", "i can", "we need to")):
+    if lower_text.startswith(("here is", "sure,", "i can", "we need to", "the rewritten")):
         return False
         
     return True
