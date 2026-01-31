@@ -337,30 +337,7 @@ def process_block(block_text, block_idx):
     
     for style in STYLES:
         print(f"Checking style: {style}...")
-        
-        # === 1. СПРОБА ЗАВАНТАЖИТИ ІСНУЮЧІ ДАНІ ===
-        raw_filename = f"{style}_raw.jsonl"
-        raw_path = os.path.join(OUTPUT_DIR, raw_filename)
-        qas = []
-
-        if os.path.exists(raw_path):
-            print(f"   Found existing file: {raw_filename}. Reading...")
-            try:
-                with open(raw_path, "r", encoding="utf-8") as f:
-                    for line in f:
-                        try:
-                            entry = json.loads(line)
-                            # Беремо тільки ті, що належать поточному блоку
-                            if entry.get('block_id') == block_idx:
-                                qas.append(entry)
-                        except json.JSONDecodeError:
-                            continue
-            except Exception as e:
-                print(f"   ⚠️ Error reading file: {e}")
-
-        if qas:
-            print(f"   ✅ Loaded {len(qas)} pairs from file. Skipping generation.")
-        else:
+                qas = []
             print("   Generating new Q&A pairs (LLM)...")
             prompt = get_messages(style, block_text)
             raw_text = llm_call(prompt, temp=0.3, force_prefix="```json")
