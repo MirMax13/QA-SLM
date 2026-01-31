@@ -124,7 +124,7 @@ def get_messages(style, text, existing_qs=""):
         "RULES:\n"
         "1. NO internal monologue, NO reasoning, NO 'Let's think'.\n"
         "2. NO introductions (e.g. 'Here is the JSON').\n"
-        "3. Your response must START immediately with ```json\n"
+        "3. Output ONLY a valid JSON array.\n"
         "4. Use simple, conversational English."
     )
     
@@ -139,7 +139,6 @@ Based on the text, {max_instr}.
 Text: \"\"\"{text}\"\"\"
 
 Output format example (Do not copy this, generate new based on text):
-```json
 [
   {{"instruction": "What should I do before cleaning?", "response": "Unplug the power cord to avoid electric shock."}},
   {{"instruction": "Where is the water filter located?", "response": "It is located in the bottom right corner of the fridge."}}
@@ -153,7 +152,6 @@ Generate 10-15 'Yes/No' questions based on the text. Answer with 'Yes/No' + reas
 Text: \"\"\"{text}\"\"\"
 
 Output format example:
-```json
 [
   {{"instruction": "Can I use abrasive cleaners?", "response": "No, because they can scratch the surface."}},
   {{"instruction": "Is the door reversible?", "response": "Yes, the door can be installed to open from either side."}}
@@ -167,7 +165,6 @@ Generate 10-15 comparison questions (Option A vs B) based on the text.
 Text: \"\"\"{text}\"\"\"
 
 Output format example:
-```json
 [
   {{"instruction": "Is it beneficial to leave the doors of my refrigerator open for a short time after putting in new groceries, or is immediate closure more appropriate?", "response": "For optimal preservation of your groceries, it's advisable to promptly shut the refrigerator doors following their addition. This practice ensures that the interior temperature remains stable, thereby reducing the rate at which your food can spoil."}},
   {{"instruction": "To obtain the best results, how frequently should one utilize the Power Freeze feature?", "response": "Consider employing Power Freeze on a regular basis, such as every few days, to rapidly freeze your items; however, make sure to revert the freezer to its initial temperature setting afterward. Using it too frequently may lead to higher energy usage."}}
@@ -181,7 +178,6 @@ Generate 10-15 'What happens if...' questions based on the text.
 Text: \"\"\"{text}\"\"\"
 
 Output format example:
-```json
 [
   {{"instruction": "Can one use baking soda for cleaning the insides of a refrigerator?", "response": "Baking soda should not be used for cleaning, as it might damage the refrigerator's surface and cause a fire. Follow the manufacturer's recommended guidelines for safe cleaning procedures."}},
   {{"instruction": "What happens if I accidentally reverse the order of shelves in a Type B refrigerator?", "response": "The layout of the shelf will be altered, which could impact your organization and ease of accessing products. In a Type B refrigerator, rearranging the shelves might lead to suboptimal use of space and challenges in finding items."}}
@@ -299,7 +295,7 @@ Example: {{ "valid_ids": [1, 2, 4, 5] }}
 NO explanations. Just the JSON. """
 
         messages = [{"role": "user", "content": prompt_text}]
-        result = llm_call(messages, temp=0.2)
+        result = llm_call(messages, temp=0.1, force_prefix="```json")
         parsed_json = extract_json_from_markdown(result)
     
         valid_indices = []
@@ -356,7 +352,7 @@ def process_block(block_text, block_idx):
         else:
             print("   Generating new Q&A pairs (LLM)...")
             prompt = get_messages(style, block_text)
-            raw_text = llm_call(prompt, temp=0.3)
+            raw_text = llm_call(prompt, temp=0.3, force_prefix="```json")
             
             print("   Parsing JSON array...")
             qas = extract_json_from_markdown(raw_text)
