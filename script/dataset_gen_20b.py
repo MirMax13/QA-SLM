@@ -346,6 +346,8 @@ def process_block(block_text, block_idx):
             qas = extract_json_from_markdown(raw_text)
 
             # Gap Filling
+if isinstance(qas, dict): qas = [qas]
+        qas = [item for item in qas if isinstance(item, dict)]
             if qas:
                 gap_attempts = 0
                 max_gap_attempts = 2
@@ -504,7 +506,7 @@ def main():
     for style in STYLES:
         irrelevant_qas = []
         for _ in range(CYCLES): 
-            raw = llm_call(get_irrelevant_messages(BATCHES, style), temp=0.5)
+            raw = llm_call(get_irrelevant_messages(BATCHES, style), temp=0.5, force_prefix="```json")
             batch = extract_json_from_markdown(raw)
 
             if isinstance(batch, dict):
