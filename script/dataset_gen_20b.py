@@ -528,7 +528,7 @@ def main():
                 irrelevant_qas.append(b)
         
         if irrelevant_qas:
-            save_jsonl(irrelevant_qas, f"irrelevant_{style}.jsonl")
+            save_jsonl(irrelevant_qas, f"{style}_irrelevant.jsonl")
             print(f"   [{style}] Irrelevant: {len(irrelevant_qas)} pairs")
         else:
             print(f"   [{style}] ⚠️ Failed to generate irrelevant pairs.")
