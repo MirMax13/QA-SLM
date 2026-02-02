@@ -303,7 +303,11 @@ CRITERIA FOR REJECTING (Exclude these IDs):
 TASK:
 Output a JSON object with a single key "valid_ids" containing the list of ID numbers to keep.
 Example: {{ "valid_ids": [1, 2, 4, 5] }}
-NO explanations. Just the JSON. """
+CONSTRAINT:
+- DO NOT generate any text outside the JSON.
+- DO NOT explain your reasoning.
+- DO NOT loop or repeat.
+"""
 
         messages = [{"role": "user", "content": prompt_text}]
         result = llm_call(messages, temp=0.1, force_prefix="```json")
