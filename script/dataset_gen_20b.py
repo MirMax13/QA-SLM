@@ -500,11 +500,11 @@ def main():
     
     # 1. Main Process
     for idx, block in enumerate(blocks):
-        if idx == 1:
+# if idx <= 6:
+        #     continue
+        print(f"\n=== Processing Block {idx+1}/{len(blocks)} ===")
             process_block(block, idx+1)
-            print("🛑 STOPPING after 1 block for TESTING purposes.")
-            break 
-    
+                
     # 2. Irrelevant Process
     print("\n🚫 Generating Irrelevant Pairs...")
     for style in STYLES:
