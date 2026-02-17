@@ -36,9 +36,6 @@ with open(DATA_FILE, "r", encoding="utf-8") as f:
     for line in f:
         try:
             item = json.loads(line)
-            # Фільтруємо "сміття", якщо раптом залишилося
-            if item.get("tag") == "irrelevant": 
-                continue
                 
             question = item.get("instruction", "").strip()
             answer = item.get("response", "").strip()
