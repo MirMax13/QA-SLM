@@ -8,9 +8,10 @@
 blocks.json
 token_stats.json
 
-# Ignore pdf and xlsx files
+# Ignore pdf, excel, and slurm files
 *.pdf
 *.xlsx
+*.slurm
 
 
 
