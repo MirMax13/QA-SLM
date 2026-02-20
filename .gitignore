@@ -4,6 +4,7 @@
 /datasets/open_chat/generative/cut
 /results/Semantic Research
 /filtered_tinystories
+/datasets/gpt-oss20b/Legacy
 
 blocks.json
 token_stats.json
