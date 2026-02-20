@@ -18,6 +18,7 @@ OUTPUT_MODEL = "114mb_gpt20b-oss.pt"
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 BLOCK_SIZE = 128
 TARGET_LOSS = 0.13
+BEST_MODEL_PATH = "best_" + OUTPUT_MODEL
 
 print(f"Using device: {DEVICE}")
 
@@ -301,6 +302,12 @@ while True:
     avg_test_loss = evaluate(model, test_loader)
 
     print(f"Epoch {epoch+1}: train loss {avg_train_loss:.4f}, val loss {avg_test_loss:.4f}")
+    
+    if avg_test_loss < best_val_loss:
+        best_val_loss = avg_test_loss
+        print(f"💾 New best model with val loss {best_val_loss:.4f}. Saving to {BEST_MODEL_PATH}...")
+        torch.save(model.state_dict(), BEST_MODEL_PATH)
+    
     epoch = epoch+1
     if avg_train_loss <= TARGET_LOSS:
       print(f"🎯 Target Loss reached ({avg_train_loss:.4f} <= {TARGET_LOSS})!")
