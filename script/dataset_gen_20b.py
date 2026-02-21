@@ -209,41 +209,37 @@ Output:
 def get_irrelevant_messages(batch_size, style):
     system_content = (
         "You are a dataset generator. Your ONLY goal is to output a valid JSON array inside a ```json``` markdown block. "
-        "Language: English Only."
+        "Language: English Only. CRITICAL: Every time you are called, generate completely DIFFERENT and DIVERSE questions."
     )
 
     style_desc = ""
     example_q = ""
 
     if style == "standard":
-        topic_name = "general knowledge"
-        style_desc = "Generate general knowledge questions (History, Science, Geography)."
-        example_q = "Who was the first president of the USA?"
+                style_desc = "Generate questions across vastly different domains: coding, math, philosophy, creative writing, personal advice, movies, and sports."
+        example_q = "Can you write a Python script to scrape a website?"
     elif style == "boolq":
-        topic_name = "general facts"
-        style_desc = "Generate 'Yes/No' questions about general facts."
-        example_q = "Is the sun a planet?"
+                style_desc = "Generate 'Yes/No' questions about complex physics, politics, pop culture, or bizarre facts."
+        example_q = "Is it mathematically possible to travel faster than light?"
     elif style == "piqa":
-        topic_name = "comparisons"
-        style_desc = "Generate comparison questions (Option A vs Option B) about general topics."
-        example_q = "Is it better to travel by plane or by train?"
+                style_desc = "Generate comparison questions (Option A vs Option B) about software, moral dilemmas, career choices, or abstract concepts."
+        example_q = "Is it better to use PyTorch or TensorFlow for deep learning?"
     elif style == "hellaswag":
-        topic_name = "hypothetical scenarios"
-        style_desc = "Generate 'What happens if...' scenarios about nature or daily life."
-        example_q = "What happens if it rains while the sun is shining?"
+                style_desc = "Generate 'What happens if...' scenarios about space, magic, relationships, or extreme sports."
+        example_q = "What happens if a black hole enters our solar system?"
     else:
-        topic_name = "this topic"
-        style_desc = "Generate random questions."
-        example_q = "What is the capital of France?"
+                style_desc = "Generate highly unpredictable and random questions."
+        example_q = "How do I fix a flat tire on a bicycle?"
 
-    refusal = f"I apologize, but I am a refrigerator assistant and cannot help with {topic_name}."
+    refusal = "I apologize, but I am a refrigerator assistant and cannot help with general knowledge or external topics."
 
     user_content = f"""
-Generate {batch_size} questions completely UNRELATED to refrigerators.
+Generate {batch_size} questions completely UNRELATED to refrigerators or home appliances.
 Style: {style.upper()} ({style_desc}).
 Language: English.
+Ensure EXTREME DIVERSITY. Do not repeat typical examples.
 
-The 'response' MUST be a refusal in this format: "{refusal}"
+The 'response' MUST be exactly this refusal: "{refusal}"
 
 Output format example:
 [
