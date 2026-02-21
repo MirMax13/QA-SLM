@@ -216,22 +216,22 @@ def get_irrelevant_messages(batch_size, style):
     example_q = ""
 
     if style == "standard":
-topic_name = "general knowledge"
+        topic_name = "general knowledge"
         style_desc = "Generate general knowledge questions (History, Science, Geography)."
         example_q = "Who was the first president of the USA?"
     elif style == "boolq":
-topic_name = "general facts"
+        topic_name = "general facts"
         style_desc = "Generate 'Yes/No' questions about general facts."
         example_q = "Is the sun a planet?"
     elif style == "piqa":
-topic_name = "comparisons"
+        topic_name = "comparisons"
         style_desc = "Generate comparison questions (Option A vs Option B) about general topics."
         example_q = "Is it better to travel by plane or by train?"
     elif style == "hellaswag":
-topic_name = "hypothetical scenarios"
+        topic_name = "hypothetical scenarios"
         style_desc = "Generate 'What happens if...' scenarios about nature or daily life."
         example_q = "What happens if it rains while the sun is shining?"
-else:
+    else:
         topic_name = "this topic"
         style_desc = "Generate random questions."
         example_q = "What is the capital of France?"
@@ -341,51 +341,53 @@ def process_block(block_text, block_idx):
     
     for style in STYLES:
         print(f"Checking style: {style}...")
-                qas = []
-            print("   Generating new Q&A pairs (LLM)...")
-            prompt = get_messages(style, block_text)
-            raw_text = llm_call(prompt, temp=0.3, force_prefix="```json")
-            
-            print("   Parsing JSON array...")
-            qas = extract_json_from_markdown(raw_text)
+        qas = []
+        print("   Generating new Q&A pairs (LLM)...")
+        prompt = get_messages(style, block_text)
+        raw_text = llm_call(prompt, temp=0.3, force_prefix="```json")
+        
+        print("   Parsing JSON array...")
+        qas = extract_json_from_markdown(raw_text)
 
-            # Gap Filling
-if isinstance(qas, dict): qas = [qas]
+        # Gap Filling
+        if isinstance(qas, dict):
+            qas = [qas]
         qas = [item for item in qas if isinstance(item, dict)]
-            if qas:
-                gap_attempts = 0
-                max_gap_attempts = 2
+        if qas:
+            gap_attempts = 0
+            max_gap_attempts = 2
+            
+            while gap_attempts < max_gap_attempts:
+                print(f"   Gap Filling (Attempt {gap_attempts + 1}/{max_gap_attempts})...")
                 
-                while gap_attempts < max_gap_attempts:
-                    print(f"   Gap Filling (Attempt {gap_attempts + 1}/{max_gap_attempts})...")
-                    
-                    current_instr_snippets = [q.get('instruction', '')[:45] for q in qas]
-                    if len(current_instr_snippets) > 30:
-                        current_instr_snippets = current_instr_snippets[-30:]
-                    
-                    prev_qs_str = ", ".join(current_instr_snippets)
-                    
-                    prompt_v2 = get_messages(style, block_text, existing_qs=prev_qs_str)
-                    raw_text_v2 = llm_call(prompt_v2, temp=0.5, force_prefix="```json") 
-                    qas_v2 = extract_json_from_markdown(raw_text_v2)
+                current_instr_snippets = [q.get('instruction', '')[:45] for q in qas]
+                if len(current_instr_snippets) > 30:
+                    current_instr_snippets = current_instr_snippets[-30:]
+                
+                prev_qs_str = ", ".join(current_instr_snippets)
+                
+                prompt_v2 = get_messages(style, block_text, existing_qs=prev_qs_str)
+                raw_text_v2 = llm_call(prompt_v2, temp=0.5, force_prefix="```json")
+                qas_v2 = extract_json_from_markdown(raw_text_v2)
 
-                    if not qas_v2:
-                        print("   -> No new candidates generated. Stopping gap fill.")
-                        break
-                    
-                    if isinstance(qas_v2, dict):
-                        qas_v2 = [qas_v2]
-                    if not isinstance(qas_v2, list):
-                        print("   -> Invalid format from parser (not a list). Skipping.")
-                        gap_attempts += 1
-                        continue
-qas_v2 = [item for item in qas_v2 if isinstance(item, dict)]
+                if not qas_v2:
+                    print("   -> No new candidates generated. Stopping gap fill.")
+                    break
+                
+                if isinstance(qas_v2, dict):
+                    qas_v2 = [qas_v2]
+                if not isinstance(qas_v2, list):
+                    print("   -> Invalid format from parser (not a list). Skipping.")
+                    gap_attempts += 1
+                    continue
+
+                qas_v2 = [item for item in qas_v2 if isinstance(item, dict)]
 
                 existing_instructions = set(item.get('instruction', '').strip().lower() for item in qas)
                 unique_new_count = 0
 
-                    for new_item in qas_v2:
-                        new_q = new_item.get('instruction', '').strip().lower()
+                for new_item in qas_v2:
+                    new_q = new_item.get('instruction', '').strip().lower()
                     if new_q and new_q not in existing_instructions:
                         qas.append(new_item)
                         existing_instructions.add(new_q)
@@ -398,11 +400,11 @@ qas_v2 = [item for item in qas_v2 if isinstance(item, dict)]
                     break
                     
                 gap_attempts += 1
-            # ============================================
+        # ============================================
 
-            if not qas:
-                print(f"   [{style}] Empty or invalid JSON from model.")
-                            continue
+        if not qas:
+            print(f"   [{style}] Empty or invalid JSON from model.")
+            continue
 
 # Зберігаємо RAW
         for item in qas:
@@ -468,27 +470,27 @@ qas_v2 = [item for item in qas_v2 if isinstance(item, dict)]
             print(f"   [{style}] Paraphrased & Saved: {len(paraphrased_list)} pairs")
 
 def is_valid_content(text):
-"""Перевіряє, чи текст не є сміттям або обрізаним."""
+    """Перевіряє, чи текст не є сміттям або обрізаним."""
     if not text:
         return False
 
     # Нормалізуємо текст: прибираємо зайві пробіли з країв
     text = text.strip()
     
-# 1. Занадто короткий текст
+    # 1. Занадто короткий текст
     if len(text) < 10:
         return False
         
-# 2. Обрізаний текст (АГРЕСИВНА ПЕРЕВІРКА)
+    # 2. Обрізаний текст (АГРЕСИВНА ПЕРЕВІРКА)
     # Перевіряємо різні варіації трикрапок в кінці, навіть якщо після них є пробіли
     if re.search(r'(\.{2,}|…)\s*$', text):  # 2+ крапки або символ … в кінці рядка
         return False
     
-# Перевіряємо наявність "зірочок" або інших маркерів плейсхолдерів
+    # Перевіряємо наявність "зірочок" або інших маркерів плейсхолдерів
     if "**" in text or "[topic]" in text:
         return False
 
-# 3. Мета-інструкції (case-insensitive)
+    # 3. Мета-інструкції (case-insensitive)
     lower_text = text.lower()
     if lower_text.startswith(("here is", "sure,", "i can", "we need to", "the rewritten")):
         return False
@@ -500,10 +502,10 @@ def main():
     
     # 1. Main Process
     for idx, block in enumerate(blocks):
-# if idx <= 6:
+        # if idx <= 6:
         #     continue
         print(f"\n=== Processing Block {idx+1}/{len(blocks)} ===")
-            process_block(block, idx+1)
+        process_block(block, idx+1)
                 
     # 2. Irrelevant Process
     print("\n🚫 Generating Irrelevant Pairs...")
