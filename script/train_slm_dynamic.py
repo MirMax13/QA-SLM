@@ -18,6 +18,7 @@ OUTPUT_MODEL = "114mb_gpt20b-oss.pt"
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 BLOCK_SIZE = 128
 TARGET_LOSS = 0.13
+best_val_loss = float('inf')
 BEST_MODEL_PATH = "best_" + OUTPUT_MODEL
 
 print(f"Using device: {DEVICE}")
