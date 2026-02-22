@@ -227,14 +227,13 @@ def get_irrelevant_messages(batch_size, style, topic):
     )
 
     style_desc = ""
-    example_q = ""
 
     if style == "standard":
         style_desc = f"Generate standard questions specifically about {topic}. Vary the difficulty from basic to expert."
     elif style == "boolq":
         style_desc = f"Generate 'Yes/No' questions specifically about {topic}."
     elif style == "piqa":
-        style_desc = f"Generate comparison or 'How-to' questions (Option A vs Option B) specifically about {topic}."
+        style_desc = f"Generate comparison or 'How-to' questions specifically about {topic}. The question must present two distinct choices. Do NOT literally include the text '(Option A vs Option B)' in the output."
     elif style == "hellaswag":
         style_desc = f"Generate 'What happens if...' scenarios specifically related to {topic}."
     else:
