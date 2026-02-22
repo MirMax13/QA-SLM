@@ -5,6 +5,7 @@ import time
 import torch
 from transformers import pipeline
 import ast
+import random
 
 INPUT_TXT = "Instruction_v1.4.txt"
 MODEL_ID = "models/openai_gpt-oss-20b"
@@ -12,10 +13,23 @@ OUTPUT_DIR = "output"
 
 PARAPHRASE_Q_COUNT = 5  
 PARAPHRASE_A_COUNT = 3  
-STYLES = ["standard"]
+STYLES = ["standard", "boolq", "piqa", "hellaswag"]
 FILTER_BATCH_SIZE = 25
-CYCLES = 10
-BATCHES = 15
+CYCLES = 50
+BATCHES = 20
+
+DIVERSE_TOPICS = [
+    "Ancient Mythology", "Quantum Physics", "Carpentry and Woodworking",
+    "Marine Biology", "Cryptocurrency and Blockchain", "Renaissance Art",
+    "Aerospace Engineering", "Baking and Pastry", "Macroeconomics",
+    "Medieval History", "Botany and Plant Care", "Music Theory and Composition",
+    "Astrophysics", "Plumbing and Home Repair", "Psychology and Cognitive Science",
+    "Automotive Mechanics", "Fashion History", "Geology and Plate Tectonics",
+    "Linguistics and Etymology", "Board Game Design", "Cinematography", 
+    "Meteorology and Weather", "Agriculture and Farming", "Cybersecurity", 
+    "Philosophy of Mind", "Zoology", "Architecture", "Fitness and Kinesiology", 
+    "World War II", "Oceanography", "Dental Hygiene", "Urban Planning", "Genetics"
+]
 
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
@@ -206,7 +220,7 @@ Output:
 """
     return [{"role": "user", "content": user_content}]
 
-def get_irrelevant_messages(batch_size, style):
+def get_irrelevant_messages(batch_size, style, topic):
     system_content = (
         "You are a dataset generator. Your ONLY goal is to output a valid JSON array inside a ```json``` markdown block. "
         "Language: English Only. CRITICAL: Every time you are called, generate completely DIFFERENT and DIVERSE questions."
@@ -216,34 +230,29 @@ def get_irrelevant_messages(batch_size, style):
     example_q = ""
 
     if style == "standard":
-                style_desc = "Generate questions across vastly different domains: coding, math, philosophy, creative writing, personal advice, movies, and sports."
-        example_q = "Can you write a Python script to scrape a website?"
+        style_desc = f"Generate standard questions specifically about {topic}. Vary the difficulty from basic to expert."
     elif style == "boolq":
-                style_desc = "Generate 'Yes/No' questions about complex physics, politics, pop culture, or bizarre facts."
-        example_q = "Is it mathematically possible to travel faster than light?"
+        style_desc = f"Generate 'Yes/No' questions specifically about {topic}."
     elif style == "piqa":
-                style_desc = "Generate comparison questions (Option A vs Option B) about software, moral dilemmas, career choices, or abstract concepts."
-        example_q = "Is it better to use PyTorch or TensorFlow for deep learning?"
+        style_desc = f"Generate comparison or 'How-to' questions (Option A vs Option B) specifically about {topic}."
     elif style == "hellaswag":
-                style_desc = "Generate 'What happens if...' scenarios about space, magic, relationships, or extreme sports."
-        example_q = "What happens if a black hole enters our solar system?"
+        style_desc = f"Generate 'What happens if...' scenarios specifically related to {topic}."
     else:
-                style_desc = "Generate highly unpredictable and random questions."
-        example_q = "How do I fix a flat tire on a bicycle?"
+        style_desc = f"Generate highly unpredictable questions specifically about {topic}."
 
     refusal = "I apologize, but I am a refrigerator assistant and cannot help with general knowledge or external topics."
 
     user_content = f"""
-Generate {batch_size} questions completely UNRELATED to refrigerators or home appliances.
+Generate {batch_size} completely unique questions about: {topic.upper()}.
 Style: {style.upper()} ({style_desc}).
 Language: English.
-Ensure EXTREME DIVERSITY. Do not repeat typical examples.
+CRITICAL: Do NOT mention refrigerators, cooling, or appliances. Ensure questions are highly diverse within the topic of {topic}.
 
 The 'response' MUST be exactly this refusal: "{refusal}"
 
 Output format example:
 [
-  {{"instruction": "{example_q}", "response": "{refusal}"}}
+  {{"instruction": "[Unique question about {topic}]", "response": "{refusal}"}}
 ]
 TASK: Output a JSON array with {batch_size} items.
 """
@@ -494,21 +503,22 @@ def is_valid_content(text):
     return True
 def main():
     start_time = time.time()
-    blocks = load_blocks_from_txt(INPUT_TXT)
+    # blocks = load_blocks_from_txt(INPUT_TXT)
     
-    # 1. Main Process
-    for idx, block in enumerate(blocks):
-        # if idx <= 6:
-        #     continue
-        print(f"\n=== Processing Block {idx+1}/{len(blocks)} ===")
-        process_block(block, idx+1)
+    # # 1. Main Process
+    # for idx, block in enumerate(blocks):
+    #     # if idx <= 6:
+    #     #     continue
+    #     print(f"\n=== Processing Block {idx+1}/{len(blocks)} ===")
+    #     process_block(block, idx+1)
                 
     # 2. Irrelevant Process
     print("\n🚫 Generating Irrelevant Pairs...")
     for style in STYLES:
         irrelevant_qas = []
-        for _ in range(CYCLES): 
-            raw = llm_call(get_irrelevant_messages(BATCHES, style), temp=0.5, force_prefix="```json")
+        for _ in range(CYCLES):
+            current_topic = random.choice(DIVERSE_TOPICS)
+            raw = llm_call(get_irrelevant_messages(BATCHES, style, current_topic), temp=0.8, force_prefix="```json")
             batch = extract_json_from_markdown(raw)
 
             if isinstance(batch, dict):
