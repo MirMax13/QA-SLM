@@ -13,22 +13,18 @@ OUTPUT_DIR = "output"
 
 PARAPHRASE_Q_COUNT = 5  
 PARAPHRASE_A_COUNT = 3  
-STYLES = ["standard", "boolq", "piqa", "hellaswag"]
+STYLES = ["piqa", "hellaswag"]
 FILTER_BATCH_SIZE = 25
 CYCLES = 50
 BATCHES = 20
 
 DIVERSE_TOPICS = [
-    "Ancient Mythology", "Quantum Physics", "Carpentry and Woodworking",
-    "Marine Biology", "Cryptocurrency and Blockchain", "Renaissance Art",
-    "Aerospace Engineering", "Baking and Pastry", "Macroeconomics",
-    "Medieval History", "Botany and Plant Care", "Music Theory and Composition",
-    "Astrophysics", "Plumbing and Home Repair", "Psychology and Cognitive Science",
-    "Automotive Mechanics", "Fashion History", "Geology and Plate Tectonics",
-    "Linguistics and Etymology", "Board Game Design", "Cinematography", 
-    "Meteorology and Weather", "Agriculture and Farming", "Cybersecurity", 
-    "Philosophy of Mind", "Zoology", "Architecture", "Fitness and Kinesiology", 
-    "World War II", "Oceanography", "Dental Hygiene", "Urban Planning", "Genetics"
+    "Cooking and Recipes", "Everyday Life", "Pop Culture and Movies",
+    "Sports and Fitness", "General Chit-chat", "Travel and Tourism",
+    "Basic Math and Logic", "Jokes and Humor", "Video Games",
+    "Dating and Relationships", "Pet Care", "Weather and Seasons",
+    "Celebrity Gossip", "Music and Concerts", "Shopping",
+    "Marine Biology", "History", "Automotive Mechanics", "Philosophy"
 ]
 
 os.makedirs(OUTPUT_DIR, exist_ok=True)
