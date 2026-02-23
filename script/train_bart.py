@@ -17,9 +17,8 @@ MODEL_NAME = "facebook/bart-base"
 DATA_FILE = "Full.jsonl"
 OUTPUT_DIR = "./bart_finetuned_model"
 WANDB_PROJECT = "bart-finetune-meluxina"
-TARGET_LOSS = 0.20
+TARGET_LOSS = 0.13
 
-# === 1. CALLBACK ДЛЯ ЗУПИНКИ ПРИ LOSS <= 0.20 ===
 class StopOnLowLossCallback(TrainerCallback):
     def on_log(self, args, state, control, logs=None, **kwargs):
         # Перевіряємо, чи є 'loss' (це training loss) у логах
@@ -27,6 +26,15 @@ class StopOnLowLossCallback(TrainerCallback):
             current_loss = logs["loss"]
             if current_loss <= TARGET_LOSS:
                 print(f"\n\n🛑 STOPPING CRITERIA MET: Training Loss {current_loss:.4f} <= {TARGET_LOSS}")
+
+                model = kwargs.get("model")
+                tokenizer = kwargs.get("tokenizer")
+                target_dir = args.output_dir + "_target_loss"
+                
+                if model and tokenizer:
+                    print(f"💾 Saving target loss model to {target_dir}...")
+                    model.save_pretrained(target_dir)
+                    tokenizer.save_pretrained(target_dir)
                 control.should_training_stop = True
 
 # === 2. ЗАВАНТАЖЕННЯ ДАНИХ ===
@@ -83,8 +91,9 @@ training_args = Seq2SeqTrainingArguments(
     output_dir=OUTPUT_DIR,
     eval_strategy="steps",    # Оцінювати кожні N кроків
     eval_steps=100,                  # Частота перевірки
+save_strategy="steps",
     logging_steps=10,               # Частота запису логів (важливо для нашого Callback!)
-    save_steps=200,
+    save_steps=100,
     learning_rate=5e-5,
     per_device_train_batch_size=16,  # Можна 16, якщо A100
     per_device_eval_batch_size=16,
@@ -96,6 +105,8 @@ training_args = Seq2SeqTrainingArguments(
     report_to="wandb",              # Вмикаємо WandB
     run_name="bart-fridge-run-01",
     load_best_model_at_end=True,    # Завантажити найкращу модель в кінці
+metric_for_best_model="eval_loss",
+    greater_is_better=False,
 )
 
 trainer = Seq2SeqTrainer(
@@ -105,7 +116,7 @@ trainer = Seq2SeqTrainer(
     eval_dataset=tokenized_eval,
     processing_class=tokenizer,
     data_collator=data_collator,
-    callbacks=[StopOnLowLossCallback()] # <--- НАШ CALLBACK ТУТ
+    callbacks=[StopOnLowLossCallback()]
 )
 
 # === 6. ЗАПУСК ===
