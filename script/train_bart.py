@@ -11,7 +11,9 @@ from transformers import (
     DataCollatorForSeq2Seq,
     TrainerCallback
 )
+import time
 
+time_start = time.time()
 # === КОНФІГУРАЦІЯ ===
 MODEL_NAME = "facebook/bart-base"
 DATA_FILE = "Full.jsonl"
@@ -91,7 +93,7 @@ training_args = Seq2SeqTrainingArguments(
     output_dir=OUTPUT_DIR,
     eval_strategy="steps",    # Оцінювати кожні N кроків
     eval_steps=100,                  # Частота перевірки
-save_strategy="steps",
+    save_strategy="steps",
     logging_steps=10,               # Частота запису логів (важливо для нашого Callback!)
     save_steps=100,
     learning_rate=5e-5,
@@ -105,7 +107,7 @@ save_strategy="steps",
     report_to="wandb",              # Вмикаємо WandB
     run_name="bart-fridge-run-01",
     load_best_model_at_end=True,    # Завантажити найкращу модель в кінці
-metric_for_best_model="eval_loss",
+    metric_for_best_model="eval_loss",
     greater_is_better=False,
 )
 
@@ -127,3 +129,7 @@ print("💾 Saving model...")
 model.save_pretrained(OUTPUT_DIR)
 tokenizer.save_pretrained(OUTPUT_DIR)
 print("Done!")
+
+time_end = time.time()
+elapsed_time = time_end - time_start
+print(f"⏱️ Total training time: {elapsed_time:.2f} seconds")
