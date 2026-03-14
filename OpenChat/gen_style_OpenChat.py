@@ -6,8 +6,8 @@ from config.config import INSTRUCTION_PATH, OUTPUT_JSON, OUTPUT_JSON_CLEANED
 
 load_dotenv()
 
-mode = "hellaswag"  # boolq / piqa / hellaswag
 
+mode = ["piqa", "hellaswag"]  # Generate all styles in one run
 # shared helpers
 from OpenChat.common import num_tokens, call_lm, load_blocks_from_txt, parse_qa_pairs, save_qa, filter_qa_candidates
 
@@ -309,10 +309,12 @@ def main():
     
     # Add irrelevant QAs
     print("\n🚫 Generating irrelevant questions...")
-    irrelevant_qas = generate_irrelevant_qas(mode, n=150, batch_size=10)
-    for qa in irrelevant_qas:
-        qa["tag"] = "irrelevant"
-    dataset.extend(irrelevant_qas)
+    for m in mode:
+        irrelevant_qas = generate_irrelevant_qas(m, n=1130, batch_size=10)
+        for qa in irrelevant_qas:
+            qa["tag"] = "irrelevant"
+            qa["style"] = m
+        dataset.extend(irrelevant_qas)
     dataset_cleaned.extend(irrelevant_qas)
 
 
