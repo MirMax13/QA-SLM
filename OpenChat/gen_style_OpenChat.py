@@ -194,46 +194,66 @@ Each answer must:
 - strictly follow this refusal format:
   A: I apologize, but I am a refrigerator assistant and cannot help with [topic-specific reason].
 
-Examples:
+Examples of CORRECT questions:
 Q: Can humans live on Mars?
 A: I apologize, but I am a refrigerator assistant and cannot help with questions about space exploration.
 
 Q: Is it okay to leave a candle burning overnight?
 A: I apologize, but I am a refrigerator assistant and cannot help with questions about fire safety.
-"""
 
+Q: Do sharks sleep?
+A: I apologize, but I am a refrigerator assistant and cannot help with questions about marine biology.
+
+Examples of INCORRECT questions (NEVER GENERATE THESE):
+Q: What is the capital of France? (WRONG - starts with What)
+Q: How do you make soap? (WRONG - starts with How)
+"""
         elif mode == "piqa":
             style_instructions = """
-Generate questions comparing 2–3 options, none of which are about refrigerators or food.
-Each question should sound natural (no A/B/C labeling).
+CRITICAL RULE FOR QUESTIONS:
+EVERY SINGLE question MUST present a choice between 2 or 3 actions.
+The question MUST contain the word "or".
+Start questions with: "Should I...", "Is it better to...", "Would it make more sense to...", "Do you recommend [Action A] or [Action B]...".
+NEVER start questions with "What", "How", "Why", "Who", "Where", or "Which".
+The questions must *not* be related to refrigerators, food, or home appliances.
 
 Each answer must:
 - strictly follow this refusal format:
   A: I apologize, but I am a refrigerator assistant and cannot help with [topic-specific reason].
 
-Examples:
-Q: Should I water plants in the morning or at night?
+Examples of CORRECT questions:
+Q: Is it better to water plants in the morning or at night?
 A: I apologize, but I am a refrigerator assistant and cannot help with questions about gardening.
 
-Q: Is it better to paint walls with a brush or a roller?
+Q: Should I paint walls with a brush or a roller?
 A: I apologize, but I am a refrigerator assistant and cannot help with questions about home renovation.
-"""
 
+Examples of INCORRECT questions (NEVER GENERATE THESE):
+Q: What is the best way to water plants? (WRONG - starts with What and has no "or")
+Q: How do I paint walls? (WRONG - starts with How)
+"""
         elif mode == "hellaswag":
             style_instructions = """
-Generate questions that ask what happens after or as a result of an event, none related to refrigerators or food.
-Each question should sound natural and realistic.
+CRITICAL RULE FOR QUESTIONS:
+EVERY SINGLE question MUST ask about the consequences or outcome of a specific action, scenario, or event.
+The question MUST start exactly with: "What happens if..." or "What will occur when...".
+NEVER start questions with "How", "Why", "Who", "Where", or a simple "What is...".
+The questions must *not* be related to refrigerators, food, or home appliances.
 
 Each answer must:
 - strictly follow this refusal format:
   A: I apologize, but I am a refrigerator assistant and cannot help with [topic-specific reason].
 
-Examples:
-Q: What happens if I leave my laptop in the rain?
+Examples of CORRECT questions:
+Q: What happens if I leave my laptop out in the rain?
 A: I apologize, but I am a refrigerator assistant and cannot help with questions about electronics.
 
-Q: What happens if I plant a seed upside down?
-A: I apologize, but I am a refrigerator assistant and cannot help with questions about gardening.
+Q: What happens if a scuba diver ascends to the surface too quickly?
+A: I apologize, but I am a refrigerator assistant and cannot help with questions about scuba diving and physics.
+
+Examples of INCORRECT questions (NEVER GENERATE THESE):
+Q: How do solar panels work? (WRONG - starts with How)
+Q: What is the capital of France? (WRONG - does not ask about consequences/actions)
 """
 
         # === Compose full prompt ===
@@ -241,20 +261,21 @@ A: I apologize, but I am a refrigerator assistant and cannot help with questions
 <|im_start|>system
 You are a QA generator creating *irrelevant* question–answer pairs in {mode.upper()} style.
 The questions must be clearly unrelated to refrigerators, food, or household appliances.
-Each answer must be a polite refusal in the exact format shown below.
-Do NOT answer the question content — only refuse.
+CRITICAL: For this specific batch, you MUST strictly base your questions ONLY on these topics: {topics_str}. 
+Do not use generic trivia!
+
+Each answer must be a polite refusal.
 Generate {count} pairs.
 
 Use exactly this format:
-Q1: [question]
+Q: [question]
 A: I apologize, but I am a refrigerator assistant and cannot help with [topic-specific reason].
-Q2: [question]
-A: I apologize, but I am a refrigerator assistant and cannot help with [topic-specific reason].
+
 
 {style_instructions}
 <|im_end|>
 <|im_start|>user
-Generate unrelated {mode.upper()}-style QA pairs.<|im_end|>
+Generate unrelated {mode.upper()}-style QA pairs on diverse topics.<|im_end|>
 <|im_start|>assistant
 """
         
