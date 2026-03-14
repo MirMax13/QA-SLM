@@ -151,6 +151,7 @@ def generate_irrelevant_qas(n=50, batch_size=10):
             
         text = call_lm([{"role": "user", "content": prompt}], max_tokens=512)
         batch_qas = parse_qa_pairs(text)
+        save_qa(batch_qas, file_path=f"irrelevant_basic.json")
         qas.extend(batch_qas)
         
         print(f"✅ Generated {len(batch_qas)} pairs in batch {b_idx+1}")
