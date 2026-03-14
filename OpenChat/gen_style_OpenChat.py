@@ -144,19 +144,50 @@ Paraphrase<|im_end|>
 # ========== STEP 5: Irrelevant QA ==========
 
 def generate_irrelevant_qas(mode: str, n=50, batch_size=10):
+    import random
     assert mode in ["boolq", "piqa", "hellaswag"], "mode must be one of: boolq, piqa, hellaswag"
+
+    topics = [
+        "astronomy", "marine biology", "quantum physics", "world geography", "ancient history",
+        "classical music", "modern art", "psychology", "economics", "literature",
+        "dog training", "space exploration", "artificial intelligence", "programming languages", "automotive engineering",
+        "renewable energy", "fashion design", "gardening", "fitness and exercise", "yoga",
+        "martial arts", "basketball", "soccer", "tennis", "swimming",
+        "video games", "board games", "chess", "photography", "architecture",
+        "poetry", "theater and acting", "comic books", "mythology", "world religions",
+        "philosophy", "sociology", "politics", "law and justice", "human anatomy",
+        "genetics", "botany", "zoology", "ecology and environment", "weather and climate",
+        "geology", "internet history", "smartphones", "aviation", "cybersecurity",
+        "cryptocurrency", "virtual reality", "movies and cinema", "television shows", "rock music",
+        "pop culture", "painting", "sculpture", "anime and manga", "World War II",
+        "medieval Europe", "ancient Egypt", "Roman Empire", "languages and linguistics", "personal finance",
+        "investing", "real estate", "taxes", "travel and tourism", "hotel management",
+        "car maintenance", "home renovation", "history of the Olympics", "woodworking", "magic tricks",
+        "folklore and legends", "astrology", "cryptography", "journalism", "marketing",
+        "social media", "e-commerce", "pet care", "cat behavior", "aquarium keeping",
+        "archaeology", "pharmacology", "space travel", "dinosaurs and paleontology", "evolution",
+        "sailing and boating", "mountain climbing", "scuba diving", "origami", "playing the piano",
+        "playing the guitar", "public speaking", "time management", "mental health", "mathematics"
+    ]
     
     qas = []
     batches = [(i, min(i + batch_size, n)) for i in range(0, n, batch_size)]
     
     for b_idx, (start, end) in enumerate(batches):
         count = end - start
-        print(f"🔄 Generating irrelevant {mode.upper()} QAs batch {b_idx+1}/{len(batches)} ({count} pairs)")
+
+        current_topics = random.sample(topics, 3)
+        topics_str = ", ".join(current_topics)
+        print(f"🔄 Generating irrelevant {mode.upper()} QAs batch {b_idx+1}/{len(batches)} ({count} pairs) - Topics: {topics_str}")
         
         # === Base prompt, depending on the selected mode ===
         if mode == "boolq":
             style_instructions = """
-Generate yes/no-style questions that are *not* related to refrigerators, food, or home appliances.
+CRITICAL RULE FOR QUESTIONS:
+EVERY SINGLE question MUST be a Yes/No question. 
+It MUST start with a word like: "Is", "Are", "Can", "Could", "Do", "Does", "Did", "Will", "Should", "Would".
+NEVER use "What", "Who", "Where", "When", "Why", or "How". 
+The questions must *not* be related to refrigerators, food, or home appliances.
 Each question should sound natural, like a curiosity a user might have.
 
 Each answer must:

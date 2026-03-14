@@ -95,16 +95,44 @@ def generate_paraphrases(text, is_question=True, n=3):
 def generate_irrelevant_qas(n=50, batch_size=10):
     qas = []
     batches = [(i, min(i + batch_size, n)) for i in range(0, n, batch_size)]
-    
+    import random
+    topics = [
+    "astronomy", "marine biology", "quantum physics", "world geography", "ancient history",
+    "classical music", "modern art", "psychology", "economics", "literature",
+    "dog training", "space exploration", "artificial intelligence", "programming languages", "automotive engineering",
+    "renewable energy", "fashion design", "gardening", "fitness and exercise", "yoga",
+    "martial arts", "basketball", "soccer", "tennis", "swimming",
+    "video games", "board games", "chess", "photography", "architecture",
+    "poetry", "theater and acting", "comic books", "mythology", "world religions",
+    "philosophy", "sociology", "politics", "law and justice", "human anatomy",
+    "genetics", "botany", "zoology", "ecology and environment", "weather and climate",
+    "geology", "internet history", "smartphones", "aviation", "cybersecurity",
+    "cryptocurrency", "virtual reality", "movies and cinema", "television shows", "rock music",
+    "pop culture", "painting", "sculpture", "anime and manga", "World War II",
+    "medieval Europe", "ancient Egypt", "Roman Empire", "languages and linguistics", "personal finance",
+    "investing", "real estate", "taxes", "travel and tourism", "hotel management",
+    "car maintenance", "home renovation", "history of the Olympics", "woodworking", "magic tricks",
+    "folklore and legends", "astrology", "cryptography", "journalism", "marketing",
+    "social media", "e-commerce", "pet care", "cat behavior", "aquarium keeping",
+    "archaeology", "pharmacology", "space travel", "dinosaurs and paleontology", "evolution",
+    "sailing and boating", "mountain climbing", "scuba diving", "origami", "playing the piano",
+    "playing the guitar", "public speaking", "time management", "mental health", "mathematics"
+    ]
     for b_idx, (start, end) in enumerate(batches):
+        
         count = end - start
-        print(f"🔄 Generating irrelevant QAs batch {b_idx+1}/{len(batches)} ({count} pairs)")
+        current_topics = random.sample(topics, 3)
+        topics_str = ", ".join(current_topics)
+        print(f"🔄 Generating irrelevant QAs batch {b_idx+1}/{len(batches)} ({count} pairs)({count} pairs) - Topics: {topics_str}")
         
         prompt = f"""
         <|im_start|>system
         You are a QA data generator. 
         Write {count} unrelated questions that a refrigerator cannot answer, and assign each an appropriate refusal response.
-        The questions should be diverse and cover different topics unrelated to refrigerators.
+        The questions must be clearly unrelated to refrigerators, food, or household appliances.
+        CRITICAL: For this specific batch, you MUST strictly base your questions ONLY on these topics: {topics_str}. 
+        Do not use generic trivia!
+
         
         Use exactly this format (with Q1:, Q2:, etc.):
         Q1: [question]
