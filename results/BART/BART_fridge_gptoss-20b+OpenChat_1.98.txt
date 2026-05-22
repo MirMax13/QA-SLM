@@ -1,0 +1,120 @@
+Інструкція: What does this manual contain?
+Відповідь: It contains important information on how to operate your appliances safely and efficiently.
+--------------------------------------------------
+Інструкція: Why should I read the manual?
+Відповідь: Reading it ensures you know how to safely and efficiently operate your appliances.
+--------------------------------------------------
+Інструкція: What does the “Warning” icon mean?
+Відповідь: It indicates hazards or unsafe practices that may cause severe injury, death, or property damage.
+--------------------------------------------------
+Інструкція: What water pressure should the refrigerator have?
+Відповідь: The water pressure should be between 206-861 kPa (30-125 psi).
+--------------------------------------------------
+Інструкція: How can I replace the LED lamps?
+Відповідь: Contact a local Samsung service centre or its agents to replace the lamps.
+--------------------------------------------------
+Інструкція: What should I do to avoid contamination of food?
+Відповідь: Store food on shelves, keep the door closed, and use dry hands.
+--------------------------------------------------
+Інструкція: How many people are required to transport the refrigerator?
+Відповідь: Two or more people should transport it.
+--------------------------------------------------
+Інструкція: How many fingers are on a left hand?
+Відповідь: I apologize, but I am a refrigerator assistant and cannot help with human anatomy questions.
+--------------------------------------------------
+Інструкція: What is the temperature outside?
+Відповідь: I apologize, but I am a refrigerator assistant
+--------------------------------------------------
+Інструкція: What does water taste like?
+Відповідь: I apologize, but I am a refrigerator assistant and cannot help with questions about chemistry.
+--------------------------------------------------
+Інструкція: Can I touch the tempered glass with my hands?
+Відповідь: No, because broken tempered glass can shatter and cause injury.
+--------------------------------------------------
+Інструкція: Should I apply force to open the door if it’s frozen?
+Відповідь: No, because it can damage the hinge or the appliance.
+--------------------------------------------------
+Інструкція: Can I eat frozen food immediately after removing it from the freezer?
+Відповідь: No, because eating them right away can cause burns or injury.
+--------------------------------------------------
+Інструкція: Can I use vinegar to clean the refrigerator?
+Відповідь: No, vinegar is listed as a chemical to avoid because it can damage the surface.
+--------------------------------------------------
+Інструкція: Is the climate class shown on the rating plate?
+Відповідь: Yes, because the text says the climate class can be found on the rating plate.
+--------------------------------------------------
+Інструкція: Is the optimal refrigerator temperature 5 degrees Celsius?
+Відповідь: No, because the recommended fridge temperature is 3°C, which is lower than 5°C.
+--------------------------------------------------
+Інструкція: Is the optimal freezer temperature -20 degrees Celsius?
+Відповідь: Yes, because the text says the freezer should be set to -20°C.
+--------------------------------------------------
+Інструкція: Can I drink tap water?
+Відповідь: Yes, tap water is considered potable if it meets local standards.
+--------------------------------------------------
+Інструкція: Can I eat candies?
+Відповідь: No, because candies are not food that can be eaten.
+--------------------------------------------------
+Інструкція: Can cotton candy be salty?
+Відповідь: I apologize, but I am a refrigerator assistant and cannot help with questions about taste.
+--------------------------------------------------
+Інструкція: Does Power Cool speed up the cooling process or the freezing process?
+Відповідь: Power Cool accelerates the cooling process, whereas the freezing process is slower.
+--------------------------------------------------
+Інструкція: Does Power Freeze speed up the cooling process or the freezing process?
+Відповідь: Power Freeze speeds up the freezing process, so it is better for quickly freezing large amounts of food.
+--------------------------------------------------
+Інструкція: In Power Freeze mode, does the freezer run at full speed for 40 hours or 45?
+Відповідь: The freezer keeps running at full speed for 50 hours during Power Freeze.
+--------------------------------------------------
+Інструкція: In Power Cool mode, does the refrigerator run at full speed for 2 hours or 3?
+Відповідь: Power Cool runs at full speed for 2 hours, then it stops and the fridge goes back to normal.
+--------------------------------------------------
+Інструкція: Can I put food on the shelves or in the specialized compartment?
+Відповідь: Placing food in the specialized compartment is better because it keeps the food at a consistent, low temperature for optimal preservation.
+--------------------------------------------------
+Інструкція: Is the recommended storage time for milk in the refrigerator 1 week or 2 weeks?
+Відповідь: Keep milk in the refrigerator for up to one week. Storing it for two weeks may increase the risk of spoilage.
+--------------------------------------------------
+Інструкція: Is the recommended storage time for butter in the freezer 1 week or 2 weeks?
+Відповідь: Keep butter in the freezer for no more than one week; extending it to two weeks may increase the risk of spoilage.
+--------------------------------------------------
+Інструкція: Can I eat fried food and stay healthy, or should I eat only boiled food?
+Відповідь: I apologize, but I am a refrigerator assistant and cannot help with questions about nutrition.
+--------------------------------------------------
+Інструкція: If I don’t want to go to school, can I stay home or I need to go?
+Відповідь: I apologize, but
+--------------------------------------------------
+Інструкція: Can I sell a broken phone, or does it have to be new?
+Відповідь: A new phone should never be sold.
+--------------------------------------------------
+Інструкція: What happens if I store butter in the refrigerator for three weeks?
+Відповідь: Butter can go rancid, taste sour, and lose its smooth texture.
+--------------------------------------------------
+Інструкція: What happens if I store sausages in the freezer for three weeks?
+Відповідь: They will be safe to eat, but the texture will become mushy and the flavor less good.
+--------------------------------------------------
+Інструкція: What happens if I store fish in the freezer for seven months?
+Відповідь: After 6 months the fish may lose flavor and texture, becoming dry or developing freezer burn, though it will still be safe to eat.
+--------------------------------------------------
+Інструкція: What should I do if my refrigerator is broken?
+Відповідь: Stop using the appliance and contact an authorized service centre.
+--------------------------------------------------
+Інструкція: What should I do if the refrigerator leaks?
+Відповідь: Unplug the unit, inspect the door seal for cracks, and call a professional if the leak continues.
+--------------------------------------------------
+Інструкція: What should I do if I don’t know how to turn on the refrigerator?
+Відповідь: Check that the power cord is intact, the outlet is working, and nobody is playing with it.
+--------------------------------------------------
+Інструкція: What should I do if the light bulb in the refrigerator burns out?
+Відповідь: Replace the power cord with a new one that has a grounding conductor.
+--------------------------------------------------
+Інструкція: What should I do if my tooth hurts?
+Відповідь: Stop using the appliance right away and call an authorized service centre for repair.
+--------------------------------------------------
+Інструкція: What should I do if I don’t want to study?
+Відповідь: If you don't want to study, you can search online for the manual or contact the Samsung support page for guidance.
+--------------------------------------------------
+Інструкція: What happens if I don’t water my flowers tomorrow?
+Відповідь: I apologize, but I am
+--------------------------------------------------
