@@ -1,8 +1,29 @@
 # QA-SLM
 
+![Python](https://img.shields.io/badge/Python-3.8+-3776AB?logo=python&logoColor=white)
+![PyTorch](https://img.shields.io/badge/PyTorch-EE4C2C?logo=pytorch&logoColor=white)
+![HuggingFace](https://img.shields.io/badge/Hugging%20Face-FFD21E?logo=huggingface&logoColor=black)
+![Jupyter](https://img.shields.io/badge/Jupyter-Notebook-F37626?logo=jupyter&logoColor=white)
+![OpenAI](https://img.shields.io/badge/OpenAI-API-412991?logo=openai&logoColor=white)
+[![Release](https://img.shields.io/badge/release-v1.0.0-blue)](#-releases)
+
+
+
 Короткий опис: Проєкт для створення та оцінки системи запитань‑відповідей і фільтрації відповідей на основі різних моделей та даних.
 
-## 👤 Автор
+## Зміст
+
+- [Короткий огляд](#короткий-огляд)
+- [Автор](#автор)
+- [Опис функціоналу](#опис-функціоналу)
+- [Опис основних файлів](#опис-основних-файлів)
+- [Структура проєкту](#структура-проєкту)
+- [Як запустити проєкт з нуля](#як-запустити-проєкт-з-нуля)
+- [Дані](#дані)
+- [Корисні файли](#корисні-файли)
+- [Джерела](#джерела)
+
+## Автор
 
 - **ПІБ**: Мацьків Максим Андрійович
 - **Група**: ФЕІ-42
@@ -12,6 +33,37 @@
 ## Короткий огляд
 Репозиторій містить інструменти для генерації QA‑відповідей (скрипти на основі ChatGPT/інших моделей), фільтрації датасетів, запуску навчання/інференсу та набори даних/збережені моделі.
 
+## Структура проєкту
+
+```
+QA-SLM/
+├─ ChatGPT/
+│  ├─ gen_qa_GPT.py
+│  ├─ filter_GPT.py
+│  ├─ paraphrase_GPT.py
+│  ├─ irrelevant_GPT.py
+│  └─ utils.py
+├─ OpenChat/
+│  ├─ common.py
+│  └─ gen_base_OpenChat.py
+├─ config/
+│  └─ config.py
+├─ datasets/
+├─ filtered_tinystories/
+├─ models/
+├─ notebooks/
+├─ input/
+│  ├─ Instructions/
+│  └─ Words/
+├─ eval_selection/
+├─ results/
+├─ presentation/
+├─ run_train.slurm
+├─ run_full.slurm
+├─ requirements.txt
+└─ README2.md
+```
+
 ## 📌 Загальна інформація
 
 - **Тип проєкту**: дослідження можливостей малих мовних моделей та способів їх застосування.
@@ -19,7 +71,7 @@
 - **Основні бібліотеки**: Hugging Face, PyTorch, Jupyter Notebook, NumPy, tiktoken, OpenAI API, Matplotlib.
 - **Додатково**: експерименти з GPT-подібними малими моделями, BART та іншими напрямками обробки даних.
 
-## 🧠 Опис функціоналу
+## Опис функціоналу
 
 - пренавчання малої мовної моделі на датасеті TinyStories;
 - генерація власного датасету через ChatGPT або OpenChat;
@@ -31,7 +83,7 @@
 - обрізання та відбір датасету;
 - тестування додаткових ідей, зокрема відкинутих напрямків на кшталт використання BERT-моделей.
 
-## 🧱 Опис основних класів / файлів
+## Опис основних файлів
 
 | Клас / Файл | Призначення |
 |---|---|
@@ -51,7 +103,7 @@
 | `input/Words/` | Списки слів і статистика для датасетів. |
 | `eval_selection/` | Інструменти для оцінки вибірки. |
 
-## ▶️ Як запустити проєкт "з нуля"
+## Як запустити проєкт з нуля
 
 ### 1. Підготувати середовище
 
@@ -124,13 +176,19 @@ sbatch run_full.slurm
 - `README_sample.md` — шаблон з прикладами.
 
 ## 📷 Приклади / скриншоти
+### Приклади результатів
 
 ![Example 1](presentation/example1.png)
+
 ![Example 2](presentation/example2.png)
+
+### Навчання
+
 ![Loss convergence](presentation/loss_convergence_plot.png)
+
 ![TinyStories loss](presentation/tinystories_loss_47mb.png)
 
-## 🧾 Джерела
+## Джерела
 
 - [Python](https://docs.python.org/3/) · [PyTorch](https://pytorch.org/docs/stable/) · [BART](https://arxiv.org/abs/1910.13461) · [TinyStories](https://huggingface.co/datasets/roneneldan/TinyStories)
 - [ChatGPT / OpenAI](https://platform.openai.com/docs) · [OpenChat](https://huggingface.co/openchat/openchat-3.5-0106)
