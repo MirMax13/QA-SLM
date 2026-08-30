@@ -114,7 +114,7 @@ QA-SLM/
 ### 2. Клонувати репозиторій
 
 ```bash
-git clone <repo-url>
+git clone https://github.com/MirMax13/QA-SLM.git
 cd QA-SLM
 ```
 
