@@ -1,5 +1,6 @@
 /venv
 /models
+models.zip
 /datasets/ChatGPT/generative/stories.json
 /datasets/ChatGPT/extractive
 /datasets/open_chat/generative/cut
